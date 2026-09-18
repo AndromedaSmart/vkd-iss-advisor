@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Окно ВКД · МКС</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="page">
+    <p class="kicker">КосмоХакатон · прототип {{ algorithm }}</p>
+    <h1>Выбор окна ВКД на МКС</h1>
+    <p class="lede">
+      Аналитик наземной группы задаёт интервал работ. Сервис сопоставляет солнечные энергичные частицы
+      и сближения каталожных объектов с траекторией станции. Это не допуск к выходу.
+    </p>
+
+    {% if error %}
+    <div class="banner error">{{ error }}</div>
+    {% endif %}
+
+    <form class="console" method="post" action="/evaluate">
+      <label>Режим
+        <select name="mode">
+          <option value="current" {% if form.mode == "current" %}selected{% endif %}>Текущая обстановка</option>
+          <option value="historical" {% if form.mode == "historical" %}selected{% endif %}>История (май–июнь 2024)</option>
+        </select>
+      </label>
+      <label class="span-2">Начало ВКД, UTC
+        <input name="start_utc" placeholder="2024-05-11 00:00" value="{{ form.start_utc }}">
+      </label>
+      <label>Длительность, ч
+        <input name="duration_hours" type="number" min="1" max="8" step="0.5" value="{{ form.duration_hours }}">
+      </label>
+      <label>Интервал, сут
+        <input name="interval_days" type="number" min="1" max="62" step="1" value="{{ form.interval_days }}">
+      </label>
+      <label>Сдвиг внутри суток, ч
+        <input name="search_hours" type="number" min="1" max="24" step="1" value="{{ form.search_hours }}">
+      </label>
+      <label class="span-2">Отсечение replay, UTC
+        <input name="cutoff_utc" placeholder="для истории" value="{{ form.cutoff_utc }}">
+      </label>
+      <div class="span-6 checks">
+        <label><input type="checkbox" name="refresh" {% if form.refresh %}checked{% endif %}> Принудительно обновить источники</label>
+        <label><input type="checkbox" name="freeze" {% if form.freeze %}checked{% endif %}> Заморозить кеш (не ходить в сеть)</label>
+        {% if pack %}
+        <input type="hidden" name="previous_duration_hours" value="{{ pack.request.duration_hours }}">
+        {% endif %}
+      </div>
+      <div class="span-6 actions">
+        <button type="submit">Рассчитать окна</button>
+        <a class="btn ghost" href="/demo/storm">Демо: 10–13 мая 2024</a>
+        <a class="btn ghost" href="/demo/quiet">Демо: 18–22 июня 2024</a>
+        <a class="btn ghost" href="/demo/gap">Демо: дыра + DONKI 1–7 июня</a>
+      </div>
+    </form>
+
+    {% if pack %}
+    <div class="meta-row">
+      <div>Запрос {{ pack.id }} · {{ pack.request.mode }} · cutoff {{ pack.request.cutoff }}</div>
+      <div>
+        <a class="btn ghost" href="/export/{{ pack.id }}.json">Выгрузить JSON</a>
+      </div>
+    </div>
+
+    {% if pack.dataset and pack.dataset.root %}
+    <div class="banner">
+      Локальные архивы: {{ pack.dataset.root }}
+      · DONKI {{ pack.dataset.notifications }}
+      · CME {{ pack.dataset.cmes }}
+      {% if pack.ui.gap_days %} · дыры {{ pack.ui.gap_days | join(", ") }}{% endif %}
+      {% if pack.ui.donki_only_days %} · только DONKI {{ pack.ui.donki_only_days | join(", ") }}{% endif %}
+    </div>
+    {% endif %}
+
+    {% if pack.request.plan_change %}
+    <div class="banner warn">Длительность изменена относительно предыдущего запроса — это изменение плана, а не «более безопасные те же условия».</div>
+    {% endif %}
+
+    <div class="decision">
+      <h2>
+        {% if pack.comparison.decision == "prefer" %}Предпочтительное окно: {{ pack.comparison.preferred_id }}
+        {% elif pack.comparison.decision == "equivalent" %}Окна равнозначны
+        {% else %}Недостаточно оснований для рекомендации
+        {% endif %}
+      </h2>
+      <p>{{ pack.comparison.reason }}</p>
+    </div>
+
+    <section>
+      <h2>
+        {% if pack.request.interval_days and pack.request.interval_days > 1 %}Сравнение окон {{ pack.request.duration_hours }} ч, интервал {{ pack.request.interval_days }} сут ({{ pack.request.start[:10] }} — {{ pack.request.period_end[:10] }})
+        {% else %}Сравнение окон одинаковой длительности ({{ pack.request.duration_hours }} ч)
+        {% endif %}
+      </h2>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            {% for col in pack.ui.columns %}
+            <th>{{ col.title }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for w in pack.windows %}
+          <tr class="{% if w.preferred %}preferred{% endif %}">
+            {% for col in pack.ui.columns %}
+              {% if col.id == "day" %}
+            <td class="num">{{ w.day_label }}</td>
+              {% elif col.id == "window" %}
+            <td class="num">{{ w.id }}{% if w.is_requested %} · запрос{% endif %}{% if w.preferred %} · выбор{% endif %}</td>
+              {% elif col.id == "interval" %}
+            <td class="num">{{ w.start_label }} — {{ w.end_label }}</td>
+              {% elif col.id == "coverage" %}
+            <td>
+              <span class="cover {{ w.coverage.tag }}">{{ w.coverage.labels | join(", ") or "дыра" }}</span>
+            </td>
+              {% elif col.id == "sep" %}
+            <td><span class="level {{ w.sep.level }}">{{ w.sep.level }}</span></td>
+              {% elif col.id == "radio" %}
+            <td>
+              <span class="level {{ w.radio.level }}">{{ w.radio.level }}</span>
+              {% if w.radio.r3_percent is not none %}<div class="small">R3 {{ w.radio.r3_percent }}%</div>{% endif %}
+            </td>
+              {% elif col.id == "cme" %}
+            <td>
+              <span class="level {{ w.cme.level }}">{{ w.cme.level }}</span>
+              <div class="small">{{ w.cme.earthward }}/{{ w.cme.count }} к Земле{% if w.cme.fastest %} · {{ w.cme.fastest }} км/с{% endif %}</div>
+            </td>
+              {% elif col.id == "donki" %}
+            <td>
+              <span class="level {{ w.donki.level }}">{{ w.donki.level }}</span>
+              <div class="small">{{ w.donki.types or "—" }}</div>
+            </td>
+              {% elif col.id == "conj" %}
+            <td><span class="level {{ w.conjunction.level }}">{{ w.conjunction.level }}</span></td>
+              {% elif col.id == "geo" %}
+            <td><span class="level {{ w.geomagnetic.level }}">{{ w.geomagnetic.level }}</span></td>
+              {% elif col.id == "ap" %}
+            <td class="num">{{ w.ap if w.ap is not none else "—" }}</td>
+              {% elif col.id == "storm" %}
+            <td class="num">{% if w.storm_prob is not none %}{{ w.storm_prob }}%{% else %}—{% endif %}</td>
+              {% elif col.id == "adverse" %}
+            <td class="num">{{ w.adverse_minutes }}</td>
+              {% elif col.id == "completeness" %}
+            <td class="num">{{ w.completeness }}{% if w.critical_missing %} · дыра{% endif %}</td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <p class="small">Столбцы зависят от того, какие источники есть в выбранном интервале. G, R и CME не входят в «неблагоприятно» и не суммируются с SEP.</p>
+    </section>
+
+    <section>
+      <h2>Траектория МКС</h2>
+      {% if pack.orbit.available %}
+      <div class="grid-3">
+        <div class="card">
+          <header>Источник / эпоха</header>
+          <div class="num">{{ pack.orbit.epoch }}</div>
+          <p class="small">{{ pack.orbit.source }} · давность {{ pack.orbit.age_hours }} ч</p>
+          {% if pack.orbit.creation %}
+          <p class="small">публикация CREATION_DATE {{ pack.orbit.creation }}{% if pack.orbit.gp_id %} · GP_ID {{ pack.orbit.gp_id }}{% endif %}</p>
+          {% endif %}
+        </div>
+        <div class="card">
+          <header>Роль в расчёте</header>
+          <p class="small">{{ pack.orbit.role }}</p>
+          {% if pack.orbit.reconstruction %}
+          <p class="small">Реконструкция, не строгий replay орбиты.</p>
+          {% endif %}
+        </div>
+        <div class="card">
+          <header>Условия работ, окно запроса</header>
+          {% set t = pack.windows[0].track %}
+          {% if t %}
+          <p class="num">тень {{ t.shadow_percent }}% · SAA {{ t.saa_percent }}%</p>
+          <p class="small">{{ t.mid.lat }}°, {{ t.mid.lon }}° · {{ t.mid.alt_km }} км</p>
+          {% endif %}
+        </div>
+      </div>
+      {% if pack.orbit.warning %}
+      <div class="banner warn">{{ pack.orbit.warning }}</div>
+      {% endif %}
+      {% else %}
+      <div class="banner">{{ pack.orbit.warning or pack.orbit.role }}</div>
+      {% endif %}
+    </section>
+
+    <section>
+      <h2>Доказательства по запрошенному окну</h2>
+      <div class="grid-2">
+        {% for key in pack.ui.evidence %}
+        {% set block = pack.windows[0][key] %}
+        <div class="card">
+          <header>
+            <span>{{ block.title }}</span>
+            <span class="level {{ block.level }}">{{ block.level }}</span>
+          </header>
+          <p class="small">{{ block.confidence }} · {{ block.limit }}</p>
+          <ul class="evidence">
+            {% for ev in block.evidence %}
+            <li>
+              <div class="kind">{{ pack.kind_label.get(ev.kind, ev.kind) }}</div>
+              <strong>{{ ev.title }}</strong>
+              <div class="num">{{ ev.value }}</div>
+              <div class="small">{{ ev.detail }}</div>
+              <div class="src">{{ ev.time or "—" }} · {{ ev.rule }} · {{ ev.source_id }}</div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section>
+      <h2>Источники</h2>
+      <table>
+        <thead>
+          <tr><th>Источник</th><th>Роль</th><th>Статус</th><th>Публикация</th><th>Получено</th><th>Примечание</th></tr>
+        </thead>
+        <tbody>
+          {% for s in pack.sources %}
+          <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.role }}</td>
+            <td>{% if s.ok %}ok{% else %}ошибка{% endif %}{% if s.frozen %} · кеш/freeze{% endif %}</td>
+            <td class="num">{{ s.published_at or "—" }}</td>
+            <td class="num">{{ s.fetched_at or "—" }}</td>
+            <td class="small">{{ s.error or s.notes }} <a href="{{ s.url }}">ссылка</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Ограничения этого запуска</h2>
+      <ul class="notes">
+        {% for n in pack.notes %}
+        <li>{{ n }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <p class="small">Время сервера {{ now }}. Все поля формы в UTC.</p>
+  </div>
+</body>
+</html>
