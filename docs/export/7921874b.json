@@ -1,0 +1,2638 @@
+{
+  "id": "7921874b",
+  "algorithm": "eva-window-0.3.0",
+  "generated_at": "2026-09-18T23:18:59Z",
+  "request": {
+    "mode": "historical",
+    "start": "2024-05-10T00:00:00Z",
+    "period_end": "2024-05-13T00:00:00Z",
+    "interval_days": 4,
+    "duration_hours": 6.0,
+    "search_hours": 12.0,
+    "cutoff": null,
+    "timezone": "UTC",
+    "freeze": false,
+    "refresh": false,
+    "plan_change": false
+  },
+  "orbit": {
+    "available": true,
+    "source": "Space-Track GP_HISTORY ISS 25544",
+    "epoch": "2024-05-09T20:53:11Z",
+    "creation": "2024-05-09T21:46:19Z",
+    "gp_id": "256811247",
+    "age_hours": 3.11,
+    "line1": "1 25544U 98067A   24130.87026782  .00016291  00000-0  28208-3 0  9992",
+    "role": "историческая траектория по GP на дату окна: освещённость и SAA",
+    "warning": null,
+    "reconstruction": false,
+    "frame": "SGP4 TEME → геодезические (приближённо); CREATION_DATE ≠ EPOCH"
+  },
+  "sources": [
+    {
+      "id": "local_bundle",
+      "name": "Локальный набор Downloads/data",
+      "url": "#",
+      "role": "catalog",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": null,
+      "published_at": null,
+      "notes": "3-day dirs: встроенный архив май–июнь 2024/archives/ncei/three_day, встроенный архив май–июнь 2024/archives/ncei/geomag, data/archive/ncei; DONKI 75; CME 232",
+      "units": "",
+      "stale_minutes": null
+    },
+    {
+      "id": "donki_notifications",
+      "name": "NASA DONKI notifications",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": null,
+      "published_at": null,
+      "notes": "75 сообщений May–June 2024; replay по messageIssueTime",
+      "units": "",
+      "stale_minutes": null
+    },
+    {
+      "id": "donki_cme",
+      "name": "NASA DONKI CME analysis",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": null,
+      "published_at": null,
+      "notes": "232 записей; earthward по lon/halfAngle; submissionTime для replay",
+      "units": "",
+      "stale_minutes": null
+    },
+    {
+      "id": "iss_gp_history",
+      "name": "Space-Track GP_HISTORY ISS 25544",
+      "url": "#",
+      "role": "catalog",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T23:18:59Z",
+      "published_at": "2024-05-09T21:46:19Z",
+      "notes": "GP_ID 256811247; epoch 2024-05-09T20:53:11Z; CREATION_DATE 2024-05-09T21:46:19Z",
+      "units": "TLE / SGP4, TEME; CREATION_DATE ≠ EPOCH",
+      "stale_minutes": 0
+    },
+    {
+      "id": "socrates",
+      "name": "CelesTrak SOCRATES Plus ISS",
+      "url": "не используется в replay",
+      "role": "external_forecast",
+      "ok": false,
+      "frozen": false,
+      "error": "Текущий каталог сближений непригоден для исторического прогноза из прошлого",
+      "fetched_at": null,
+      "published_at": null,
+      "notes": "Честный отказ, не all-clear",
+      "units": "",
+      "stale_minutes": null
+    },
+    {
+      "id": "swpc_3day",
+      "name": "NOAA SWPC 3-Day Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T21:57:11Z",
+      "published_at": "2024-05-09T12:30:00Z",
+      "notes": "локальная копия архива 202405091230three_day_forecast.txt; issued=2024-05-09T12:30:00Z",
+      "units": "шкалы S/G/R, Kp",
+      "stale_minutes": 81
+    },
+    {
+      "id": "swpc_geomag",
+      "name": "NOAA SWPC Geomag Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T23:18:59Z",
+      "published_at": "2024-05-09T22:10:00Z",
+      "notes": "локальный архив 20240509geomag_forecast.txt; issued=2024-05-09T22:10:00Z",
+      "units": "Ap, вероятности бурь, Kp",
+      "stale_minutes": 0
+    },
+    {
+      "id": "swpc_3day",
+      "name": "NOAA SWPC 3-Day Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T21:57:14Z",
+      "published_at": "2024-05-10T12:30:00Z",
+      "notes": "локальная копия архива 202405101230three_day_forecast.txt; issued=2024-05-10T12:30:00Z",
+      "units": "шкалы S/G/R, Kp",
+      "stale_minutes": 81
+    },
+    {
+      "id": "swpc_geomag",
+      "name": "NOAA SWPC Geomag Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T23:18:59Z",
+      "published_at": "2024-05-10T22:05:00Z",
+      "notes": "локальный архив 20240510geomag_forecast.txt; issued=2024-05-10T22:05:00Z",
+      "units": "Ap, вероятности бурь, Kp",
+      "stale_minutes": 0
+    },
+    {
+      "id": "swpc_3day",
+      "name": "NOAA SWPC 3-Day Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T21:57:18Z",
+      "published_at": "2024-05-11T12:30:00Z",
+      "notes": "локальная копия архива 202405111230three_day_forecast.txt; issued=2024-05-11T12:30:00Z",
+      "units": "шкалы S/G/R, Kp",
+      "stale_minutes": 81
+    },
+    {
+      "id": "swpc_geomag",
+      "name": "NOAA SWPC Geomag Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T23:18:59Z",
+      "published_at": "2024-05-11T22:05:00Z",
+      "notes": "локальный архив 20240511geomag_forecast.txt; issued=2024-05-11T22:05:00Z",
+      "units": "Ap, вероятности бурь, Kp",
+      "stale_minutes": 0
+    },
+    {
+      "id": "swpc_3day",
+      "name": "NOAA SWPC 3-Day Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T21:57:21Z",
+      "published_at": "2024-05-12T12:30:00Z",
+      "notes": "локальная копия архива 202405121230three_day_forecast.txt; issued=2024-05-12T12:30:00Z",
+      "units": "шкалы S/G/R, Kp",
+      "stale_minutes": 81
+    },
+    {
+      "id": "swpc_geomag",
+      "name": "NOAA SWPC Geomag Forecast",
+      "url": "#",
+      "role": "external_forecast",
+      "ok": true,
+      "frozen": false,
+      "error": null,
+      "fetched_at": "2026-09-18T23:18:59Z",
+      "published_at": "2024-05-12T22:05:00Z",
+      "notes": "локальный архив 20240512geomag_forecast.txt; issued=2024-05-12T22:05:00Z",
+      "units": "Ap, вероятности бурь, Kp",
+      "stale_minutes": 0
+    }
+  ],
+  "windows": [
+    {
+      "id": "W1",
+      "start": "2024-05-10T00:00:00Z",
+      "end": "2024-05-10T06:00:00Z",
+      "start_label": "2024-05-10 00:00 UTC",
+      "end_label": "2024-05-10 06:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-10",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "25%",
+            "detail": "A chance for S1 (Minor) solar radiation storms will persist through the forecast period given the observed activity from AR 3664 in particular.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 16% тени; SAA: 0% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-10T00:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "watch",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 3.33 (G0)",
+            "detail": "G1 (Minor) to G3 (Strong) geomagnetic storms are likely on 10-11 May due to the arrival of CMEs from 07-08 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T12:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "25",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-09T22:10:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "5%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-09T22:10:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong) radio blackouts due to X-class flares are likely through the forecast period primarily due to the magnetic complexity and stature of AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T12:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 10,
+        "earthward": 10,
+        "fastest": 1561.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1561.0 км/с · lon 14.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T18:45:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1330.0 км/с · lon 19.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T16:28:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-08 22:24",
+            "value": "1257.0 км/с · lon 5.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T20:22:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 18:23",
+            "value": "1236.0 км/с · lon 12.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T22:30:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 25,
+      "storm_prob": 5,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-10T00:00:00Z",
+          "lat": 46.097,
+          "lon": -28.704,
+          "alt_km": 418.2,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.666
+        },
+        "mid": {
+          "time": "2024-05-10T03:00:00Z",
+          "lat": 33.704,
+          "lon": -97.645,
+          "alt_km": 416.5,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.665
+        },
+        "last": {
+          "time": "2024-05-10T06:00:00Z",
+          "lat": 18.127,
+          "lon": -160.126,
+          "alt_km": 415.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.664
+        },
+        "shadow_percent": 16.2,
+        "saa_percent": 0.0,
+        "sunlit_percent": 83.8,
+        "points": [
+          {
+            "time": "2024-05-10T00:00:00Z",
+            "lat": 46.097,
+            "lon": -28.704,
+            "alt_km": 418.2,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-10T00:10:00Z",
+            "lat": 49.31,
+            "lon": 27.626,
+            "alt_km": 417.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-10T00:20:00Z",
+            "lat": 27.476,
+            "lon": 67.185,
+            "alt_km": 412.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-10T00:30:00Z",
+            "lat": -2.368,
+            "lon": 90.671,
+            "alt_km": 412.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-10T00:40:00Z",
+            "lat": -31.661,
+            "lon": 115.301,
+            "alt_km": 422.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          },
+          {
+            "time": "2024-05-10T00:50:00Z",
+            "lat": -50.822,
+            "lon": 158.706,
+            "alt_km": 431.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-10T01:00:00Z",
+            "lat": -43.327,
+            "lon": -146.758,
+            "alt_km": 430.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-10T01:10:00Z",
+            "lat": -17.183,
+            "lon": -115.447,
+            "alt_km": 420.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          },
+          {
+            "time": "2024-05-10T01:20:00Z",
+            "lat": 13.155,
+            "lon": -93.301,
+            "alt_km": 415.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-10T01:30:00Z",
+            "lat": 40.482,
+            "lon": -64.236,
+            "alt_km": 417.4,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-10T01:40:00Z",
+            "lat": 51.575,
+            "lon": -11.805,
+            "alt_km": 418.4,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-10T01:50:00Z",
+            "lat": 34.921,
+            "lon": 35.142,
+            "alt_km": 413.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-10T02:00:00Z",
+            "lat": 6.135,
+            "lon": 61.081,
+            "alt_km": 411.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-10T02:10:00Z",
+            "lat": -23.967,
+            "lon": 83.873,
+            "alt_km": 419.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          },
+          {
+            "time": "2024-05-10T02:20:00Z",
+            "lat": -47.538,
+            "lon": 120.181,
+            "alt_km": 430.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-10T02:30:00Z",
+            "lat": -48.198,
+            "lon": 176.636,
+            "alt_km": 431.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.651
+          },
+          {
+            "time": "2024-05-10T02:40:00Z",
+            "lat": -25.245,
+            "lon": -146.017,
+            "alt_km": 423.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.656
+          },
+          {
+            "time": "2024-05-10T02:50:00Z",
+            "lat": 4.726,
+            "lon": -123.042,
+            "alt_km": 415.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.662
+          },
+          {
+            "time": "2024-05-10T03:00:00Z",
+            "lat": 33.704,
+            "lon": -97.645,
+            "alt_km": 416.5,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-10T03:10:00Z",
+            "lat": 51.356,
+            "lon": -51.982,
+            "alt_km": 418.7,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-10T03:20:00Z",
+            "lat": 41.536,
+            "lon": 1.396,
+            "alt_km": 415.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-10T03:30:00Z",
+            "lat": 14.55,
+            "lon": 31.274,
+            "alt_km": 411.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-10T03:40:00Z",
+            "lat": -15.839,
+            "lon": 53.424,
+            "alt_km": 416.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-10T03:50:00Z",
+            "lat": -42.409,
+            "lon": 83.947,
+            "alt_km": 427.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.655
+          },
+          {
+            "time": "2024-05-10T04:00:00Z",
+            "lat": -51.138,
+            "lon": 137.803,
+            "alt_km": 432.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.651
+          },
+          {
+            "time": "2024-05-10T04:10:00Z",
+            "lat": -32.84,
+            "lon": -177.636,
+            "alt_km": 426.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.654
+          },
+          {
+            "time": "2024-05-10T04:20:00Z",
+            "lat": -3.767,
+            "lon": -152.615,
+            "alt_km": 417.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          },
+          {
+            "time": "2024-05-10T04:30:00Z",
+            "lat": 26.16,
+            "lon": -129.442,
+            "alt_km": 415.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-10T04:40:00Z",
+            "lat": 48.695,
+            "lon": -91.119,
+            "alt_km": 418.5,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-10T04:50:00Z",
+            "lat": 46.906,
+            "lon": -34.544,
+            "alt_km": 416.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-10T05:00:00Z",
+            "lat": 22.74,
+            "lon": 0.927,
+            "alt_km": 411.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-10T05:10:00Z",
+            "lat": -7.458,
+            "lon": 23.563,
+            "alt_km": 413.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-10T05:20:00Z",
+            "lat": -35.969,
+            "lon": 49.942,
+            "alt_km": 424.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.657
+          },
+          {
+            "time": "2024-05-10T05:30:00Z",
+            "lat": -51.694,
+            "lon": 97.737,
+            "alt_km": 432.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-10T05:40:00Z",
+            "lat": -39.706,
+            "lon": 149.21,
+            "alt_km": 428.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-10T05:50:00Z",
+            "lat": -12.202,
+            "lon": 177.684,
+            "alt_km": 419.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.659
+          },
+          {
+            "time": "2024-05-10T06:00:00Z",
+            "lat": 18.127,
+            "lon": -160.126,
+            "alt_km": 415.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.664
+          }
+        ]
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": true,
+      "preferred": true,
+      "tied": false
+    },
+    {
+      "id": "W2",
+      "start": "2024-05-11T00:00:00Z",
+      "end": "2024-05-11T06:00:00Z",
+      "start_label": "2024-05-11 00:00 UTC",
+      "end_label": "2024-05-11 06:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-11",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "warning",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "55%",
+            "detail": "S1-2 (Minor-Moderate) solar radiation storms are likely through the forecast period due to the potential exhibited by AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 16% тени; SAA: 0% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-11T00:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "high",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 180.0,
+        "max_g": 3,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 7.00 (G3)",
+            "detail": "G1-2 (Minor-Moderate) geomagnetic storming is likely on 10-12 May due to multiple CMEs from AR 3634 spanning 08-10 May. G3 (Strong) to G4 (Severe or greater) geomagnetic storming is likely on 11 May as the bulk of the activity is expected to arrive during the early hours of the UTC day.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T12:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "106",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-10T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "65%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-10T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong or greater) radio blackouts due to isolated X-class flare activity are expected to continue through the forecast period primarily due to potential from AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T12:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 6,
+        "earthward": 6,
+        "fastest": 1561.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1561.0 км/с · lon 14.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T18:45:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-10 07:12",
+            "value": "1332.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-10T13:17:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1330.0 км/с · lon 19.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T16:28:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 18:23",
+            "value": "1236.0 км/с · lon 12.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T22:30:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 106,
+      "storm_prob": 65,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-11T00:00:00Z",
+          "lat": -49.116,
+          "lon": 155.874,
+          "alt_km": 430.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.653
+        },
+        "mid": {
+          "time": "2024-05-11T03:00:00Z",
+          "lat": -38.702,
+          "lon": 83.834,
+          "alt_km": 425.4,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.656
+        },
+        "last": {
+          "time": "2024-05-11T06:00:00Z",
+          "lat": -24.013,
+          "lon": 19.522,
+          "alt_km": 418.8,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.661
+        },
+        "shadow_percent": 16.2,
+        "saa_percent": 0.0,
+        "sunlit_percent": 83.8,
+        "points": [
+          {
+            "time": "2024-05-11T00:00:00Z",
+            "lat": -49.116,
+            "lon": 155.874,
+            "alt_km": 430.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-11T00:10:00Z",
+            "lat": -46.433,
+            "lon": -147.901,
+            "alt_km": 430.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-11T00:20:00Z",
+            "lat": -22.034,
+            "lon": -113.176,
+            "alt_km": 422.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.657
+          },
+          {
+            "time": "2024-05-11T00:30:00Z",
+            "lat": 8.145,
+            "lon": -90.674,
+            "alt_km": 415.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-11T00:40:00Z",
+            "lat": 36.552,
+            "lon": -63.984,
+            "alt_km": 416.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-11T00:50:00Z",
+            "lat": 51.751,
+            "lon": -15.393,
+            "alt_km": 418.7,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-11T01:00:00Z",
+            "lat": 38.99,
+            "lon": 35.655,
+            "alt_km": 414.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-11T01:10:00Z",
+            "lat": 11.172,
+            "lon": 63.75,
+            "alt_km": 411.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-11T01:20:00Z",
+            "lat": -19.16,
+            "lon": 86.023,
+            "alt_km": 417.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.662
+          },
+          {
+            "time": "2024-05-11T01:30:00Z",
+            "lat": -44.668,
+            "lon": 118.689,
+            "alt_km": 428.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.654
+          },
+          {
+            "time": "2024-05-11T01:40:00Z",
+            "lat": -50.217,
+            "lon": 174.114,
+            "alt_km": 432.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.651
+          },
+          {
+            "time": "2024-05-11T01:50:00Z",
+            "lat": -29.84,
+            "lon": -144.313,
+            "alt_km": 424.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.655
+          },
+          {
+            "time": "2024-05-11T02:00:00Z",
+            "lat": -0.332,
+            "lon": -120.275,
+            "alt_km": 416.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          },
+          {
+            "time": "2024-05-11T02:10:00Z",
+            "lat": 29.284,
+            "lon": -96.362,
+            "alt_km": 416.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-11T02:20:00Z",
+            "lat": 50.044,
+            "lon": -55.134,
+            "alt_km": 418.7,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-11T02:30:00Z",
+            "lat": 44.918,
+            "lon": 0.657,
+            "alt_km": 416.2,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-11T02:40:00Z",
+            "lat": 19.467,
+            "lon": 33.668,
+            "alt_km": 411.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-11T02:50:00Z",
+            "lat": -10.868,
+            "lon": 55.971,
+            "alt_km": 414.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.664
+          },
+          {
+            "time": "2024-05-11T03:00:00Z",
+            "lat": -38.702,
+            "lon": 83.834,
+            "alt_km": 425.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.656
+          },
+          {
+            "time": "2024-05-11T03:10:00Z",
+            "lat": -51.774,
+            "lon": 134.371,
+            "alt_km": 432.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-11T03:20:00Z",
+            "lat": -37.035,
+            "lon": -176.777,
+            "alt_km": 427.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.654
+          },
+          {
+            "time": "2024-05-11T03:30:00Z",
+            "lat": -8.8,
+            "lon": -149.885,
+            "alt_km": 418.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.66
+          },
+          {
+            "time": "2024-05-11T03:40:00Z",
+            "lat": 21.426,
+            "lon": -127.436,
+            "alt_km": 415.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.664
+          },
+          {
+            "time": "2024-05-11T03:50:00Z",
+            "lat": 46.121,
+            "lon": -93.033,
+            "alt_km": 418.3,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-11T04:00:00Z",
+            "lat": 49.293,
+            "lon": -36.696,
+            "alt_km": 417.5,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-11T04:10:00Z",
+            "lat": 27.439,
+            "lon": 2.828,
+            "alt_km": 412.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-11T04:20:00Z",
+            "lat": -2.41,
+            "lon": 26.306,
+            "alt_km": 412.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-11T04:30:00Z",
+            "lat": -31.699,
+            "lon": 50.951,
+            "alt_km": 422.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          },
+          {
+            "time": "2024-05-11T04:40:00Z",
+            "lat": -50.834,
+            "lon": 94.398,
+            "alt_km": 431.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-11T04:50:00Z",
+            "lat": -43.295,
+            "lon": 148.916,
+            "alt_km": 429.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-11T05:00:00Z",
+            "lat": -17.135,
+            "lon": -179.802,
+            "alt_km": 420.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          },
+          {
+            "time": "2024-05-11T05:10:00Z",
+            "lat": 13.204,
+            "lon": -157.657,
+            "alt_km": 415.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-11T05:20:00Z",
+            "lat": 40.518,
+            "lon": -128.567,
+            "alt_km": 417.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-11T05:30:00Z",
+            "lat": 51.569,
+            "lon": -76.105,
+            "alt_km": 418.4,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-11T05:40:00Z",
+            "lat": 34.881,
+            "lon": -29.2,
+            "alt_km": 413.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-11T05:50:00Z",
+            "lat": 6.086,
+            "lon": -3.279,
+            "alt_km": 411.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-11T06:00:00Z",
+            "lat": -24.013,
+            "lon": 19.522,
+            "alt_km": 418.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          }
+        ]
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 2,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W3",
+      "start": "2024-05-12T00:00:00Z",
+      "end": "2024-05-12T06:00:00Z",
+      "start_label": "2024-05-12 00:00 UTC",
+      "end_label": "2024-05-12 06:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-12",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "high",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "99%",
+            "detail": "S1 (Minor) or greater solar radiation storms are in progress and expected to continue through 13 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: поток выше порога S",
+            "value": "above S-scale",
+            "detail": "Это наблюдение из датированного продукта, не расчёт команды",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T12:30:00Z",
+            "rule": "observed S-storm в 3-day forecast"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 16% тени; SAA: 0% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-12T00:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "high",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 180.0,
+        "max_g": 2,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 6.00 (G2)",
+            "detail": "G5 (Extreme) storm levels are expected on 11 May, followed by G3 (Strong) storm levels on 12-13 May-all due to CME impacts.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T12:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "217",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-11T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "65%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-11T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong) or greater radio blackouts are expected all three day.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T12:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 4,
+        "earthward": 4,
+        "fastest": 1820.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 01:36",
+            "value": "1820.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 48.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-11T17:59:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-10 07:12",
+            "value": "1332.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-10T13:17:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 01:36",
+            "value": "1263.0 км/с · lon 51.0°",
+            "detail": "к Земле; halfAngle 51.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-11T13:53:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-10 07:12",
+            "value": "1018.0 км/с · lon 31.0°",
+            "detail": "к Земле; halfAngle 41.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-10T13:18:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 217,
+      "storm_prob": 65,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-12T00:00:00Z",
+          "lat": 51.085,
+          "lon": -18.317,
+          "alt_km": 418.4,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "mid": {
+          "time": "2024-05-12T03:00:00Z",
+          "lat": 43.161,
+          "lon": -93.636,
+          "alt_km": 417.4,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.666
+        },
+        "last": {
+          "time": "2024-05-12T06:00:00Z",
+          "lat": 29.664,
+          "lon": -160.318,
+          "alt_km": 415.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.665
+        },
+        "shadow_percent": 16.2,
+        "saa_percent": 0.0,
+        "sunlit_percent": 83.8,
+        "points": [
+          {
+            "time": "2024-05-12T00:00:00Z",
+            "lat": 51.085,
+            "lon": -18.317,
+            "alt_km": 418.4,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-12T00:10:00Z",
+            "lat": 42.495,
+            "lon": 35.847,
+            "alt_km": 415.3,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-12T00:20:00Z",
+            "lat": 15.884,
+            "lon": 66.511,
+            "alt_km": 411.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-12T00:30:00Z",
+            "lat": -14.509,
+            "lon": 88.665,
+            "alt_km": 415.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-12T00:40:00Z",
+            "lat": -41.454,
+            "lon": 118.419,
+            "alt_km": 426.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.656
+          },
+          {
+            "time": "2024-05-12T00:50:00Z",
+            "lat": -51.394,
+            "lon": 171.497,
+            "alt_km": 431.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-12T01:00:00Z",
+            "lat": -33.986,
+            "lon": -142.76,
+            "alt_km": 425.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.655
+          },
+          {
+            "time": "2024-05-12T01:10:00Z",
+            "lat": -5.106,
+            "lon": -117.287,
+            "alt_km": 416.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          },
+          {
+            "time": "2024-05-12T01:20:00Z",
+            "lat": 24.921,
+            "lon": -94.343,
+            "alt_km": 415.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-12T01:30:00Z",
+            "lat": 48.079,
+            "lon": -57.101,
+            "alt_km": 418.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-12T01:40:00Z",
+            "lat": 47.601,
+            "lon": -0.424,
+            "alt_km": 416.7,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-12T01:50:00Z",
+            "lat": 23.994,
+            "lon": 36.072,
+            "alt_km": 411.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-12T02:00:00Z",
+            "lat": -6.131,
+            "lon": 58.89,
+            "alt_km": 413.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-12T02:10:00Z",
+            "lat": -34.873,
+            "lon": 84.766,
+            "alt_km": 423.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          },
+          {
+            "time": "2024-05-12T02:20:00Z",
+            "lat": -51.553,
+            "lon": 131.448,
+            "alt_km": 431.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-12T02:30:00Z",
+            "lat": -40.684,
+            "lon": -176.166,
+            "alt_km": 428.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-12T02:40:00Z",
+            "lat": -13.492,
+            "lon": -147.011,
+            "alt_km": 418.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.659
+          },
+          {
+            "time": "2024-05-12T02:50:00Z",
+            "lat": 16.86,
+            "lon": -124.866,
+            "alt_km": 414.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.664
+          },
+          {
+            "time": "2024-05-12T03:00:00Z",
+            "lat": 43.161,
+            "lon": -93.636,
+            "alt_km": 417.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-12T03:10:00Z",
+            "lat": 50.854,
+            "lon": -38.981,
+            "alt_km": 417.8,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-12T03:20:00Z",
+            "lat": 31.676,
+            "lon": 4.652,
+            "alt_km": 412.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-12T03:30:00Z",
+            "lat": 2.337,
+            "lon": 29.327,
+            "alt_km": 411.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-12T03:40:00Z",
+            "lat": -27.475,
+            "lon": 52.788,
+            "alt_km": 420.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.66
+          },
+          {
+            "time": "2024-05-12T03:50:00Z",
+            "lat": -49.27,
+            "lon": 92.169,
+            "alt_km": 430.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-12T04:00:00Z",
+            "lat": -46.218,
+            "lon": 148.328,
+            "alt_km": 430.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-12T04:10:00Z",
+            "lat": -21.667,
+            "lon": -177.22,
+            "alt_km": 421.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.657
+          },
+          {
+            "time": "2024-05-12T04:20:00Z",
+            "lat": 8.535,
+            "lon": -154.755,
+            "alt_km": 414.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-12T04:30:00Z",
+            "lat": 36.872,
+            "lon": -127.896,
+            "alt_km": 416.5,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-12T04:40:00Z",
+            "lat": 51.77,
+            "lon": -78.973,
+            "alt_km": 418.3,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-12T04:50:00Z",
+            "lat": 38.68,
+            "lon": -28.223,
+            "alt_km": 414.3,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-12T05:00:00Z",
+            "lat": 10.774,
+            "lon": -0.318,
+            "alt_km": 410.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-12T05:10:00Z",
+            "lat": -19.548,
+            "lon": 21.983,
+            "alt_km": 416.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.662
+          },
+          {
+            "time": "2024-05-12T05:20:00Z",
+            "lat": -44.919,
+            "lon": 54.924,
+            "alt_km": 427.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.655
+          },
+          {
+            "time": "2024-05-12T05:30:00Z",
+            "lat": -50.08,
+            "lon": 110.497,
+            "alt_km": 431.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-12T05:40:00Z",
+            "lat": -29.469,
+            "lon": 151.722,
+            "alt_km": 423.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.656
+          },
+          {
+            "time": "2024-05-12T05:50:00Z",
+            "lat": 0.089,
+            "lon": 175.659,
+            "alt_km": 415.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.662
+          },
+          {
+            "time": "2024-05-12T06:00:00Z",
+            "lat": 29.664,
+            "lon": -160.318,
+            "alt_km": 415.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          }
+        ]
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 3,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W4",
+      "start": "2024-05-13T00:00:00Z",
+      "end": "2024-05-13T06:00:00Z",
+      "start_label": "2024-05-13 00:00 UTC",
+      "end_label": "2024-05-13 06:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-13",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "warning",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "60%",
+            "detail": "S1 (Minor) solar radiation storms are expected through 14 May due to activity originating from AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: поток выше порога S",
+            "value": "above S-scale",
+            "detail": "Это наблюдение из датированного продукта, не расчёт команды",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T12:30:00Z",
+            "rule": "observed S-storm в 3-day forecast"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 19% тени; SAA: 3% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-13T00:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "high",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 180.0,
+        "max_g": 3,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 6.67 (G3)",
+            "detail": "G4 (Extreme) storm levels are expected on 12 May due to CME impacts. G3 (Strong) geomagnetic storming is likely to continue into the early hours of 13 May. Isolated G1 (Minor) geomagnetic storming is likely on 14 May as conditions from the the previous days wane.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T12:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "40",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-12T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "55%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-12T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong) or greater radio blackouts are expected all three days.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T12:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 6,
+        "earthward": 2,
+        "fastest": 1820.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 01:36",
+            "value": "1820.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 48.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-11T17:59:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 01:36",
+            "value": "1263.0 км/с · lon 51.0°",
+            "detail": "к Земле; halfAngle 51.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-11T13:53:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 40,
+      "storm_prob": 55,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-13T00:00:00Z",
+          "lat": -51.794,
+          "lon": 168.822,
+          "alt_km": 431.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.652
+        },
+        "mid": {
+          "time": "2024-05-13T03:00:00Z",
+          "lat": -47.105,
+          "lon": 90.746,
+          "alt_km": 428.9,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.654
+        },
+        "last": {
+          "time": "2024-05-13T06:00:00Z",
+          "lat": -35.34,
+          "lon": 21.025,
+          "alt_km": 423.2,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.658
+        },
+        "shadow_percent": 18.9,
+        "saa_percent": 2.7,
+        "sunlit_percent": 81.1,
+        "points": [
+          {
+            "time": "2024-05-13T00:00:00Z",
+            "lat": -51.794,
+            "lon": 168.822,
+            "alt_km": 431.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-13T00:10:00Z",
+            "lat": -37.786,
+            "lon": -141.561,
+            "alt_km": 427.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.654
+          },
+          {
+            "time": "2024-05-13T00:20:00Z",
+            "lat": -9.734,
+            "lon": -114.255,
+            "alt_km": 417.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.66
+          },
+          {
+            "time": "2024-05-13T00:30:00Z",
+            "lat": 20.532,
+            "lon": -91.893,
+            "alt_km": 414.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.664
+          },
+          {
+            "time": "2024-05-13T00:40:00Z",
+            "lat": 45.576,
+            "lon": -58.153,
+            "alt_km": 417.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-13T00:50:00Z",
+            "lat": 49.655,
+            "lon": -2.036,
+            "alt_km": 417.3,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-13T01:00:00Z",
+            "lat": 28.285,
+            "lon": 38.281,
+            "alt_km": 412.1,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-13T01:10:00Z",
+            "lat": -1.481,
+            "lon": 61.963,
+            "alt_km": 411.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-13T01:20:00Z",
+            "lat": -30.889,
+            "lon": 86.347,
+            "alt_km": 421.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.659
+          },
+          {
+            "time": "2024-05-13T01:30:00Z",
+            "lat": -50.585,
+            "lon": 128.995,
+            "alt_km": 430.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-13T01:40:00Z",
+            "lat": -43.898,
+            "lon": -176.061,
+            "alt_km": 429.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.653
+          },
+          {
+            "time": "2024-05-13T01:50:00Z",
+            "lat": -18.017,
+            "lon": -144.201,
+            "alt_km": 420.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          },
+          {
+            "time": "2024-05-13T02:00:00Z",
+            "lat": 12.31,
+            "lon": -122.019,
+            "alt_km": 414.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-13T02:10:00Z",
+            "lat": 39.845,
+            "lon": -93.393,
+            "alt_km": 416.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-13T02:20:00Z",
+            "lat": 51.668,
+            "lon": -41.547,
+            "alt_km": 418.1,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-13T02:30:00Z",
+            "lat": 35.627,
+            "lon": 6.13,
+            "alt_km": 413.5,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-13T02:40:00Z",
+            "lat": 6.982,
+            "lon": 32.394,
+            "alt_km": 410.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-13T02:50:00Z",
+            "lat": -23.174,
+            "lon": 55.074,
+            "alt_km": 418.1,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          },
+          {
+            "time": "2024-05-13T03:00:00Z",
+            "lat": -47.105,
+            "lon": 90.746,
+            "alt_km": 428.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.654
+          },
+          {
+            "time": "2024-05-13T03:10:00Z",
+            "lat": -48.58,
+            "lon": 147.154,
+            "alt_km": 430.9,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-13T03:20:00Z",
+            "lat": -26.008,
+            "lon": -174.823,
+            "alt_km": 422.7,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.657
+          },
+          {
+            "time": "2024-05-13T03:30:00Z",
+            "lat": 3.906,
+            "lon": -151.7,
+            "alt_km": 415.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.662
+          },
+          {
+            "time": "2024-05-13T03:40:00Z",
+            "lat": 33.006,
+            "lon": -126.574,
+            "alt_km": 416.0,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-13T03:50:00Z",
+            "lat": 51.202,
+            "lon": -81.623,
+            "alt_km": 418.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.667
+          },
+          {
+            "time": "2024-05-13T04:00:00Z",
+            "lat": 42.113,
+            "lon": -27.763,
+            "alt_km": 415.1,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-13T04:10:00Z",
+            "lat": 15.345,
+            "lon": 2.58,
+            "alt_km": 410.8,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-13T04:20:00Z",
+            "lat": -15.05,
+            "lon": 24.731,
+            "alt_km": 415.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.663
+          },
+          {
+            "time": "2024-05-13T04:30:00Z",
+            "lat": -41.849,
+            "lon": 54.796,
+            "alt_km": 426.3,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.656
+          },
+          {
+            "time": "2024-05-13T04:40:00Z",
+            "lat": -51.297,
+            "lon": 108.211,
+            "alt_km": 431.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.652
+          },
+          {
+            "time": "2024-05-13T04:50:00Z",
+            "lat": -33.514,
+            "lon": 153.472,
+            "alt_km": 425.4,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.655
+          },
+          {
+            "time": "2024-05-13T05:00:00Z",
+            "lat": -4.55,
+            "lon": 178.756,
+            "alt_km": 416.6,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.661
+          },
+          {
+            "time": "2024-05-13T05:10:00Z",
+            "lat": 25.439,
+            "lon": -158.207,
+            "alt_km": 415.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-13T05:20:00Z",
+            "lat": 48.343,
+            "lon": -120.517,
+            "alt_km": 418.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.666
+          },
+          {
+            "time": "2024-05-13T05:30:00Z",
+            "lat": 47.317,
+            "lon": -63.866,
+            "alt_km": 416.5,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.668
+          },
+          {
+            "time": "2024-05-13T05:40:00Z",
+            "lat": 23.47,
+            "lon": -27.802,
+            "alt_km": 411.4,
+            "in_shadow": true,
+            "in_saa": false,
+            "speed_km_s": 7.669
+          },
+          {
+            "time": "2024-05-13T05:50:00Z",
+            "lat": -6.69,
+            "lon": -5.062,
+            "alt_km": 412.9,
+            "in_shadow": false,
+            "in_saa": true,
+            "speed_km_s": 7.665
+          },
+          {
+            "time": "2024-05-13T06:00:00Z",
+            "lat": -35.34,
+            "lon": 21.025,
+            "alt_km": 423.2,
+            "in_shadow": false,
+            "in_saa": false,
+            "speed_km_s": 7.658
+          }
+        ]
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 2,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    }
+  ],
+  "comparison": {
+    "decision": "prefer",
+    "preferred_id": "W1",
+    "tied_ids": [],
+    "reason": "Меньше пересечения с уровнем warning+ при сопоставимой полноте. Связанные сигналы SEP не суммировались со шкалой G."
+  },
+  "notes": [
+    "Сервис — исследовательский прототип поддержки решений, не допуск к ВКД.",
+    "Механизм 1: SEP. Механизм 2: сближения каталожных объектов. Шкала G показывается отдельно и не прибавляется к SEP.",
+    "Интервал сравнения: 4 сут (2024-05-10 — 2024-05-13), одно окно 6.0 ч на каждые сутки.",
+    "Исторический режим: 3-day forecast и GP ISS с временем публикации ≤ начала каждого окна. SOCRATES и современный TLE не используются.",
+    "Выпуски SWPC 3-Day Forecast: 2024-05-09T12:30:00Z, 2024-05-10T12:30:00Z, 2024-05-11T12:30:00Z, 2024-05-12T12:30:00Z.",
+    "Локальный набор встроенный архив май–июнь 2024: 3-day/geomag NCEI, DONKI 75, CME 232."
+  ],
+  "kind_label": {
+    "observation": "наблюдение",
+    "external_forecast": "внешний прогноз",
+    "team_calc": "расчёт команды"
+  },
+  "ui": {
+    "columns": [
+      {
+        "id": "day",
+        "title": "День"
+      },
+      {
+        "id": "window",
+        "title": "Окно"
+      },
+      {
+        "id": "interval",
+        "title": "Интервал UTC"
+      },
+      {
+        "id": "coverage",
+        "title": "Покрытие"
+      },
+      {
+        "id": "sep",
+        "title": "SEP"
+      },
+      {
+        "id": "radio",
+        "title": "R"
+      },
+      {
+        "id": "cme",
+        "title": "CME"
+      },
+      {
+        "id": "geo",
+        "title": "G (отдельно)"
+      },
+      {
+        "id": "ap",
+        "title": "Ap"
+      },
+      {
+        "id": "storm",
+        "title": "G3+"
+      },
+      {
+        "id": "adverse",
+        "title": "Неблагопр., мин"
+      },
+      {
+        "id": "completeness",
+        "title": "Полнота"
+      }
+    ],
+    "evidence": [
+      "sep",
+      "geomagnetic",
+      "radio",
+      "cme"
+    ],
+    "gap_days": [],
+    "donki_only_days": []
+  },
+  "dataset": {
+    "root": "встроенный архив май–июнь 2024",
+    "three_day_dirs": [
+      "data/archive/ncei",
+      "data/bundle"
+    ],
+    "notifications": 75,
+    "cmes": 232,
+    "geomag": "/Users/andreysorokin/Downloads/data/archives/ncei/geomag"
+  }
+}

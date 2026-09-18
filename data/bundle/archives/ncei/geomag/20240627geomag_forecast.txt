@@ -1,0 +1,25 @@
+:Product: 0627geomag_forecast.txt
+:Issued: 2024 Jun 27 2205 UTC
+# Prepared by the U.S. Dept. of Commerce, NOAA, Space Weather Prediction Center
+#
+NOAA Ap Index Forecast
+Observed Ap 26 Jun 009
+Estimated Ap 27 Jun 008
+Predicted Ap 28 Jun-30 Jun 012-015-005
+
+NOAA Geomagnetic Activity Probabilities 28 Jun-30 Jun
+Active                35/40/15
+Minor storm           25/35/01
+Moderate storm        10/10/01
+Strong-Extreme storm  01/01/01
+
+NOAA Kp index forecast 28 Jun - 30 Jun
+             Jun 28    Jun 29    Jun 30
+00-03UT        2.00      4.67      1.67      
+03-06UT        2.00      4.00      1.33      
+06-09UT        1.33      2.67      1.33      
+09-12UT        1.33      2.67      1.33      
+12-15UT        1.33      2.00      1.33      
+15-18UT        1.67      2.00      1.33      
+18-21UT        3.33      1.67      1.67      
+21-00UT        4.67      2.67      1.67      

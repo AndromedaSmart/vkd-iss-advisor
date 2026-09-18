@@ -1,0 +1,25 @@
+:Product: 0504geomag_forecast.txt
+:Issued: 2024 May 04 2205 UTC
+# Prepared by the U.S. Dept. of Commerce, NOAA, Space Weather Prediction Center
+#
+NOAA Ap Index Forecast
+Observed Ap 03 May 010
+Estimated Ap 04 May 004
+Predicted Ap 05 May-07 May 020-035-012
+
+NOAA Geomagnetic Activity Probabilities 05 May-07 May
+Active                20/10/30
+Minor storm           35/30/20
+Moderate storm        25/35/05
+Strong-Extreme storm  15/25/01
+
+NOAA Kp index forecast 05 May - 07 May
+             May 05    May 06    May 07
+00-03UT        3.67      4.67      2.67      
+03-06UT        3.33      5.67      3.00      
+06-09UT        2.67      5.67      2.67      
+09-12UT        2.33      4.67      1.67      
+12-15UT        2.00      3.67      1.67      
+15-18UT        3.00      3.67      2.67      
+18-21UT        4.00      2.67      3.67      
+21-00UT        5.00      2.67      2.67      

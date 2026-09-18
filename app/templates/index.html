@@ -4,22 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Окно ВКД · МКС</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="{{ stand.asset }}">
 </head>
 <body>
   <div class="page">
-    <p class="kicker">КосмоХакатон · прототип {{ algorithm }}</p>
+    <p class="kicker">КосмоХакатон · демо-стенд {{ algorithm }}</p>
     <h1>Выбор окна ВКД на МКС</h1>
     <p class="lede">
-      Аналитик наземной группы задаёт интервал работ. Сервис сопоставляет солнечные энергичные частицы
-      и сближения каталожных объектов с траекторией станции. Это не допуск к выходу.
+      Откройте готовые сценарии и сравните окна одинаковой длительности.
+      Сервис сопоставляет SEP, радиозатмения, CME/DONKI и орбиту МКС.
+      Это не допуск к выходу.
     </p>
 
     {% if error %}
     <div class="banner error">{{ error }}</div>
     {% endif %}
 
-    <form class="console" method="post" action="/evaluate">
+    {% if stand.static %}
+    <div class="banner">Готовые сценарии: переключайте кнопками ниже. Форма на этом стенде показывает параметры выбранного демо.</div>
+    {% endif %}
+
+    <form class="console" {% if stand.form_action %}method="post" action="{{ stand.form_action }}"{% else %}onsubmit="return false;"{% endif %}>
       <label>Режим
         <select name="mode">
           <option value="current" {% if form.mode == "current" %}selected{% endif %}>Текущая обстановка</option>
@@ -49,10 +54,12 @@
         {% endif %}
       </div>
       <div class="span-6 actions">
+        {% if stand.form_action %}
         <button type="submit">Рассчитать окна</button>
-        <a class="btn ghost" href="/demo/storm">Демо: 10–13 мая 2024</a>
-        <a class="btn ghost" href="/demo/quiet">Демо: 18–22 июня 2024</a>
-        <a class="btn ghost" href="/demo/gap">Демо: дыра + DONKI 1–7 июня</a>
+        {% endif %}
+        <a class="btn ghost" href="{{ stand.storm }}">Демо: 10–13 мая 2024</a>
+        <a class="btn ghost" href="{{ stand.quiet }}">Демо: 18–22 июня 2024</a>
+        <a class="btn ghost" href="{{ stand.gap }}">Демо: дыра + DONKI 1–7 июня</a>
       </div>
     </form>
 
@@ -60,7 +67,7 @@
     <div class="meta-row">
       <div>Запрос {{ pack.id }} · {{ pack.request.mode }} · cutoff {{ pack.request.cutoff }}</div>
       <div>
-        <a class="btn ghost" href="/export/{{ pack.id }}.json">Выгрузить JSON</a>
+        <a class="btn ghost" href="{{ stand.export_prefix }}{{ pack.id }}.json">Выгрузить JSON</a>
       </div>
     </div>
 

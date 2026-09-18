@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Окно ВКД · МКС</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="page">
+    <p class="kicker">КосмоХакатон · демо-стенд eva-window-0.3.0</p>
+    <h1>Выбор окна ВКД на МКС</h1>
+    <p class="lede">
+      Откройте готовые сценарии и сравните окна одинаковой длительности.
+      Сервис сопоставляет SEP, радиозатмения, CME/DONKI и орбиту МКС.
+      Это не допуск к выходу.
+    </p>
+
+    
+
+    
+    <div class="banner">Готовые сценарии: переключайте кнопками ниже. Форма на этом стенде показывает параметры выбранного демо.</div>
+    
+
+    <form class="console" onsubmit="return false;">
+      <label>Режим
+        <select name="mode">
+          <option value="current" >Текущая обстановка</option>
+          <option value="historical" selected>История (май–июнь 2024)</option>
+        </select>
+      </label>
+      <label class="span-2">Начало ВКД, UTC
+        <input name="start_utc" placeholder="2024-05-11 00:00" value="2024-05-10 00:00">
+      </label>
+      <label>Длительность, ч
+        <input name="duration_hours" type="number" min="1" max="8" step="0.5" value="6">
+      </label>
+      <label>Интервал, сут
+        <input name="interval_days" type="number" min="1" max="62" step="1" value="4">
+      </label>
+      <label>Сдвиг внутри суток, ч
+        <input name="search_hours" type="number" min="1" max="24" step="1" value="12">
+      </label>
+      <label class="span-2">Отсечение replay, UTC
+        <input name="cutoff_utc" placeholder="для истории" value="">
+      </label>
+      <div class="span-6 checks">
+        <label><input type="checkbox" name="refresh" > Принудительно обновить источники</label>
+        <label><input type="checkbox" name="freeze" > Заморозить кеш (не ходить в сеть)</label>
+        
+        <input type="hidden" name="previous_duration_hours" value="6.0">
+        
+      </div>
+      <div class="span-6 actions">
+        
+        <a class="btn ghost" href="demo-storm.html">Демо: 10–13 мая 2024</a>
+        <a class="btn ghost" href="demo-quiet.html">Демо: 18–22 июня 2024</a>
+        <a class="btn ghost" href="demo-gap.html">Демо: дыра + DONKI 1–7 июня</a>
+      </div>
+    </form>
+
+    
+    <div class="meta-row">
+      <div>Запрос 7921874b · historical · cutoff None</div>
+      <div>
+        <a class="btn ghost" href="export/7921874b.json">Выгрузить JSON</a>
+      </div>
+    </div>
+
+    
+    <div class="banner">
+      Локальные архивы: встроенный архив май–июнь 2024
+      · DONKI 75
+      · CME 232
+      
+      
+    </div>
+    
+
+    
+
+    <div class="decision">
+      <h2>
+        Предпочтительное окно: W1
+        
+      </h2>
+      <p>Меньше пересечения с уровнем warning+ при сопоставимой полноте. Связанные сигналы SEP не суммировались со шкалой G.</p>
+    </div>
+
+    <section>
+      <h2>
+        Сравнение окон 6.0 ч, интервал 4 сут (2024-05-10 — 2024-05-13)
+        
+      </h2>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            
+            <th>День</th>
+            
+            <th>Окно</th>
+            
+            <th>Интервал UTC</th>
+            
+            <th>Покрытие</th>
+            
+            <th>SEP</th>
+            
+            <th>R</th>
+            
+            <th>CME</th>
+            
+            <th>G (отдельно)</th>
+            
+            <th>Ap</th>
+            
+            <th>G3+</th>
+            
+            <th>Неблагопр., мин</th>
+            
+            <th>Полнота</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr class="preferred">
+            
+              
+            <td class="num">2024-05-10</td>
+              
+            
+              
+            <td class="num">W1 · запрос · выбор</td>
+              
+            
+              
+            <td class="num">2024-05-10 00:00 UTC — 2024-05-10 06:00 UTC</td>
+              
+            
+              
+            <td>
+              <span class="cover ncei">3-day, geomag</span>
+            </td>
+              
+            
+              
+            <td><span class="level watch">watch</span></td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              
+            </td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              <div class="small">10/10 к Земле · 1561.0 км/с</div>
+            </td>
+              
+            
+              
+            <td><span class="level watch">watch</span></td>
+              
+            
+              
+            <td class="num">25</td>
+              
+            
+              
+            <td class="num">5%</td>
+              
+            
+              
+            <td class="num">0.0</td>
+              
+            
+              
+            <td class="num">1.0</td>
+              
+            
+          </tr>
+          
+          <tr class="">
+            
+              
+            <td class="num">2024-05-11</td>
+              
+            
+              
+            <td class="num">W2</td>
+              
+            
+              
+            <td class="num">2024-05-11 00:00 UTC — 2024-05-11 06:00 UTC</td>
+              
+            
+              
+            <td>
+              <span class="cover ncei">3-day, geomag</span>
+            </td>
+              
+            
+              
+            <td><span class="level warning">warning</span></td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              
+            </td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              <div class="small">6/6 к Земле · 1561.0 км/с</div>
+            </td>
+              
+            
+              
+            <td><span class="level high">high</span></td>
+              
+            
+              
+            <td class="num">106</td>
+              
+            
+              
+            <td class="num">65%</td>
+              
+            
+              
+            <td class="num">360.0</td>
+              
+            
+              
+            <td class="num">1.0</td>
+              
+            
+          </tr>
+          
+          <tr class="">
+            
+              
+            <td class="num">2024-05-12</td>
+              
+            
+              
+            <td class="num">W3</td>
+              
+            
+              
+            <td class="num">2024-05-12 00:00 UTC — 2024-05-12 06:00 UTC</td>
+              
+            
+              
+            <td>
+              <span class="cover ncei">3-day, geomag</span>
+            </td>
+              
+            
+              
+            <td><span class="level high">high</span></td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              
+            </td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              <div class="small">4/4 к Земле · 1820.0 км/с</div>
+            </td>
+              
+            
+              
+            <td><span class="level high">high</span></td>
+              
+            
+              
+            <td class="num">217</td>
+              
+            
+              
+            <td class="num">65%</td>
+              
+            
+              
+            <td class="num">360.0</td>
+              
+            
+              
+            <td class="num">1.0</td>
+              
+            
+          </tr>
+          
+          <tr class="">
+            
+              
+            <td class="num">2024-05-13</td>
+              
+            
+              
+            <td class="num">W4</td>
+              
+            
+              
+            <td class="num">2024-05-13 00:00 UTC — 2024-05-13 06:00 UTC</td>
+              
+            
+              
+            <td>
+              <span class="cover ncei">3-day, geomag</span>
+            </td>
+              
+            
+              
+            <td><span class="level warning">warning</span></td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              
+            </td>
+              
+            
+              
+            <td>
+              <span class="level high">high</span>
+              <div class="small">2/6 к Земле · 1820.0 км/с</div>
+            </td>
+              
+            
+              
+            <td><span class="level high">high</span></td>
+              
+            
+              
+            <td class="num">40</td>
+              
+            
+              
+            <td class="num">55%</td>
+              
+            
+              
+            <td class="num">360.0</td>
+              
+            
+              
+            <td class="num">1.0</td>
+              
+            
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+      <p class="small">Столбцы зависят от того, какие источники есть в выбранном интервале. G, R и CME не входят в «неблагоприятно» и не суммируются с SEP.</p>
+    </section>
+
+    <section>
+      <h2>Траектория МКС</h2>
+      
+      <div class="grid-3">
+        <div class="card">
+          <header>Источник / эпоха</header>
+          <div class="num">2024-05-09T20:53:11Z</div>
+          <p class="small">Space-Track GP_HISTORY ISS 25544 · давность 3.11 ч</p>
+          
+          <p class="small">публикация CREATION_DATE 2024-05-09T21:46:19Z · GP_ID 256811247</p>
+          
+        </div>
+        <div class="card">
+          <header>Роль в расчёте</header>
+          <p class="small">историческая траектория по GP на дату окна: освещённость и SAA</p>
+          
+        </div>
+        <div class="card">
+          <header>Условия работ, окно запроса</header>
+          
+          
+          <p class="num">тень 16.2% · SAA 0.0%</p>
+          <p class="small">33.704°, -97.645° · 416.5 км</p>
+          
+        </div>
+      </div>
+      
+      
+    </section>
+
+    <section>
+      <h2>Доказательства по запрошенному окну</h2>
+      <div class="grid-2">
+        
+        
+        <div class="card">
+          <header>
+            <span>Солнечные энергичные частицы</span>
+            <span class="level watch">watch</span>
+          </header>
+          <p class="small">только внешний прогноз · Прокси потока на GOES, не эквивалентная доза экипажа</p>
+          <ul class="evidence">
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>Прогноз SWPC S1 or greater</strong>
+              <div class="num">25%</div>
+              <div class="small">A chance for S1 (Minor) solar radiation storms will persist through the forecast period given the observed activity from AR 3664 in particular.</div>
+              <div class="src">2024-05-09T12:30:00Z · &lt;10% none; 10–29 watch; 30–69 warning; ≥70 high · swpc_3day</div>
+            </li>
+            
+            <li>
+              <div class="kind">расчёт команды</div>
+              <strong>Пересечение воздействий с окном</strong>
+              <div class="num">0 мин неблагоприятного SEP-пересечения</div>
+              <div class="small">Освещённость: 16% тени; SAA: 0% точек трека. Это условие работ, не балл SEP.</div>
+              <div class="src">2024-05-10T00:00:00Z · SGP4, шаг 10 мин · orbit</div>
+            </li>
+            
+          </ul>
+        </div>
+        
+        
+        <div class="card">
+          <header>
+            <span>Геомагнитная обстановка (не суммируется с SEP)</span>
+            <span class="level watch">watch</span>
+          </header>
+          <p class="small">шкала G отдельно от SEP · Не вероятность повреждения станции и не доза SEP</p>
+          <ul class="evidence">
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>Kp / шкала G из 3-day forecast</strong>
+              <div class="num">Kp 3.33 (G0)</div>
+              <div class="small">G1 (Minor) to G3 (Strong) geomagnetic storms are likely on 10-11 May due to the arrival of CMEs from 07-08 May.</div>
+              <div class="src">2024-05-09T12:30:00Z · G1 Kp=5 … G5 Kp=9; в сводку SEP не входит · swpc_3day</div>
+            </li>
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>Ap из geomag forecast (predicted)</strong>
+              <div class="num">25</div>
+              <div class="small">Отдельный продукт SWPC; не складывается с SEP</div>
+              <div class="src">2024-05-09T22:10:00Z · &lt;20 none; 20–29 watch; 30–49 warning; ≥50 high · swpc_geomag</div>
+            </li>
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>Вероятность Strong–Extreme storm</strong>
+              <div class="num">5%</div>
+              <div class="small">G3+ на сутки окна по geomag forecast</div>
+              <div class="src">2024-05-09T22:10:00Z · ≥10 watch; ≥25 warning; ≥50 high · swpc_geomag</div>
+            </li>
+            
+          </ul>
+        </div>
+        
+        
+        <div class="card">
+          <header>
+            <span>Радиозатмения R (не суммируются с SEP)</span>
+            <span class="level high">high</span>
+          </header>
+          <p class="small">шкала R отдельно от SEP и G · R не добавляется к SEP и не означает G</p>
+          <ul class="evidence">
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>Прогноз SWPC R1–R2</strong>
+              <div class="num">95%</div>
+              <div class="small">R3 (Strong) radio blackouts due to X-class flares are likely through the forecast period primarily due to the magnetic complexity and stature of AR 3634.</div>
+              <div class="src">2024-05-09T12:30:00Z · &lt;10% none; 10–29 watch; 30–69 warning; ≥70 high · swpc_3day</div>
+            </li>
+            
+            <li>
+              <div class="kind">наблюдение</div>
+              <strong>В выпуске SWPC: радиозатмение наблюдалось</strong>
+              <div class="num">R observed</div>
+              <div class="small">Наблюдение из датированного 3-day forecast</div>
+              <div class="src">2024-05-09T12:30:00Z · observed radio blackout · swpc_3day</div>
+            </li>
+            
+          </ul>
+        </div>
+        
+        
+        <div class="card">
+          <header>
+            <span>Выбросы корональной массы (DONKI)</span>
+            <span class="level high">high</span>
+          </header>
+          <p class="small">каталог CME analysis; не сумма с SEP · Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL</p>
+          <ul class="evidence">
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>CME 2024-05-09 09:24</strong>
+              <div class="num">1561.0 км/с · lon 14.0°</div>
+              <div class="small">к Земле; halfAngle 45.0°; submission ≤ отсечения</div>
+              <div class="src">2024-05-09T18:45:00Z · earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high · donki_cme</div>
+            </li>
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>CME 2024-05-09 09:24</strong>
+              <div class="num">1330.0 км/с · lon 19.0°</div>
+              <div class="small">к Земле; halfAngle 45.0°; submission ≤ отсечения</div>
+              <div class="src">2024-05-09T16:28:00Z · earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high · donki_cme</div>
+            </li>
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>CME 2024-05-08 22:24</strong>
+              <div class="num">1257.0 км/с · lon 5.0°</div>
+              <div class="small">к Земле; halfAngle 45.0°; submission ≤ отсечения</div>
+              <div class="src">2024-05-09T20:22:00Z · earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high · donki_cme</div>
+            </li>
+            
+            <li>
+              <div class="kind">внешний прогноз</div>
+              <strong>CME 2024-05-09 18:23</strong>
+              <div class="num">1236.0 км/с · lon 12.0°</div>
+              <div class="small">к Земле; halfAngle 45.0°; submission ≤ отсечения</div>
+              <div class="src">2024-05-09T22:30:00Z · earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high · donki_cme</div>
+            </li>
+            
+          </ul>
+        </div>
+        
+      </div>
+    </section>
+
+    <section>
+      <h2>Источники</h2>
+      <table>
+        <thead>
+          <tr><th>Источник</th><th>Роль</th><th>Статус</th><th>Публикация</th><th>Получено</th><th>Примечание</th></tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>Локальный набор Downloads/data</td>
+            <td>catalog</td>
+            <td>ok</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="small">3-day dirs: встроенный архив май–июнь 2024/archives/ncei/three_day, встроенный архив май–июнь 2024/archives/ncei/geomag, data/archive/ncei; DONKI 75; CME 232 <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NASA DONKI notifications</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="small">75 сообщений May–June 2024; replay по messageIssueTime <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NASA DONKI CME analysis</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="small">232 записей; earthward по lon/halfAngle; submissionTime для replay <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>Space-Track GP_HISTORY ISS 25544</td>
+            <td>catalog</td>
+            <td>ok</td>
+            <td class="num">2024-05-09T21:46:19Z</td>
+            <td class="num">2026-09-18T23:18:59Z</td>
+            <td class="small">GP_ID 256811247; epoch 2024-05-09T20:53:11Z; CREATION_DATE 2024-05-09T21:46:19Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>CelesTrak SOCRATES Plus ISS</td>
+            <td>external_forecast</td>
+            <td>ошибка</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="small">Текущий каталог сближений непригоден для исторического прогноза из прошлого <a href="не используется в replay">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC 3-Day Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-09T12:30:00Z</td>
+            <td class="num">2026-09-18T21:57:11Z</td>
+            <td class="small">локальная копия архива 202405091230three_day_forecast.txt; issued=2024-05-09T12:30:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC Geomag Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-09T22:10:00Z</td>
+            <td class="num">2026-09-18T23:18:59Z</td>
+            <td class="small">локальный архив 20240509geomag_forecast.txt; issued=2024-05-09T22:10:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC 3-Day Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-10T12:30:00Z</td>
+            <td class="num">2026-09-18T21:57:14Z</td>
+            <td class="small">локальная копия архива 202405101230three_day_forecast.txt; issued=2024-05-10T12:30:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC Geomag Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-10T22:05:00Z</td>
+            <td class="num">2026-09-18T23:18:59Z</td>
+            <td class="small">локальный архив 20240510geomag_forecast.txt; issued=2024-05-10T22:05:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC 3-Day Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-11T12:30:00Z</td>
+            <td class="num">2026-09-18T21:57:18Z</td>
+            <td class="small">локальная копия архива 202405111230three_day_forecast.txt; issued=2024-05-11T12:30:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC Geomag Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-11T22:05:00Z</td>
+            <td class="num">2026-09-18T23:18:59Z</td>
+            <td class="small">локальный архив 20240511geomag_forecast.txt; issued=2024-05-11T22:05:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC 3-Day Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-12T12:30:00Z</td>
+            <td class="num">2026-09-18T21:57:21Z</td>
+            <td class="small">локальная копия архива 202405121230three_day_forecast.txt; issued=2024-05-12T12:30:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+          <tr>
+            <td>NOAA SWPC Geomag Forecast</td>
+            <td>external_forecast</td>
+            <td>ok</td>
+            <td class="num">2024-05-12T22:05:00Z</td>
+            <td class="num">2026-09-18T23:18:59Z</td>
+            <td class="small">локальный архив 20240512geomag_forecast.txt; issued=2024-05-12T22:05:00Z <a href="#">ссылка</a></td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Ограничения этого запуска</h2>
+      <ul class="notes">
+        
+        <li>Сервис — исследовательский прототип поддержки решений, не допуск к ВКД.</li>
+        
+        <li>Механизм 1: SEP. Механизм 2: сближения каталожных объектов. Шкала G показывается отдельно и не прибавляется к SEP.</li>
+        
+        <li>Интервал сравнения: 4 сут (2024-05-10 — 2024-05-13), одно окно 6.0 ч на каждые сутки.</li>
+        
+        <li>Исторический режим: 3-day forecast и GP ISS с временем публикации ≤ начала каждого окна. SOCRATES и современный TLE не используются.</li>
+        
+        <li>Выпуски SWPC 3-Day Forecast: 2024-05-09T12:30:00Z, 2024-05-10T12:30:00Z, 2024-05-11T12:30:00Z, 2024-05-12T12:30:00Z.</li>
+        
+        <li>Локальный набор встроенный архив май–июнь 2024: 3-day/geomag NCEI, DONKI 75, CME 232.</li>
+        
+      </ul>
+    </section>
+    
+
+    <p class="small">Время сервера 2026-09-18T23:18:59Z. Все поля формы в UTC.</p>
+  </div>
+</body>
+</html>

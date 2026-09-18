@@ -25,9 +25,13 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-Открыть http://127.0.0.1:8000
+Публичный демо-стенд: https://andromedasmart.github.io/vkd-iss-advisor/
 
-Демо бури: http://127.0.0.1:8000/demo/storm — 11 мая 2024, cutoff 10 мая 12:30 UTC.
+На стенде сразу открывается сравнение 10–13 мая 2024. Кнопками можно перейти к тихому интервалу 18–22 июня и к дыре покрытия 1–7 июня с DONKI.
+
+Локально: http://127.0.0.1:8000
+
+Демо бури: http://127.0.0.1:8000/demo/storm
 
 JSON: `GET /api/evaluate?mode=current&duration_hours=6&search_hours=12`
 
@@ -49,4 +53,6 @@ python -m pytest -q
 | GP ISS 25544 | Space-Track GP_HISTORY, `data/archive/iss_gp_history_2024.json` | историческая орбита |
 | Сближения | CelesTrak SOCRATES Plus | внешний прогноз, только current |
 
-Локальные копии NCEI лежат в `data/archive/ncei/`. Если есть `/Users/andreysorokin/Downloads/data` (или `VKD_DATA_DIR`), сравнение читает оттуда 3-day, geomag, DONKI, CME analysis и GP_HISTORY. Столбцы таблицы появляются только когда в интервале есть соответствующие данные. Дыра в архиве (15–31 мая, 1–15 июня 2024) не считается all-clear.
+Локальные копии NCEI лежат в `data/archive/ncei/`. Встроенный набор для стенда — `data/bundle/` (geomag, DONKI, CME). Если есть `/Users/andreysorokin/Downloads/data` или `VKD_DATA_DIR`, сравнение читает его в первую очередь. Столбцы таблицы появляются только когда в интервале есть соответствующие данные. Дыра в архиве (15–31 мая, 1–15 июня 2024) не считается all-clear.
+
+Статический стенд пересобирается так: `python scripts/build_stand.py`.
