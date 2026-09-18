@@ -1,7 +1,7 @@
 {
-  "id": "f3495e28",
+  "id": "42eeac63",
   "algorithm": "eva-window-0.3.0",
-  "generated_at": "2026-09-18T23:18:59Z",
+  "generated_at": "2026-09-18T23:24:54Z",
   "request": {
     "mode": "historical",
     "start": "2024-06-18T00:00:00Z",
@@ -79,7 +79,7 @@
       "ok": true,
       "frozen": false,
       "error": null,
-      "fetched_at": "2026-09-18T23:18:59Z",
+      "fetched_at": "2026-09-18T23:24:54Z",
       "published_at": "2024-06-17T21:26:14Z",
       "notes": "GP_ID 259691305; epoch 2024-06-17T20:40:04Z; CREATION_DATE 2024-06-17T21:26:14Z",
       "units": "TLE / SGP4, TEME; CREATION_DATE ≠ EPOCH",
@@ -111,7 +111,7 @@
       "published_at": "2024-06-17T12:30:00Z",
       "notes": "локальная копия архива 202406171230three_day_forecast.txt; issued=2024-06-17T12:30:00Z",
       "units": "шкалы S/G/R, Kp",
-      "stale_minutes": 80
+      "stale_minutes": 86
     },
     {
       "id": "swpc_geomag",
@@ -121,7 +121,7 @@
       "ok": true,
       "frozen": false,
       "error": null,
-      "fetched_at": "2026-09-18T23:18:59Z",
+      "fetched_at": "2026-09-18T23:24:54Z",
       "published_at": "2024-06-17T22:05:00Z",
       "notes": "локальный архив 20240617geomag_forecast.txt; issued=2024-06-17T22:05:00Z",
       "units": "Ap, вероятности бурь, Kp",
@@ -139,7 +139,7 @@
       "published_at": "2024-06-18T12:30:00Z",
       "notes": "локальная копия архива 202406181230three_day_forecast.txt; issued=2024-06-18T12:30:00Z",
       "units": "шкалы S/G/R, Kp",
-      "stale_minutes": 80
+      "stale_minutes": 86
     },
     {
       "id": "swpc_geomag",
@@ -149,7 +149,7 @@
       "ok": true,
       "frozen": false,
       "error": null,
-      "fetched_at": "2026-09-18T23:18:59Z",
+      "fetched_at": "2026-09-18T23:24:54Z",
       "published_at": "2024-06-18T22:05:00Z",
       "notes": "локальный архив 20240618geomag_forecast.txt; issued=2024-06-18T22:05:00Z",
       "units": "Ap, вероятности бурь, Kp",
@@ -167,7 +167,7 @@
       "published_at": "2024-06-19T12:30:00Z",
       "notes": "локальная копия архива 202406191230three_day_forecast.txt; issued=2024-06-19T12:30:00Z",
       "units": "шкалы S/G/R, Kp",
-      "stale_minutes": 80
+      "stale_minutes": 86
     },
     {
       "id": "swpc_geomag",
@@ -177,7 +177,7 @@
       "ok": true,
       "frozen": false,
       "error": null,
-      "fetched_at": "2026-09-18T23:18:59Z",
+      "fetched_at": "2026-09-18T23:24:54Z",
       "published_at": "2024-06-19T22:05:00Z",
       "notes": "локальный архив 20240619geomag_forecast.txt; issued=2024-06-19T22:05:00Z",
       "units": "Ap, вероятности бурь, Kp",
@@ -195,7 +195,7 @@
       "published_at": "2024-06-20T12:30:00Z",
       "notes": "локальная копия архива 202406201230three_day_forecast.txt; issued=2024-06-20T12:30:00Z",
       "units": "шкалы S/G/R, Kp",
-      "stale_minutes": 80
+      "stale_minutes": 86
     },
     {
       "id": "swpc_geomag",
@@ -205,7 +205,7 @@
       "ok": true,
       "frozen": false,
       "error": null,
-      "fetched_at": "2026-09-18T23:18:59Z",
+      "fetched_at": "2026-09-18T23:24:54Z",
       "published_at": "2024-06-20T22:05:00Z",
       "notes": "локальный архив 20240620geomag_forecast.txt; issued=2024-06-20T22:05:00Z",
       "units": "Ap, вероятности бурь, Kp",
@@ -223,7 +223,7 @@
       "published_at": "2024-06-21T12:30:00Z",
       "notes": "локальная копия архива 202406211230three_day_forecast.txt; issued=2024-06-21T12:30:00Z",
       "units": "шкалы S/G/R, Kp",
-      "stale_minutes": 80
+      "stale_minutes": 86
     },
     {
       "id": "swpc_geomag",
@@ -233,7 +233,7 @@
       "ok": true,
       "frozen": false,
       "error": null,
-      "fetched_at": "2026-09-18T23:18:59Z",
+      "fetched_at": "2026-09-18T23:24:54Z",
       "published_at": "2024-06-21T22:05:00Z",
       "notes": "локальный архив 20240621geomag_forecast.txt; issued=2024-06-21T22:05:00Z",
       "units": "Ap, вероятности бурь, Kp",

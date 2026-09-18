@@ -25,7 +25,7 @@
     {% endif %}
 
     <form class="console" {% if stand.form_action %}method="post" action="{{ stand.form_action }}"{% else %}onsubmit="return false;"{% endif %}>
-      <label>Режим
+      <label class="span-2 mode-field">Режим
         <select name="mode">
           <option value="current" {% if form.mode == "current" %}selected{% endif %}>Текущая обстановка</option>
           <option value="historical" {% if form.mode == "historical" %}selected{% endif %}>История (май–июнь 2024)</option>
