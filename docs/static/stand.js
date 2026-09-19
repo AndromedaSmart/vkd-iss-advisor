@@ -107,13 +107,10 @@
     });
   }
 
-  function assessOne(start, duration, mode, asOf) {
+  function assessOne(start, duration, asOf) {
     var payload = {
       window_start: toIso(start),
-      duration_hours: duration,
-      mode: mode,
-      search_span_hours: 0,
-      disabled_sources: []
+      duration_hours: duration
     };
     if (asOf) payload.as_of = toIso(asOf);
     return postJson("/api/assess-window", payload);
@@ -281,7 +278,7 @@
     starts.forEach(function (item) {
       chain = chain.then(function (acc) {
         var asOf = mode === "live" ? null : item;
-        return assessOne(item, duration, mode, asOf).then(function (raw) {
+        return assessOne(item, duration, asOf).then(function (raw) {
           acc.push(raw);
           return acc;
         });
@@ -298,15 +295,25 @@
     });
   }
 
+  function useLiveApi() {
+    return isStatic() || (document.body && document.body.getAttribute("data-live-api") === "true");
+  }
+
   function boot() {
     var form = document.getElementById("eva-form");
-    if (!form || !isStatic()) return;
+    if (!form || !useLiveApi()) return;
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       run(form);
     });
     var params = new URLSearchParams(window.location.search);
     var demo = params.get("demo");
+    var path = window.location.pathname || "";
+    if (!demo) {
+      if (path.indexOf("/demo/quiet") !== -1) demo = "quiet";
+      else if (path.indexOf("/demo/gap") !== -1) demo = "gap";
+      else if (path.indexOf("/demo/storm") !== -1) demo = "storm";
+    }
     if (demo && DEMOS[demo]) fillForm(form, DEMOS[demo]);
     run(form);
   }

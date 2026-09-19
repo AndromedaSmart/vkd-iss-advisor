@@ -57,14 +57,12 @@ def fetch_data_sources_status():
         return response.json()
 
 
-def assess_window(window_start, duration_hours, mode="historical_review", as_of=None, search_span_hours=0):
+def assess_window(window_start, duration_hours, as_of=None, **_ignored):
+    """POST /api/assess-window — schema v0.2.0: window_start, duration_hours, as_of."""
     url = planner_base() + "/api/assess-window"
     payload = {
         "window_start": iso(window_start),
         "duration_hours": float(duration_hours),
-        "mode": mode,
-        "search_span_hours": float(search_span_hours or 0),
-        "disabled_sources": [],
     }
     if as_of is not None:
         payload["as_of"] = iso(as_of)
@@ -77,14 +75,6 @@ def assess_window(window_start, duration_hours, mode="historical_review", as_of=
             except Exception:
                 pass
             raise RuntimeError("Планировщик {0}: {1}".format(response.status_code, detail))
-        return response.json()
-
-
-def recommend(assessment):
-    url = planner_base() + "/api/recommendations"
-    with _client() as client:
-        response = client.post(url, json=assessment)
-        response.raise_for_status()
         return response.json()
 
 

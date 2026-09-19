@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import uuid
+import os
 from datetime import datetime, timedelta, timezone
 from typing import List
 
@@ -148,9 +149,18 @@ def parse_request(form):
     }
 
 
+def use_planner_api(form=None):
+    form = form or {}
+    if os.environ.get("VKD_LOCAL_ARCHIVES") in ("1", "true", "yes"):
+        return False
+    if str(form.get("offline") or "") in ("1", "true", "on", "yes"):
+        return False
+    return True
+
+
 def evaluate(form):
     req = parse_request(form)
-    if req["mode"] == "current":
+    if use_planner_api(form):
         return evaluate_via_planner(req)
     return evaluate_local(req)
 
@@ -175,9 +185,7 @@ def evaluate_via_planner(req):
             raw = assess_window(
                 w_start,
                 req["duration_hours"],
-                mode=api_mode,
                 as_of=planner_as_of(req, w_start),
-                search_span_hours=0,
             )
             assessments.append(raw)
             window = window_from_assessment(raw, idx, req["duration_hours"], is_requested=idx == 0)
@@ -258,7 +266,7 @@ def evaluate_via_planner(req):
             "reconstruction": bool(raw_orbit.get("is_reconstruction")),
         }
     notes = [
-        "Онлайн-режим берёт данные с {0}, а не из локальных архивов.".format(planner_base()),
+        "Онлайн-режим берёт данные с {0} (API v0.2.0): /api/assess-window и /api/data-sources-status.".format(planner_base()),
         "Факторы API: radiation_sep, geomagnetic_activity, mmod_meteoroid. Шкала G не суммируется с SEP.",
     ]
     if status and status.get("overall_status"):

@@ -27,7 +27,7 @@ uvicorn app.main:app --reload --port 8000
 
 Публичный демо-стенд: https://andromedasmart.github.io/vkd-iss-advisor/
 
-Онлайн-режим («Текущая обстановка» и GitHub Pages) берёт данные через API http://46.29.164.87:8000/ (`/api/assess-window`, `/api/data-sources-status`). Исторический replay на локальном сервере по-прежнему читает `data/bundle/` и `data/archive/`.
+Онлайн-режим и локальный стенд http://127.0.0.1:8001 берут данные через API http://46.29.164.87:8000/ v0.2.0 (`POST /api/assess-window`, `GET /api/data-sources-status`). Локальные архивы `data/bundle/` остаются для офлайн-replay: `VKD_LOCAL_ARCHIVES=1`.
 
 На стенде сразу открывается сравнение 10–13 мая 2024. Кнопками можно перейти к тихому интервалу 18–22 июня и к дыре покрытия 1–7 июня с DONKI.
 

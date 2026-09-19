@@ -77,3 +77,42 @@ def test_window_from_assessment_shape():
     assert window["geomagnetic"]["level"] == "watch"
     assert window["conjunction"]["incomplete"] is True
     assert window["coverage"]["tag"] == "ncei"
+
+
+def test_assess_window_sends_v02_fields(monkeypatch):
+    captured = {}
+
+    class FakeResp(object):
+        status_code = 200
+
+        def json(self):
+            return {
+                "window_start": "2024-05-10T08:00:00Z",
+                "window_end": "2024-05-10T14:00:00Z",
+                "duration_hours": 6,
+                "factors": [],
+                "orbit_source": {},
+                "trajectory_summary": {},
+            }
+
+    class FakeClient(object):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def post(self, url, json):
+            captured["url"] = url
+            captured["json"] = json
+            return FakeResp()
+
+    monkeypatch.setattr("app.planner_api._client", lambda: FakeClient())
+    from datetime import datetime, timezone
+    from app.planner_api import assess_window
+
+    start = datetime(2024, 5, 10, 8, tzinfo=timezone.utc)
+    assess_window(start, 6, as_of=datetime(2024, 5, 10, 6, tzinfo=timezone.utc), mode="ignored")
+    assert captured["url"].endswith("/api/assess-window")
+    assert set(captured["json"].keys()) == {"window_start", "duration_hours", "as_of"}
+    assert "mode" not in captured["json"]
