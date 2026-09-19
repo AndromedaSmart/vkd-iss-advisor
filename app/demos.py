@@ -12,7 +12,7 @@ DEMOS = {
         "interval_days": 4,
         "search_hours": 12,
         "cutoff_utc": "",
-        "label": "Демо: 10–13 мая 2024",
+        "label": "Буря · 10–13 мая 2024",
         "group": "scenario",
     },
     "quiet": {
@@ -22,7 +22,7 @@ DEMOS = {
         "interval_days": 5,
         "search_hours": 12,
         "cutoff_utc": "",
-        "label": "Демо: 18–22 июня 2024",
+        "label": "Тихо · 18–22 июня 2024",
         "group": "scenario",
     },
     "gap": {
@@ -32,7 +32,7 @@ DEMOS = {
         "interval_days": 7,
         "search_hours": 12,
         "cutoff_utc": "",
-        "label": "Демо: дыра + DONKI 1–7 июня",
+        "label": "Дыра · 1–7 июня 2024",
         "group": "scenario",
     },
     "full_may": {
@@ -42,7 +42,7 @@ DEMOS = {
         "interval_days": 14,
         "search_hours": 12,
         "cutoff_utc": "",
-        "label": "Без дыр: 1–14 мая",
+        "label": "1–14 мая 2024",
         "group": "full",
     },
     "full_june": {
@@ -52,7 +52,7 @@ DEMOS = {
         "interval_days": 14,
         "search_hours": 12,
         "cutoff_utc": "",
-        "label": "Без дыр: 17–30 июня",
+        "label": "17–30 июня 2024",
         "group": "full",
     },
 }

@@ -14,6 +14,8 @@ from app.dataset import (
 )
 from app.factors import (
     apply_donki_to_sep,
+    level_from_g,
+    level_from_s,
     merge_geomag_product,
     score_cme,
     score_conjunctions,
@@ -21,6 +23,7 @@ from app.factors import (
     score_geomagnetic,
     score_radio,
     score_sep,
+    s_scale_from_flux,
 )
 from app.ingest import (
     SourceRecord,
@@ -578,6 +581,9 @@ def evaluate_local(req):
                 "adverse_minutes": round(adverse, 1),
                 "worst_rank": worst_rank([sep["level"], conj["level"]]),
                 "is_requested": idx == 0,
+                "timeline": _danger_timeline(
+                    w_start, w_end, protons, forecast, sep["level"], geo["level"], conj
+                ),
             }
         )
 
@@ -683,7 +689,7 @@ def _dataset_sources():
 def _ui(windows, req):
     cols = [
         {"id": "day", "title": "День"},
-        {"id": "window", "title": "Окно"},
+        {"id": "window", "title": "Окно", "word": "Вариант", "hint": "номер сравниваемого выхода"},
         {
             "id": "interval",
             "title": "Интервал",
@@ -758,6 +764,85 @@ def _ui(windows, req):
     }
 
 
+def _conjunction_event_level(event):
+    rng = event.get("min_range_km")
+    if rng is None:
+        return "unknown"
+    if rng < 1.0:
+        return "high"
+    if rng < 2.0:
+        return "warning"
+    if rng < 5.0:
+        return "watch"
+    return "none"
+
+
+def _danger_timeline(w_start, w_end, protons, forecast, sep_level, geo_level, conj):
+    span_min = max(1, int((w_end - w_start).total_seconds() / 60.0))
+    if span_min <= 180:
+        step = 10
+    elif span_min <= 12 * 60:
+        step = 15
+    elif span_min <= 36 * 60:
+        step = 30
+    else:
+        step = 60
+    proton_rows = []
+    if protons and protons.ok and protons.payload:
+        proton_rows = [row for row in protons.payload if w_start <= row["time"] <= w_end]
+    bins = []
+    if forecast and forecast.ok and forecast.payload:
+        bins = forecast.payload.get("kp_bins") or []
+    events = (conj or {}).get("events") or []
+    conj_incomplete = bool((conj or {}).get("incomplete"))
+    points = []
+    cursor = w_start
+    last_sep = None
+    while cursor <= w_end:
+        nxt = min(cursor + timedelta(minutes=step), w_end)
+        chunk = [row for row in proton_rows if cursor <= row["time"] <= nxt]
+        if chunk:
+            flux = max(row["flux"] for row in chunk)
+            sep = level_from_s(s_scale_from_flux(flux))
+            last_sep = sep
+        elif last_sep is not None:
+            sep = last_sep
+        else:
+            sep = sep_level or "unknown"
+        geo = geo_level or "unknown"
+        for item in bins:
+            if item["start"] <= cursor <= item["end"]:
+                geo = level_from_g(item.get("g"))
+                break
+        if conj_incomplete:
+            mmod = "unknown"
+        else:
+            mmod = "none"
+            for event in events:
+                tca = event.get("tca")
+                if tca is None:
+                    continue
+                if abs((tca - cursor).total_seconds()) <= 30 * 60:
+                    other = _conjunction_event_level(event)
+                    if other == "unknown":
+                        continue
+                    if mmod == "none" or (
+                        {"none": 0, "watch": 1, "warning": 2, "high": 3}.get(other, 0)
+                        > {"none": 0, "watch": 1, "warning": 2, "high": 3}.get(mmod, 0)
+                    ):
+                        mmod = other
+        points.append({"t": iso(cursor), "sep": sep, "mmod": mmod, "geo": geo})
+        if cursor >= w_end:
+            break
+        cursor = nxt
+    if not points:
+        points = [
+            {"t": iso(w_start), "sep": sep_level, "mmod": (conj or {}).get("level") or "unknown", "geo": geo_level},
+            {"t": iso(w_end), "sep": sep_level, "mmod": (conj or {}).get("level") or "unknown", "geo": geo_level},
+        ]
+    return points
+
+
 def _compact_track(track):
     if not track:
         return None
@@ -775,12 +860,32 @@ def _compact_track(track):
     }
 
 
+def window_display_name(window_id):
+    raw = str(window_id or "")
+    if not raw:
+        return "Вариант"
+    archive = raw.startswith("A-")
+    digits = ""
+    if raw[:1] in "Ww" and raw[1:].isdigit():
+        digits = raw[1:]
+    else:
+        tail = raw.split("-")[-1]
+        if tail[:1] in "Ww" and tail[1:].isdigit():
+            digits = tail[1:]
+    if archive:
+        return "Архив {0}".format(digits) if digits else "Архив"
+    if digits:
+        return "Вариант {0}".format(digits)
+    return raw
+
+
 def _public_window(window):
     out = dict(window)
     out.pop("raw", None)
     out.pop("orbit_raw", None)
     out["start"] = iso(window["start"])
     out["end"] = iso(window["end"])
+    out["label"] = window_display_name(out.get("id"))
     if out.get("track") and out["track"].get("points"):
         points = []
         for pt in out["track"]["points"]:

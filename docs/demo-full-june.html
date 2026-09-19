@@ -1,80 +1,596 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Окно ВКД · МКС</title>
-  <link rel="stylesheet" href="static/style.css?v=eva-window-0.3.8">
+  <link rel="stylesheet" href="static/style.css?v=eva-window-0.3.26">
 </head>
-<body data-api-base="http://46.29.164.87:8000" data-static="true" data-live-api="true" data-algorithm="eva-window-0.3.8" data-demo="full_june" data-demos='{&#34;storm&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-10 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 4, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;quiet&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-18 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 5, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;gap&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 7, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_may&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_june&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-17 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}}'>
-  <div class="page">
-    <h1>Выбор окна ВКД на МКС</h1>
-    <p class="lede">
-      Откройте готовые сценарии и сравните окна одинаковой длительности.
-      Сервис сопоставляет SEP, радиозатмения, CME/DONKI и орбиту МКС.
-      Это не допуск к выходу.
-    </p>
+<body data-api-base="http://46.29.164.87:8000" data-static="true" data-live-api="true" data-algorithm="eva-window-0.3.26" data-demo="full_june" data-demos='{&#34;storm&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-10 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 4, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;quiet&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-18 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 5, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;gap&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 7, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_may&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_june&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-17 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}}'>
+  <div class="platform">
+    <header class="platform-head">
+      <h1>Выбор окна ВКД на МКС</h1>
+      <p class="lede">
+        Откройте готовые сценарии и сравните окна одинаковой длительности.
+        Сервис сопоставляет SEP, радиозатмения, CME/DONKI и орбиту МКС.
+        Это не допуск к выходу.
+      </p>
+    </header>
 
     
-
     <div id="live-error" class="banner error"></div>
 
-    <form id="eva-form" class="console" onsubmit="return false;">
-      <label class="span-2 mode-field">Режим
-        <select name="mode">
-          <option value="current" >Текущая обстановка</option>
-          <option value="historical" selected>История (апрель–июль 2024)</option>
-        </select>
-      </label>
-      <label class="span-2">Начало ВКД, UTC
-        <input name="start_utc" placeholder="2024-04-15 08:00" value="2024-06-17 08:00">
-      </label>
-      <label>Длительность, ч
-        <input name="duration_hours" type="number" min="1" max="8" step="0.5" value="6">
-      </label>
-      <label>Интервал, сут
-        <input name="interval_days" type="number" min="1" max="122" step="1" value="14">
-      </label>
-      <label>Сдвиг внутри суток, ч
-        <input name="search_hours" type="number" min="1" max="24" step="1" value="12">
-      </label>
-      <label class="span-2">Отсечение replay, UTC
-        <input name="cutoff_utc" placeholder="для истории" value="">
-      </label>
-      <div class="span-6 checks">
-        <label><input type="checkbox" name="refresh" > Принудительно обновить источники</label>
-        <label><input type="checkbox" name="freeze" > Заморозить кеш (не ходить в сеть)</label>
-        
-      </div>
-      <div class="span-6 actions">
-        
-        <button type="submit">Рассчитать окна</button>
-        
-        
-        <a class="btn ghost" href="index.html?demo=storm" >Демо: 10–13 мая 2024</a>
-        
-        <a class="btn ghost" href="index.html?demo=quiet" >Демо: 18–22 июня 2024</a>
-        
-        <a class="btn ghost" href="index.html?demo=gap" >Демо: дыра + DONKI 1–7 июня</a>
-        
-      </div>
-      <div class="span-6 demo-full">
-        <p class="demo-full-label">Периоды с наименьшим числом дыр · полнота 1.00 · 3-day и geomag на каждые сутки</p>
-        <div class="actions">
-          
-          <a class="btn full" href="index.html?demo=full_may" >Без дыр: 1–14 мая</a>
-          
-          <a class="btn full is-selected" href="index.html?demo=full_june" aria-pressed="true">Без дыр: 17–30 июня</a>
-          
-        </div>
-      </div>
-    </form>
+    <div class="platform-body">
+      <nav class="tiles" aria-label="Разделы">
+        <button type="button" class="tile is-selected" data-pane="request" aria-pressed="true">
+          <span class="tile-kicker">Раздел</span>
+          <span class="tile-title">Запрос</span>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="tile" data-pane="scenarios" aria-pressed="false">
+          <span class="tile-kicker">Раздел</span>
+          <span class="tile-title">Сценарии</span>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="tile" data-pane="compare" aria-pressed="false">
+          <span class="tile-kicker">Раздел</span>
+          <span class="tile-title">Сравнение</span>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="tile" data-pane="evidence" aria-pressed="false">
+          <span class="tile-kicker">Раздел</span>
+          <span class="tile-title">Доказательства</span>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="tile" data-pane="sources" aria-pressed="false">
+          <span class="tile-kicker">Раздел</span>
+          <span class="tile-title">Источники</span>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" class="tile" data-pane="warnings" aria-pressed="false">
+          <span class="tile-kicker">Раздел <span class="tile-count" id="warning-count" hidden>0</span></span>
+          <span class="tile-title">Журнал предупреждений</span>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </button>
+      </nav>
 
-    <div id="results-root">
+      <div class="panes">
+        <section class="pane is-open" id="pane-request">
+          <div class="pane-window">
+            <h2>Запрос</h2>
+            <form id="eva-form" class="console" onsubmit="return false;">
+              <label class="span-2 mode-field">Режим
+                <select name="mode">
+                  <option value="current" >Текущая обстановка</option>
+                  <option value="historical" selected>История (апрель–июль 2024)</option>
+                </select>
+              </label>
+              <div class="span-2 start-field">
+                <label>Начало ВКД
+                  <input name="start_utc" placeholder="2024-04-15 08:00" value="2024-06-17 08:00">
+                </label>
+                <label>Часовой пояс
+                  <select name="timezone">
+                    <option value="UTC" selected>UTC</option>
+                    <option value="Europe/Moscow">Москва (UTC+3)</option>
+                    <option value="Europe/Samara">Самара (UTC+4)</option>
+                    <option value="Asia/Yekaterinburg">Екатеринбург (UTC+5)</option>
+                    <option value="Asia/Novosibirsk">Новосибирск (UTC+7)</option>
+                    <option value="Asia/Vladivostok">Владивосток (UTC+10)</option>
+                    <option value="America/Chicago">Хьюстон, MCC</option>
+                    <option value="America/New_York">Нью-Йорк</option>
+                    <option value="Europe/Berlin">Берлин</option>
+                    <option value="Asia/Tokyo">Токио</option>
+                  </select>
+                </label>
+              </div>
+              <p class="span-2 small tz-preview" id="tz-preview"></p>
+              <label>Длительность, ч
+                <input name="duration_hours" type="number" min="1" max="8" step="0.5" value="6">
+              </label>
+              <label>Интервал, сут
+                <input name="interval_days" type="number" min="1" max="122" step="1" value="14">
+              </label>
+              <label>Сдвиг внутри суток, ч
+                <input name="search_hours" type="number" min="1" max="24" step="1" value="12">
+              </label>
+              <label class="span-2">Отсечение replay, UTC
+                <input name="cutoff_utc" placeholder="для истории" value="">
+              </label>
+              <div class="span-2 switches">
+                <label class="switch">
+                  <input type="checkbox" name="refresh" >
+                  <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+                  <span class="switch-copy">
+                    <span class="switch-title">Обновить источники</span>
+                    <span class="switch-hint">Принудительно скачать данные заново</span>
+                  </span>
+                </label>
+                <label class="switch">
+                  <input type="checkbox" name="freeze" >
+                  <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+                  <span class="switch-copy">
+                    <span class="switch-title">Заморозить кеш</span>
+                    <span class="switch-hint">Не ходить в сеть, взять уже сохранённое</span>
+                  </span>
+                </label>
+                
+              </div>
+              <div class="span-2 actions">
+                
+                <button type="submit">Рассчитать окна</button>
+                
+              </div>
+            </form>
+            
+
+<aside class="legend">
+  <h3>Легенда терминов</h3>
+  <dl>
     
+    <div class="legend-row">
+      <dt>ВКД</dt>
+      <dd>Внекорабельная деятельность — выход в открытый космос. Это не допуск к выходу.</dd>
     </div>
+    
+    <div class="legend-row">
+      <dt>МКС</dt>
+      <dd>Международная космическая станция.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>UTC</dt>
+      <dd>Всемирное координированное время. В расчёт и таблицу сравнение уходит UTC.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Часовой пояс</dt>
+      <dd>Как читать поле «Начало ВКД». Цифры остаются, в API уходит пересчёт в UTC.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Текущая обстановка</dt>
+      <dd>Оценка по свежим прогнозам и измерениям.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>История</dt>
+      <dd>Честный replay апреля–июля 2024: учитывается только то, что уже было известно к отсечению.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Начало ВКД</dt>
+      <dd>Момент старта окна выхода в выбранном поясе.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Длительность</dt>
+      <dd>Длина одного окна ВКД, часы.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Интервал</dt>
+      <dd>Сколько суток подряд сравнивать окнами той же длительности.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Сдвиг внутри суток</dt>
+      <dd>На сколько часов можно сдвинуть старт внутри суток.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Отсечение replay / as_of</dt>
+      <dd>Какие данные были известны к этому моменту. Берутся только выпуски с issued_at не позже отсечения.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>issued_at</dt>
+      <dd>Когда прогноз опубликовали.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>retrieved_at</dt>
+      <dd>Когда мы скачали эти данные.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>valid_from / valid_to</dt>
+      <dd>На какой интервал величина актуальна.</dd>
+    </div>
+    
+  </dl>
+</aside>
 
-    <p class="small">Время сервера 2026-09-19T17:42:02Z. Все поля формы в UTC.</p>
+
+          </div>
+        </section>
+
+        <section class="pane" id="pane-scenarios">
+          <div class="pane-window">
+            <div class="journal-head">
+              <h2>Сценарии</h2>
+              <div class="export-actions">
+                <button type="button" class="btn ghost no-select" id="export-scenarios-json">Выгрузить JSON</button>
+                <button type="button" class="btn ghost no-select" id="export-scenarios-csv">Выгрузить CSV</button>
+                <button type="button" class="btn ghost no-select" id="export-scenarios-zip">Выгрузить архив</button>
+              </div>
+            </div>
+            <p class="demo-group-label">Демо-варианты</p>
+            <div class="actions">
+              
+              <a class="btn ghost" href="index.html?demo=storm" >Буря · 10–13 мая 2024</a>
+              
+              <a class="btn ghost" href="index.html?demo=quiet" >Тихо · 18–22 июня 2024</a>
+              
+              <a class="btn ghost" href="index.html?demo=gap" >Дыра · 1–7 июня 2024</a>
+              
+            </div>
+            <p class="demo-full-label">Варианты демо без дыр</p>
+            <div class="actions">
+              
+              <a class="btn full" href="index.html?demo=full_may" >1–14 мая 2024</a>
+              
+              <a class="btn full is-selected" href="index.html?demo=full_june" aria-pressed="true">17–30 июня 2024</a>
+              
+            </div>
+            <p class="demo-group-label">Мои сценарии</p>
+            <div id="user-scenarios">
+              <p class="small">Пока нет своих расчётов. Они появятся после «Рассчитать окна» или выбора демо.</p>
+            </div>
+            
+
+<aside class="legend">
+  <h3>Легенда терминов</h3>
+  <dl>
+    
+    <div class="legend-row">
+      <dt>Демо-варианты</dt>
+      <dd>Готовые исторические сюжеты: буря, тихий интервал и дыра в данных.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Буря</dt>
+      <dd>Интервал с высокой радиацией и геомагнитной активностью, 10–13 мая 2024.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Тихо</dt>
+      <dd>Спокойный интервал 18–22 июня 2024.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Дыра</dt>
+      <dd>Сутки без полного покрытия архива. Отсутствие файла — не «всё спокойно».</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Без дыр</dt>
+      <dd>Периоды, где на каждые сутки есть 3-day и geomag, полнота 1.00.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Полнота</dt>
+      <dd>Доля известных SEP и G от 0 до 1. Это не оценка безопасности.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Мои сценарии</dt>
+      <dd>Все ваши расчёты: актуальные параметры, предпочтительное окно и данные.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Архив сценариев</dt>
+      <dd>ZIP с JSON и CSV. Сохранённые окна той же длительности участвуют в следующем сравнении.</dd>
+    </div>
+    
+  </dl>
+</aside>
+
+
+          </div>
+        </section>
+
+        <section class="pane" id="pane-compare">
+          <div class="pane-window">
+            <div id="compare-root">
+              
+              <p class="small">Нажмите «Рассчитать окна» в разделе «Запрос».</p>
+              
+            </div>
+            
+
+<aside class="legend">
+  <h3>Легенда терминов</h3>
+  <dl>
+    
+    <div class="legend-row">
+      <dt>Радиация / SEP</dt>
+      <dd>Solar Energetic Particles — протонные события от Солнца. Поток &gt;10 MeV в pfu. G и MMOD с ней не суммируются.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Обломки / MMOD</dt>
+      <dd>Meteoroid and Orbital Debris — микрометеороиды и орбитальный мусор. Столкновение на орбитальной скорости может повредить скафандр.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Геомагнетизм / G</dt>
+      <dd>Возмущение магнитного поля Земли, шкала G по Kp. Показывается отдельно и не прибавляется к SEP.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Kp</dt>
+      <dd>Планетарный индекс 0–9. Kp &lt; 5 — спокойно, Kp = 5 — G1, Kp ≥ 5 — опасно.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>pfu</dt>
+      <dd>Particle flux units — единицы потока протонов.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>none</dt>
+      <dd>Безопасно (benign) — можно работать по этому фактору.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>watch</dt>
+      <dd>Повышенный риск (elevated) — требует внимания.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>warning / high</dt>
+      <dd>Опасно (adverse) — лучше не выходить.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>unknown</dt>
+      <dd>Недостаточно данных (insufficient_data). Это не all-clear.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Неблагоприятные минуты</dt>
+      <dd>Сколько минут окна пересекается с уровнем warning+.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Полнота</dt>
+      <dd>Доля известных SEP и G, 0–1. Не балл безопасности.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Вариант</dt>
+      <dd>Порядковый номер окна одинаковой длительности. Вариант 1 — запрошенное начало ВКД.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Покрытие</dt>
+      <dd>Есть ли данные на эти сутки: архив, API, DONKI или дыра.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Покрытие 0–1</dt>
+      <dd>0 — нет данных, 0.5 — частичные, 1.0 — полные.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>График окон</dt>
+      <dd>Ось X — время предпочтительного окна в UTC. Ось Y — уровень опасности. Три линии: радиация, обломки, геомагнетизм. G не суммируется с SEP.</dd>
+    </div>
+    
+  </dl>
+</aside>
+
+
+          </div>
+        </section>
+
+        <section class="pane" id="pane-evidence">
+          <div class="pane-window">
+            <div id="evidence-root">
+              
+              <p class="small">Доказательства появятся после расчёта.</p>
+              
+            </div>
+            
+
+<aside class="legend">
+  <h3>Легенда терминов</h3>
+  <dl>
+    
+    <div class="legend-row">
+      <dt>Доказательства</dt>
+      <dd>Почему фактору выставлен уровень: измерение, чужой прогноз или наш расчёт.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>observation</dt>
+      <dd>Измерено прибором, например GOES.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>external_forecast</dt>
+      <dd>Чужой прогноз, например SWPC.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>derived / team_calc</dt>
+      <dd>Наш расчёт: пересечение с окном, траектория, тень, SAA.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>confidence</dt>
+      <dd>Уверенность: low — мало данных, medium — есть прогноз, high — точные измерения.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>TLE</dt>
+      <dd>Two-Line Elements — две строки, описывающие орбиту спутника.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>SGP4</dt>
+      <dd>Алгоритм положения спутника по TLE. Нужен, чтобы знать, где будет МКС во время ВКД.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Полярная шапка</dt>
+      <dd>Область у полюсов, где магнитное поле слабее и SEP проникают легче.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>SAA</dt>
+      <dd>Южно-атлантическая аномалия — зона повышенной радиации на низкой орбите.</dd>
+    </div>
+    
+  </dl>
+</aside>
+
+
+          </div>
+        </section>
+
+        <section class="pane" id="pane-sources">
+          <div class="pane-window">
+            <div id="sources-root">
+              
+              <p class="small">Источники появятся после расчёта.</p>
+              
+            </div>
+            
+
+<aside class="legend">
+  <h3>Легенда терминов</h3>
+  <dl>
+    
+    <div class="legend-row">
+      <dt>NOAA SWPC</dt>
+      <dd>Space Weather Prediction Center — прогнозы протонных потоков и Kp на трое суток.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>NASA DONKI</dt>
+      <dd>Каталог уведомлений: CME, вспышки, SEP, геомагнитные бури.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>GOES-R SGPS</dt>
+      <dd>Измерения протонных потоков со спутников GOES, в том числе netCDF.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>CelesTrak</dt>
+      <dd>Текущие TLE МКС и SOCRATES — прогноз сближений с мусором.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Space-Track</dt>
+      <dd>Историческая орбита МКС: TLE и GP_HISTORY.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>SOCRATES</dt>
+      <dd>Прогноз сближений ISS с орбитальным мусором. В историческом replay не подставляется.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Публикация</dt>
+      <dd>issued_at — когда источник выпустил данные.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Получено</dt>
+      <dd>retrieved_at — когда мы скачали эти данные.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>as_of</dt>
+      <dd>Временная честность: только то, что уже было известно к этому моменту.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>available / ok</dt>
+      <dd>Источник ответил и покрывает интервал.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>degraded</dt>
+      <dd>Источник есть, но покрытие неполное.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>не получено</dt>
+      <dd>По этому источнику в текущем запуске ещё нет ответа.</dd>
+    </div>
+    
+  </dl>
+</aside>
+
+
+          </div>
+        </section>
+
+        <section class="pane" id="pane-warnings">
+          <div class="pane-window">
+            <div class="journal-head">
+              <h2>Журнал предупреждений</h2>
+              <div class="export-actions">
+                <button type="button" class="btn ghost" id="export-journal">Выгрузить архив</button>
+              </div>
+            </div>
+            <div id="warning-log">
+              <p class="small">Пока нет всплывающих предупреждений. Они появятся, если при смене начала ВКД окно окажется неблагоприятным.</p>
+            </div>
+            
+
+<aside class="legend">
+  <h3>Легенда терминов</h3>
+  <dl>
+    
+    <div class="legend-row">
+      <dt>Опасность выхода</dt>
+      <dd>Всплывающее предупреждение, если при смене начала ВКД окно выглядит неблагоприятным.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>warning+</dt>
+      <dd>Уровень warning или high хотя бы по радиации, обломкам или геомагнетизму.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>SEP</dt>
+      <dd>Солнечные энергичные частицы — радиация.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>MMOD</dt>
+      <dd>Микрометеороиды и орбитальный мусор.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>G</dt>
+      <dd>Геомагнитная шкала. Показывается отдельно, не суммируется с SEP.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Журнал предупреждений</dt>
+      <dd>Список всех уже показанных всплывающих предупреждений с временем UTC.</dd>
+    </div>
+    
+    <div class="legend-row">
+      <dt>Архив</dt>
+      <dd>ZIP-файл с journal.json и journal.csv — выгрузка всех записей журнала.</dd>
+    </div>
+    
+  </dl>
+</aside>
+
+
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
   <div id="eva-alert" class="modal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="eva-alert-title">
@@ -87,6 +603,6 @@
       </div>
     </div>
   </div>
-  <script src="static/stand.js?v=eva-window-0.3.8"></script>
+  <script src="static/stand.js?v=eva-window-0.3.26"></script>
 </body>
 </html>

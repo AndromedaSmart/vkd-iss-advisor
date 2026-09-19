@@ -209,8 +209,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": true,
+      "timeline": [
+        {
+          "t": "2024-06-17T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-17T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 1"
     },
     {
       "id": "W2",
@@ -468,8 +621,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-18T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-18T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 2"
     },
     {
       "id": "W3",
@@ -716,8 +1022,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-19T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-19T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 3"
     },
     {
       "id": "W4",
@@ -975,8 +1434,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-20T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-20T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 4"
     },
     {
       "id": "W5",
@@ -1243,8 +1855,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-21T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-21T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 5"
     },
     {
       "id": "W6",
@@ -1482,8 +2247,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-22T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-22T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 6"
     },
     {
       "id": "W7",
@@ -1750,8 +2668,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-23T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-23T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 7"
     },
     {
       "id": "W8",
@@ -1998,8 +3069,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-24T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-24T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 8"
     },
     {
       "id": "W9",
@@ -2219,8 +3443,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 1,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-25T08:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T08:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T08:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T08:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T09:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T09:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T09:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T09:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T10:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T10:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T10:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T10:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T11:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T11:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T11:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T11:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T12:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T12:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T12:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T12:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T13:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T13:15:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T13:30:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T13:45:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-25T14:00:00Z",
+          "sep": "watch",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": false
+      "tied": false,
+      "label": "Вариант 9"
     },
     {
       "id": "W10",
@@ -2451,8 +3828,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-26T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-26T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 10"
     },
     {
       "id": "W11",
@@ -2674,8 +4204,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-27T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-27T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 11"
     },
     {
       "id": "W12",
@@ -2895,8 +4578,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-28T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-28T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 12"
     },
     {
       "id": "W13",
@@ -3107,8 +4943,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-29T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-29T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 13"
     },
     {
       "id": "W14",
@@ -3319,8 +5308,161 @@
       "adverse_minutes": 0.0,
       "worst_rank": 0,
       "is_requested": false,
+      "timeline": [
+        {
+          "t": "2024-06-30T08:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T08:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T08:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T08:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T09:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T09:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T09:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T09:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T10:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T10:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T10:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T10:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T11:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T11:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T11:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T11:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T12:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T12:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T12:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T12:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T13:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T13:15:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T13:30:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T13:45:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-06-30T14:00:00Z",
+          "sep": "none",
+          "mmod": "unknown",
+          "geo": "none"
+        }
+      ],
       "preferred": false,
-      "tied": true
+      "tied": true,
+      "label": "Вариант 14"
     }
   ],
   "notes": [
