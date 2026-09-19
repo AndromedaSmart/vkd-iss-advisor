@@ -165,6 +165,55 @@ def evaluate(form):
     return evaluate_local(req)
 
 
+def _planner_window_empty(window):
+    """True when the remote assess-window result has no usable SEP/G coverage."""
+    if window.get("critical_missing"):
+        return True
+    sep = window.get("sep") or {}
+    if sep.get("incomplete") or sep.get("level") == "unknown":
+        return True
+    cover = (window.get("coverage") or {}).get("tag")
+    if cover == "gap":
+        return True
+    try:
+        coverage_value = float(sep.get("coverage") if sep.get("coverage") is not None else 0)
+    except (TypeError, ValueError):
+        coverage_value = 0.0
+    return coverage_value <= 0 and cover not in ("ncei", "donki")
+
+
+def _fill_empty_windows_from_local(req, windows):
+    empty = [idx for idx, window in enumerate(windows) if _planner_window_empty(window)]
+    if not empty:
+        return windows, False, None
+    local_pack = evaluate_local(req)
+    by_day = {}
+    for item in local_pack.get("windows") or []:
+        key = item.get("day_label") or str(item.get("start") or "")[:10]
+        by_day[key] = item
+    filled = False
+    out = list(windows)
+    for idx in empty:
+        window = out[idx]
+        day = window.get("day_label") or str(window.get("start") or "")[:10]
+        local = by_day.get(day)
+        if not local:
+            continue
+        merged = dict(local)
+        merged["id"] = window.get("id") or merged.get("id")
+        merged["is_requested"] = window.get("is_requested")
+        coverage = dict(merged.get("coverage") or {})
+        labels = list(coverage.get("labels") or [])
+        if "архив" not in labels:
+            labels.insert(0, "архив")
+        coverage["labels"] = labels
+        merged["coverage"] = coverage
+        merged["from_archive"] = True
+        out[idx] = merged
+        filled = True
+    return out, filled, local_pack
+
+
 def evaluate_via_planner(req):
     status = None
     try:
@@ -245,10 +294,6 @@ def evaluate_via_planner(req):
                     "is_requested": idx == 0,
                 }
             )
-    comparison = compare_windows(windows)
-    for window in windows:
-        window["preferred"] = comparison["preferred_id"] == window["id"]
-        window["tied"] = window["id"] in comparison.get("tied_ids", [])
     orbit_meta = {
         "available": False,
         "role": "орбита приходит из онлайн-API вместе с оценкой окна",
@@ -265,6 +310,14 @@ def evaluate_via_planner(req):
             "warning": "реконструкция" if raw_orbit.get("is_reconstruction") else None,
             "reconstruction": bool(raw_orbit.get("is_reconstruction")),
         }
+    windows = [_public_window(w) for w in windows]
+    windows, used_archive, local_pack = _fill_empty_windows_from_local(req, windows)
+    if used_archive and local_pack and not orbit_meta.get("available"):
+        orbit_meta = local_pack.get("orbit") or orbit_meta
+    comparison = compare_windows(windows)
+    for window in windows:
+        window["preferred"] = comparison["preferred_id"] == window["id"]
+        window["tied"] = window["id"] in comparison.get("tied_ids", [])
     notes = [
         "Онлайн-режим берёт данные с {0} (API v0.2.0): /api/assess-window и /api/data-sources-status.".format(planner_base()),
         "Факторы API: radiation_sep, geomagnetic_activity, mmod_meteoroid. Шкала G не суммируется с SEP.",
@@ -273,8 +326,27 @@ def evaluate_via_planner(req):
         notes.append("Статус источников планировщика: {0}.".format(status.get("overall_status")))
     if last_error:
         notes.append("Часть окон не получена: {0}".format(last_error))
+    if used_archive:
+        notes.append(
+            "Хост assess-window почти не пересекается с заявленным каталогом (кроме test_swpc на 2024-05-10 08:00 UTC). "
+            "Пустые сутки заполнены локальным архивом NCEI/DONKI. Отсутствие файла ≠ all-clear."
+        )
     if comparison["decision"] == "insufficient":
         notes.append(comparison["reason"])
+    source_rows = [src.as_dict() for src in sources]
+    if used_archive and local_pack:
+        source_rows.extend(local_pack.get("sources") or [])
+    dataset = {
+        "root": planner_base(),
+        "notifications": 0,
+        "cmes": 0,
+        "three_day_dirs": [],
+        "overall_status": (status or {}).get("overall_status"),
+    }
+    if used_archive and local_pack and local_pack.get("dataset"):
+        dataset = dict(local_pack["dataset"])
+        dataset["overall_status"] = (status or {}).get("overall_status")
+        dataset["planner_api"] = planner_base()
     pack = {
         "id": str(uuid.uuid4())[:8],
         "algorithm": ALGORITHM_VERSION,
@@ -295,19 +367,13 @@ def evaluate_via_planner(req):
             "planner_api": planner_base(),
         },
         "orbit": orbit_meta,
-        "sources": [src.as_dict() for src in sources],
-        "windows": [_public_window(w) for w in windows],
+        "sources": source_rows,
+        "windows": windows,
         "comparison": comparison,
         "notes": notes,
         "kind_label": KIND_LABEL,
         "ui": _ui(windows, req),
-        "dataset": {
-            "root": planner_base(),
-            "notifications": 0,
-            "cmes": 0,
-            "three_day_dirs": [],
-            "overall_status": (status or {}).get("overall_status"),
-        },
+        "dataset": dataset,
     }
     return pack
 
@@ -574,7 +640,7 @@ def _dataset_sources():
         records.append(
             SourceRecord(
                 "local_bundle",
-                "Локальный набор Downloads/data",
+                "Локальный набор data/",
                 status["root"],
                 "catalog",
                 ok=True,

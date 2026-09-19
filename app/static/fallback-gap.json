@@ -1,0 +1,1198 @@
+{
+  "windows": [
+    {
+      "id": "W1",
+      "start": "2024-06-01T08:00:00Z",
+      "end": "2024-06-01T14:00:00Z",
+      "start_label": "2024-06-01 08:00 UTC",
+      "end_label": "2024-06-01 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-01",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 41% тени; SAA: 22% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-01T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "none",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 3,
+        "earthward": 0,
+        "fastest": 817.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-31 04:17",
+            "value": "817.0 км/с · lon -171.0°",
+            "detail": "не earthward; halfAngle 21.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-31T13:55:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-30 09:24",
+            "value": "750.0 км/с · lon -78.0°",
+            "detail": "не earthward; halfAngle 25.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-30T12:50:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-30 21:12",
+            "value": "571.0 км/с · lon 145.0°",
+            "detail": "не earthward; halfAngle 33.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-31T13:39:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "watch",
+        "confidence": "оперативные сообщения NASA, не модель команды",
+        "incomplete": false,
+        "count": 2,
+        "types": "FLR",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": true,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "FLR 20240531-AL-002",
+            "value": "2024-05-31T22:14:00Z",
+            "detail": "## Community Coordinated Modeling Center Database Of Notifications, Knowledge, Information ( CCMC DONKI )",
+            "source_id": "donki_notifications",
+            "time": "2024-05-31T22:14:00Z",
+            "rule": "messageIssueTime ≤ отсечения; SEP → не ниже warning"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "FLR 20240531-AL-001",
+            "value": "2024-05-31T22:05:00Z",
+            "detail": "## Community Coordinated Modeling Center Database Of Notifications, Knowledge, Information ( CCMC DONKI )",
+            "source_id": "donki_notifications",
+            "time": "2024-05-31T22:05:00Z",
+            "rule": "messageIssueTime ≤ отсечения; SEP → не ниже warning"
+          }
+        ],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "donki",
+        "labels": [
+          "DONKI"
+        ]
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-01T08:00:00Z",
+          "lat": -41.592,
+          "lon": -20.736,
+          "alt_km": 425.4,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.658
+        },
+        "mid": {
+          "time": "2024-06-01T11:00:00Z",
+          "lat": -50.541,
+          "lon": -95.141,
+          "alt_km": 428.2,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.656
+        },
+        "last": {
+          "time": "2024-06-01T14:00:00Z",
+          "lat": -50.504,
+          "lon": -175.175,
+          "alt_km": 428.0,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.657
+        },
+        "shadow_percent": 40.5,
+        "saa_percent": 21.6,
+        "sunlit_percent": 59.5
+      },
+      "critical_missing": true,
+      "completeness": 0.17,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": true,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W2",
+      "start": "2024-06-02T08:00:00Z",
+      "end": "2024-06-02T14:00:00Z",
+      "start_label": "2024-06-02 08:00 UTC",
+      "end_label": "2024-06-02 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-02",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 41% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-02T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "unknown",
+        "confidence": "нет CME в окне ±2 сут",
+        "incomplete": false,
+        "count": 0,
+        "earthward": 0,
+        "fastest": null,
+        "evidence": [],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "watch",
+        "confidence": "оперативные сообщения NASA, не модель команды",
+        "incomplete": false,
+        "count": 1,
+        "types": "FLR",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": true,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "FLR 20240601-AL-006",
+            "value": "2024-06-01T20:21:00Z",
+            "detail": "## Community Coordinated Modeling Center Database Of Notifications, Knowledge, Information ( CCMC DONKI )",
+            "source_id": "donki_notifications",
+            "time": "2024-06-01T20:21:00Z",
+            "rule": "messageIssueTime ≤ отсечения; SEP → не ниже warning"
+          }
+        ],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "donki",
+        "labels": [
+          "DONKI"
+        ]
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-02T08:00:00Z",
+          "lat": 37.762,
+          "lon": 160.065,
+          "alt_km": 420.2,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.662
+        },
+        "mid": {
+          "time": "2024-06-02T11:00:00Z",
+          "lat": 48.664,
+          "lon": 88.408,
+          "alt_km": 423.4,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.661
+        },
+        "last": {
+          "time": "2024-06-02T14:00:00Z",
+          "lat": 51.575,
+          "lon": 8.956,
+          "alt_km": 424.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.661
+        },
+        "shadow_percent": 40.5,
+        "saa_percent": 18.9,
+        "sunlit_percent": 59.5
+      },
+      "critical_missing": true,
+      "completeness": 0.17,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W3",
+      "start": "2024-06-03T08:00:00Z",
+      "end": "2024-06-03T14:00:00Z",
+      "start_label": "2024-06-03 08:00 UTC",
+      "end_label": "2024-06-03 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-03",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 38% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-03T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "none",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 2,
+        "earthward": 0,
+        "fastest": 1503.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-06-01 19:12",
+            "value": "1503.0 км/с · lon -168.0°",
+            "detail": "не earthward; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-06-02T15:06:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-06-01 19:12",
+            "value": "1215.0 км/с · lon -175.0°",
+            "detail": "не earthward; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-06-02T15:11:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "gap",
+        "labels": []
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-03T08:00:00Z",
+          "lat": -33.534,
+          "lon": -19.757,
+          "alt_km": 422.0,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.66
+        },
+        "mid": {
+          "time": "2024-06-03T11:00:00Z",
+          "lat": -46.015,
+          "lon": -88.69,
+          "alt_km": 426.2,
+          "in_shadow": true,
+          "in_saa": true,
+          "speed_km_s": 7.658
+        },
+        "last": {
+          "time": "2024-06-03T14:00:00Z",
+          "lat": -51.745,
+          "lon": -166.369,
+          "alt_km": 428.2,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.657
+        },
+        "shadow_percent": 37.8,
+        "saa_percent": 18.9,
+        "sunlit_percent": 62.2
+      },
+      "critical_missing": true,
+      "completeness": 0.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W4",
+      "start": "2024-06-04T08:00:00Z",
+      "end": "2024-06-04T14:00:00Z",
+      "start_label": "2024-06-04 08:00 UTC",
+      "end_label": "2024-06-04 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-04",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 41% тени; SAA: 16% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-04T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 2,
+        "earthward": 1,
+        "fastest": 257.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-06-03 14:36",
+            "value": "257.0 км/с · lon 41.0°",
+            "detail": "к Земле; halfAngle 35.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-06-03T19:31:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "gap",
+        "labels": []
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-04T08:00:00Z",
+          "lat": 28.895,
+          "lon": 159.996,
+          "alt_km": 418.1,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.663
+        },
+        "mid": {
+          "time": "2024-06-04T11:00:00Z",
+          "lat": 42.67,
+          "lon": 93.49,
+          "alt_km": 421.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.662
+        },
+        "last": {
+          "time": "2024-06-04T14:00:00Z",
+          "lat": 50.947,
+          "lon": 18.309,
+          "alt_km": 423.9,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.661
+        },
+        "shadow_percent": 40.5,
+        "saa_percent": 16.2,
+        "sunlit_percent": 59.5
+      },
+      "critical_missing": true,
+      "completeness": 0.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W5",
+      "start": "2024-06-05T08:00:00Z",
+      "end": "2024-06-05T14:00:00Z",
+      "start_label": "2024-06-05 08:00 UTC",
+      "end_label": "2024-06-05 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-05",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 38% тени; SAA: 16% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-05T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 2,
+        "earthward": 1,
+        "fastest": 257.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-06-03 14:36",
+            "value": "257.0 км/с · lon 41.0°",
+            "detail": "к Земле; halfAngle 35.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-06-03T19:31:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "gap",
+        "labels": []
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-05T08:00:00Z",
+          "lat": -23.992,
+          "lon": -20.71,
+          "alt_km": 418.5,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.661
+        },
+        "mid": {
+          "time": "2024-06-05T11:00:00Z",
+          "lat": -38.75,
+          "lon": -85.122,
+          "alt_km": 423.3,
+          "in_shadow": true,
+          "in_saa": true,
+          "speed_km_s": 7.659
+        },
+        "last": {
+          "time": "2024-06-05T14:00:00Z",
+          "lat": -49.18,
+          "lon": -157.356,
+          "alt_km": 427.0,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.657
+        },
+        "shadow_percent": 37.8,
+        "saa_percent": 16.2,
+        "sunlit_percent": 62.2
+      },
+      "critical_missing": true,
+      "completeness": 0.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W6",
+      "start": "2024-06-06T08:00:00Z",
+      "end": "2024-06-06T14:00:00Z",
+      "start_label": "2024-06-06 08:00 UTC",
+      "end_label": "2024-06-06 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-06",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 38% тени; SAA: 14% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-06T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "unknown",
+        "confidence": "нет CME в окне ±2 сут",
+        "incomplete": false,
+        "count": 0,
+        "earthward": 0,
+        "fastest": null,
+        "evidence": [],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "watch",
+        "confidence": "оперативные сообщения NASA, не модель команды",
+        "incomplete": false,
+        "count": 1,
+        "types": "Report",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Report 20240605-7D-001",
+            "value": "2024-06-05T21:11:00Z",
+            "detail": "## Community Coordinated Modeling Center Database Of Notifications, Knowledge, Information (CCMC DONKI)",
+            "source_id": "donki_notifications",
+            "time": "2024-06-05T21:11:00Z",
+            "rule": "messageIssueTime ≤ отсечения; SEP → не ниже warning"
+          }
+        ],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "donki",
+        "labels": [
+          "DONKI"
+        ]
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-06T08:00:00Z",
+          "lat": 18.722,
+          "lon": 158.374,
+          "alt_km": 416.5,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.663
+        },
+        "mid": {
+          "time": "2024-06-06T11:00:00Z",
+          "lat": 34.263,
+          "lon": 95.681,
+          "alt_km": 419.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.662
+        },
+        "last": {
+          "time": "2024-06-06T14:00:00Z",
+          "lat": 46.487,
+          "lon": 26.362,
+          "alt_km": 422.7,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.661
+        },
+        "shadow_percent": 37.8,
+        "saa_percent": 13.5,
+        "sunlit_percent": 62.2
+      },
+      "critical_missing": true,
+      "completeness": 0.17,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W7",
+      "start": "2024-06-07T08:00:00Z",
+      "end": "2024-06-07T14:00:00Z",
+      "start_label": "2024-06-07 08:00 UTC",
+      "end_label": "2024-06-07 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-06-07",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "unknown",
+        "confidence": "нет данных SEP",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": true,
+        "evidence": [
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 41% тени; SAA: 14% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-06-07T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "evidence": [],
+        "applies_to": "контекст, не вторая радиационная доза",
+        "limit": "G не означает S и не добавляет риск SEP автоматически"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "unknown",
+        "confidence": "нет данных R",
+        "incomplete": true,
+        "r12_percent": null,
+        "r3_percent": null,
+        "evidence": [],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 4,
+        "earthward": 1,
+        "fastest": 471.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-06-05 16:48",
+            "value": "471.0 км/с · lon -54.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-06-06T12:33:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "gap",
+        "labels": []
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-06-07T08:00:00Z",
+          "lat": -13.321,
+          "lon": -22.845,
+          "alt_km": 415.3,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.664
+        },
+        "mid": {
+          "time": "2024-06-07T11:00:00Z",
+          "lat": -29.428,
+          "lon": -84.207,
+          "alt_km": 419.5,
+          "in_shadow": true,
+          "in_saa": true,
+          "speed_km_s": 7.661
+        },
+        "last": {
+          "time": "2024-06-07T14:00:00Z",
+          "lat": -43.036,
+          "lon": -150.888,
+          "alt_km": 424.3,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.659
+        },
+        "shadow_percent": 40.5,
+        "saa_percent": 13.5,
+        "sunlit_percent": 59.5
+      },
+      "critical_missing": true,
+      "completeness": 0.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    }
+  ],
+  "notes": [
+    "Сервис — исследовательский прототип поддержки решений, не допуск к ВКД.",
+    "Механизм 1: SEP. Механизм 2: сближения каталожных объектов. Шкала G показывается отдельно и не прибавляется к SEP.",
+    "Интервал сравнения: 7 сут (2024-06-01 — 2024-06-07), одно окно 6.0 ч на каждые сутки.",
+    "Исторический режим: 3-day forecast и GP ISS с временем публикации ≤ начала каждого окна. SOCRATES и современный TLE не используются.",
+    "Локальный набор встроенный архив май–июнь 2024: 3-day/geomag NCEI, DONKI 75, CME 232.",
+    "Дыры покрытия NCEI/DONKI в сутках: 2024-06-03, 2024-06-04, 2024-06-05, 2024-06-07. Отсутствие файла ≠ all-clear.",
+    "Недостаточно данных по критичному механизму хотя бы для одного окна. Это не спокойная обстановка."
+  ],
+  "comparison": {
+    "decision": "insufficient",
+    "preferred_id": null,
+    "reason": "Недостаточно данных по критичному механизму хотя бы для одного окна. Это не спокойная обстановка.",
+    "tied_ids": []
+  }
+}

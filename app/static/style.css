@@ -194,6 +194,7 @@ th {
 }
 .cover.ncei { color: var(--good); border-color: var(--good); }
 .cover.donki { color: var(--info); border-color: var(--info); }
+.cover.archive { color: var(--accent); border-color: var(--accent); }
 .cover.gap { color: var(--muted); }
 
 .evidence { margin: 0; padding: 0; list-style: none; }

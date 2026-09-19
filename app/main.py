@@ -72,6 +72,7 @@ def _form_from_params(
     cutoff_utc="",
     refresh=False,
     freeze=False,
+    offline="",
 ):
     return {
         "mode": mode,
@@ -82,12 +83,20 @@ def _form_from_params(
         "cutoff_utc": cutoff_utc,
         "refresh": "on" if refresh else "",
         "freeze": "on" if freeze else "",
+        "offline": offline,
     }
 
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return demo_storm(request)
+    demo = request.query_params.get("demo") or "storm"
+    if demo == "quiet":
+        form = _demo_form("2024-06-18 08:00", 5)
+    elif demo == "gap":
+        form = _demo_form("2024-06-01 08:00", 7)
+    else:
+        form = _demo_form("2024-05-10 08:00", 4)
+    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
 
 
 @app.post("/evaluate", response_class=HTMLResponse)
@@ -127,35 +136,20 @@ def evaluate_post(
 
 @app.get("/demo/storm", response_class=HTMLResponse)
 def demo_storm(request: Request):
-    form = _demo_form("2024-05-10 00:00", 4)
-    try:
-        pack, error = _run_form(form)
-    except Exception as exc:
-        pack = None
-        error = str(exc)
-    return templates.TemplateResponse("index.html", _context(request, form, pack, error))
+    form = _demo_form("2024-05-10 08:00", 4)
+    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
 
 
 @app.get("/demo/quiet", response_class=HTMLResponse)
 def demo_quiet(request: Request):
-    form = _demo_form("2024-06-18 00:00", 5)
-    try:
-        pack, error = _run_form(form)
-    except Exception as exc:
-        pack = None
-        error = str(exc)
-    return templates.TemplateResponse("index.html", _context(request, form, pack, error))
+    form = _demo_form("2024-06-18 08:00", 5)
+    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
 
 
 @app.get("/demo/gap", response_class=HTMLResponse)
 def demo_gap(request: Request):
-    form = _demo_form("2024-06-01 00:00", 7)
-    try:
-        pack, error = _run_form(form)
-    except Exception as exc:
-        pack = None
-        error = str(exc)
-    return templates.TemplateResponse("index.html", _context(request, form, pack, error))
+    form = _demo_form("2024-06-01 08:00", 7)
+    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
 
 
 @app.get("/api/evaluate")
@@ -168,8 +162,11 @@ def api_evaluate(
     cutoff_utc: str = Query(""),
     refresh: bool = Query(False),
     freeze: bool = Query(False),
+    offline: str = Query(""),
 ):
-    form = _form_from_params(mode, start_utc, duration_hours, search_hours, interval_days, cutoff_utc, refresh, freeze)
+    form = _form_from_params(
+        mode, start_utc, duration_hours, search_hours, interval_days, cutoff_utc, refresh, freeze, offline
+    )
     try:
         pack = evaluate(form)
         _save(pack)
@@ -190,9 +187,12 @@ def export_json(result_id: str):
 
 @app.get("/health")
 def health():
+    from app.planner_api import planner_base
+
     return {
         "ok": True,
         "algorithm": ALGORITHM_VERSION,
         "time": iso(utcnow()),
         "dataset": dataset_status(),
+        "planner_api": planner_base(),
     }

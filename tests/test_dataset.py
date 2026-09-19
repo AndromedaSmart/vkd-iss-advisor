@@ -7,7 +7,7 @@ from app.dataset import data_root, parse_geomag_forecast, ap_for_day, storm_prob
 from app.evaluate import evaluate
 
 
-GEOMAG = Path("/Users/andreysorokin/Downloads/data/archives/ncei/geomag/20240510geomag_forecast.txt")
+GEOMAG = Path(__file__).resolve().parent.parent / "data" / "archives" / "ncei" / "geomag" / "20240510geomag_forecast.txt"
 
 
 def test_local_bundle_is_visible():

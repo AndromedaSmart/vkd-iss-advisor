@@ -6,7 +6,7 @@
   <title>Окно ВКД · МКС</title>
   <link rel="stylesheet" href="{{ stand.asset }}">
 </head>
-<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}">
+<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}" data-live-api="{% if stand.live_api %}true{% else %}false{% endif %}">
   <div class="page">
     <p class="kicker">КосмоХакатон · демо-стенд {{ algorithm }}</p>
     <h1>Выбор окна ВКД на МКС</h1>
@@ -20,8 +20,8 @@
     <div class="banner error">{{ error }}</div>
     {% endif %}
 
-    {% if stand.static %}
-    <div class="banner">Онлайн-стенд запрашивает данные с {{ stand.api_base }}. Нажмите «Рассчитать окна» или выберите демо.</div>
+    {% if stand.api_base %}
+    <div class="banner">Стенд запрашивает данные с {{ stand.api_base }}. Нажмите «Рассчитать окна» или выберите демо.</div>
     {% endif %}
     <div id="live-error" class="banner error"></div>
 

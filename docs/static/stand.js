@@ -10,6 +10,7 @@
     quiet: { mode: "historical", start_utc: "2024-06-18 08:00", duration_hours: 6, interval_days: 5, search_hours: 12, cutoff_utc: "" },
     gap: { mode: "historical", start_utc: "2024-06-01 08:00", duration_hours: 6, interval_days: 7, search_hours: 12, cutoff_utc: "" }
   };
+  var activeDemo = null;
 
   function apiBase() {
     var body = document.body;
@@ -107,6 +108,13 @@
     });
   }
 
+  function fetchJson(url) {
+    return fetch(url).then(function (resp) {
+      if (!resp.ok) throw new Error("status " + resp.status);
+      return resp.json();
+    });
+  }
+
   function assessOne(start, duration, asOf) {
     var payload = {
       window_start: toIso(start),
@@ -114,6 +122,23 @@
     };
     if (asOf) payload.as_of = toIso(asOf);
     return postJson("/api/assess-window", payload);
+  }
+
+  function apiWindowEmpty(w) {
+    return w.sepLevel === "unknown" && (w.cover || 0) === 0;
+  }
+
+  function factorView(block) {
+    block = block || {};
+    return {
+      factor_id: block.factor_id || block.mechanism,
+      grade: block.grade,
+      coverage: block.coverage,
+      adverse_minutes: block.overlap_minutes || block.adverse_minutes || 0,
+      evidence: block.evidence || [],
+      confidence_reason: block.confidence_reason || block.confidence || "",
+      limitations: block.limitations || []
+    };
   }
 
   function mapWindow(raw, idx, requested) {
@@ -150,8 +175,74 @@
       critical: sepLevel === "unknown",
       requested: requested,
       worst: Math.max(rank(sepLevel), rank(mmodLevel), 0),
-      raw: raw
+      raw: raw,
+      archive: false,
+      reason: sep.confidence_reason || geo.confidence_reason || "",
+      donkiCount: 0,
+      cmeCount: 0
     };
+  }
+
+  function fromPackWindow(w, idx, requested) {
+    var start = new Date(w.start);
+    var end = new Date(w.end);
+    var sep = factorView(w.sep);
+    var geo = factorView(w.geomagnetic);
+    var mmod = factorView(w.conjunction);
+    var sepLevel = sep.grade ? levelFromGrade(sep.grade) : (w.sep && w.sep.level) || "unknown";
+    var geoLevel = geo.grade ? levelFromGrade(geo.grade) : (w.geomagnetic && w.geomagnetic.level) || "unknown";
+    var mmodLevel = mmod.grade ? levelFromGrade(mmod.grade) : (w.conjunction && w.conjunction.level) || "unknown";
+    if (!sep.grade) sepLevel = (w.sep && w.sep.level) || "unknown";
+    if (!geo.grade) geoLevel = (w.geomagnetic && w.geomagnetic.level) || "unknown";
+    if (!mmod.grade) mmodLevel = (w.conjunction && w.conjunction.level) || "unknown";
+    var coverage = w.coverage || {};
+    var tag = coverage.tag || "gap";
+    var labels = (coverage.labels || []).slice();
+    if (labels.indexOf("архив") === -1) labels.unshift("архив");
+    var cover = tag === "ncei" ? 1 : tag === "donki" ? 0.5 : 0;
+    return {
+      id: w.id || ("W" + (idx + 1)),
+      start: start,
+      end: end,
+      sepLevel: sepLevel,
+      geoLevel: geoLevel,
+      mmodLevel: mmodLevel,
+      sep: sep,
+      geo: geo,
+      mmod: mmod,
+      cover: cover,
+      tag: tag === "gap" ? "archive" : tag,
+      labels: labels,
+      adverse: Number(w.adverse_minutes || 0),
+      completeness: Number(w.completeness || 0).toFixed(2),
+      critical: Boolean(w.critical_missing),
+      requested: requested,
+      worst: Math.max(rank(sepLevel), rank(mmodLevel), 0),
+      raw: w,
+      archive: true,
+      reason: sep.confidence_reason || "",
+      donkiCount: Number((w.donki && w.donki.count) || 0),
+      cmeCount: Number((w.cme && w.cme.count) || 0)
+    };
+  }
+
+  function mergeArchive(windows, pack) {
+    if (!pack || !pack.windows) return windows;
+    var byDay = {};
+    pack.windows.forEach(function (item) {
+      var key = String(item.start || "").slice(0, 10);
+      if (key) byDay[key] = item;
+    });
+    return windows.map(function (w, idx) {
+      if (!apiWindowEmpty(w)) return w;
+      var day = w.start.toISOString().slice(0, 10);
+      var local = byDay[day];
+      if (!local) return w;
+      var mapped = fromPackWindow(local, idx, w.requested);
+      mapped.id = w.id;
+      mapped.requested = w.requested;
+      return mapped;
+    });
   }
 
   function compare(windows) {
@@ -176,16 +267,25 @@
     var rows = factor.evidence || [];
     if (!rows.length) return "<p class=\"small\">Нет свидетельств в ответе API.</p>";
     return "<ul class=\"evidence\">" + rows.map(function (ev) {
-      return "<li><div class=\"kind\">" + esc(ev.provenance || "external_forecast") +
-        "</div><strong>" + esc(ev.statement || ev.rule_id || "") + "</strong>" +
-        "<div class=\"small\">" + esc(ev.rule_description || "") + "</div>" +
-        "<div class=\"src\">" + esc((ev.source_ids || []).join(", ")) + " · " + esc(ev.rule_id || "") + "</div></li>";
+      return "<li><div class=\"kind\">" + esc(ev.provenance || ev.kind || "external_forecast") +
+        "</div><strong>" + esc(ev.statement || ev.title || ev.rule_id || "") + "</strong>" +
+        "<div class=\"small\">" + esc(ev.rule_description || ev.detail || "") + "</div>" +
+        "<div class=\"src\">" + esc((ev.source_ids || []).join(", ") || ev.source_id || "") +
+        " · " + esc(ev.rule_id || ev.rule || "") + "</div></li>";
     }).join("") + "</ul>";
   }
 
-  function render(windows, comparison, status, form) {
+  function emptyReason(windows) {
+    for (var i = 0; i < windows.length; i += 1) {
+      if (windows[i].reason) return windows[i].reason;
+    }
+    return "Нет прогнозов протонного потока в период окна";
+  }
+
+  function render(windows, comparison, status, form, meta) {
     var root = document.getElementById("results-root");
     if (!root) return;
+    meta = meta || {};
     windows.forEach(function (w) {
       w.preferred = comparison.preferred === w.id;
     });
@@ -200,19 +300,24 @@
         "</td><td class=\"num\">" + esc(s.record_count) + "</td><td class=\"small\">" +
         esc((s.coverage_start || "") + " — " + (s.coverage_end || "")) + "</td></tr>";
     }).join("");
+    var showDonki = windows.some(function (w) { return Number(w.donkiCount || 0) > 0; });
     var table = windows.map(function (w) {
       var when = w.start.toISOString().replace("T", " ").replace(".000Z", " UTC") +
         " — " + w.end.toISOString().replace("T", " ").replace(".000Z", " UTC");
+      var coverLabel = w.labels.join(", ") || "дыра";
       return "<tr class=\"" + (w.preferred ? "preferred" : "") + "\">" +
         "<td class=\"num\">" + esc(w.start.toISOString().slice(0, 10)) + "</td>" +
         "<td class=\"num\">" + esc(w.id) + (w.requested ? " · запрос" : "") + (w.preferred ? " · выбор" : "") + "</td>" +
         "<td class=\"num\">" + esc(when) + "</td>" +
-        "<td><span class=\"cover " + esc(w.tag) + "\">" + esc(w.labels.join(", ") || "дыра") + "</span></td>" +
+        "<td><span class=\"cover " + esc(w.tag) + "\">" + esc(coverLabel) + "</span></td>" +
         "<td>" + pill(w.sepLevel) + "</td>" +
         "<td>" + pill(w.mmodLevel) + "</td>" +
         "<td>" + pill(w.geoLevel) + "</td>" +
+        (showDonki ? "<td class=\"num\">" + esc(w.donkiCount || 0) + "</td>" : "") +
         "<td class=\"num\">" + esc(w.adverse) + "</td>" +
-        "<td class=\"num\">" + esc(w.completeness) + (w.critical ? " · дыра" : "") + "</td></tr>";
+        "<td class=\"num\">" + esc(w.completeness) + (w.critical ? " · дыра" : "") +
+        (w.reason && !w.archive ? "<div class=\"small\">" + esc(w.reason) + "</div>" : "") +
+        "</td></tr>";
     }).join("");
     var first = windows[0];
     var cards = first ? [
@@ -224,14 +329,26 @@
         "</header><p class=\"small\">" + esc(card.block.confidence_reason || "") + "</p>" +
         evidenceHtml(card.block) + "</div>";
     }).join("") : "";
+    var emptyApi = windows.some(apiWindowEmpty);
+    var usedArchive = windows.some(function (w) { return w.archive; });
+    var banners = "<div class=\"banner\">Данные: ВКД-планировщик API " + esc(apiBase()) +
+      " · overall " + esc((status && status.overall_status) || "—") + "</div>";
+    if (emptyApi || usedArchive) {
+      banners += "<div class=\"banner warn\">Планировщик v0.2.0 отдаёт SWPC только на пример 2024-05-10 08:00 UTC (источник test_swpc). " +
+        (usedArchive
+          ? "Для остальных суток подставлен локальный архив NCEI/DONKI — это не all-clear хоста."
+          : emptyReason(windows) + ". Статус источников (89 записей NOAA) не совпадает с assess-window.") +
+        "</div>";
+    }
     root.innerHTML =
       "<div class=\"meta-row\"><div>онлайн " + esc(apiBase()) + " · " + esc(form.mode) +
-      " · окон " + windows.length + "</div></div>" +
-      "<div class=\"banner\">Данные: ВКД-планировщик API " + esc(apiBase()) +
-      " · overall " + esc((status && status.overall_status) || "—") + "</div>" +
+      " · окон " + windows.length + (usedArchive ? " · архив для пустых ответов API" : "") + "</div></div>" +
+      banners +
       "<div class=\"decision\"><h2>" + esc(title) + "</h2><p>" + esc(comparison.reason) + "</p></div>" +
       "<section><h2>Сравнение окон по ответу API</h2><div class=\"table-wrap\"><table><thead><tr>" +
-      "<th>День</th><th>Окно</th><th>Интервал UTC</th><th>Покрытие</th><th>SEP</th><th>MMOD</th><th>G (отдельно)</th><th>Неблагопр., мин</th><th>Полнота</th>" +
+      "<th>День</th><th>Окно</th><th>Интервал UTC</th><th>Покрытие</th><th>SEP</th><th>MMOD</th><th>G (отдельно)</th>" +
+      (showDonki ? "<th>DONKI</th>" : "") +
+      "<th>Неблагопр., мин</th><th>Полнота</th>" +
       "</tr></thead><tbody>" + table + "</tbody></table></div>" +
       "<p class=\"small\">Онлайн-стенд ходит в API. G и MMOD не суммируются с SEP.</p></section>" +
       "<section><h2>Доказательства по запрошенному окну</h2><div class=\"grid-2\">" + cards + "</div></section>" +
@@ -252,6 +369,34 @@
   function fillForm(form, values) {
     Object.keys(values).forEach(function (key) {
       if (form.elements[key] != null) form.elements[key].value = values[key];
+    });
+  }
+
+  function fallbackAsset(demo) {
+    var script = document.querySelector("script[src*=\"stand.js\"]");
+    var src = (script && script.getAttribute("src")) || "static/stand.js";
+    return src.replace(/stand\.js(\?.*)?$/, "fallback-" + demo + ".json");
+  }
+
+  function loadArchiveFallback(fields) {
+    var qs = new URLSearchParams({
+      mode: fields.mode || "historical",
+      start_utc: fields.start_utc || "",
+      duration_hours: String(fields.duration_hours || 6),
+      interval_days: String(fields.interval_days || 1),
+      search_hours: String(fields.search_hours || 12),
+      cutoff_utc: fields.cutoff_utc || "",
+      offline: "on"
+    });
+    var localUrl = "/api/evaluate?" + qs.toString();
+    var tryLocal = !isStatic() && /^https?:$/.test(window.location.protocol);
+    var chain = tryLocal
+      ? fetchJson(localUrl).catch(function () { return null; })
+      : Promise.resolve(null);
+    return chain.then(function (pack) {
+      if (pack && pack.windows && !pack.error) return pack;
+      if (!activeDemo) return null;
+      return fetchJson(fallbackAsset(activeDemo)).catch(function () { return null; });
     });
   }
 
@@ -288,10 +433,25 @@
       var assessments = pair[0];
       var status = pair[1];
       var windows = assessments.map(function (raw, idx) { return mapWindow(raw, idx, idx === 0); });
-      render(windows, compare(windows), status, fields);
+      if (!windows.some(apiWindowEmpty)) {
+        render(windows, compare(windows), status, fields);
+        return null;
+      }
+      return loadArchiveFallback(fields).then(function (pack) {
+        var merged = mergeArchive(windows, pack);
+        render(merged, compare(merged), status, fields, { archive: Boolean(pack) });
+      });
     }).catch(function (err) {
-      if (root) root.innerHTML = "";
-      if (banner) banner.textContent = "API " + apiBase() + ": " + err.message;
+      return loadArchiveFallback(fields).then(function (pack) {
+        if (pack && pack.windows) {
+          var windows = pack.windows.map(function (w, idx) { return fromPackWindow(w, idx, idx === 0); });
+          render(windows, compare(windows), { sources: [], overall_status: "unavailable" }, fields, { archive: true });
+          if (banner) banner.textContent = "API " + apiBase() + " недоступен, показан архив: " + err.message;
+          return;
+        }
+        if (root) root.innerHTML = "";
+        if (banner) banner.textContent = "API " + apiBase() + ": " + err.message;
+      });
     });
   }
 
@@ -314,6 +474,7 @@
       else if (path.indexOf("/demo/gap") !== -1) demo = "gap";
       else if (path.indexOf("/demo/storm") !== -1) demo = "storm";
     }
+    activeDemo = demo && DEMOS[demo] ? demo : "storm";
     if (demo && DEMOS[demo]) fillForm(form, DEMOS[demo]);
     run(form);
   }

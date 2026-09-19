@@ -19,18 +19,20 @@ def stand_links(static=False):
             "export_prefix": "export/",
             "form_action": "",
             "api_base": api_base,
+            "live_api": True,
         }
     return {
         "static": False,
         "asset": "/static/style.css",
         "script": "/static/stand.js",
         "home": "/",
-        "storm": "/demo/storm",
-        "quiet": "/demo/quiet",
-        "gap": "/demo/gap",
+        "storm": "/?demo=storm",
+        "quiet": "/?demo=quiet",
+        "gap": "/?demo=gap",
         "export_prefix": "/export/",
-        "form_action": "/evaluate",
+        "form_action": "",
         "api_base": api_base,
+        "live_api": True,
     }
 
 
@@ -42,7 +44,7 @@ def publicize_pack(pack):
     if pack.get("dataset"):
         pack["dataset"] = dict(pack["dataset"])
         pack["dataset"]["root"] = label
-        pack["dataset"]["three_day_dirs"] = ["data/archive/ncei", "data/bundle"]
+        pack["dataset"]["three_day_dirs"] = ["data/archives/ncei/three_day", "data/archives/ncei/geomag"]
     notes = []
     for note in pack.get("notes") or []:
         if root_text:

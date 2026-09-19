@@ -19,7 +19,11 @@ def data_root():
         path = Path(env)
         if path.exists():
             return path
-    for candidate in (DEFAULT_DOWNLOADS, PROJECT_ROOT / "data" / "bundle"):
+    for candidate in (
+        PROJECT_ROOT / "data",
+        PROJECT_ROOT / "data" / "bundle",
+        DEFAULT_DOWNLOADS,
+    ):
         if candidate.exists() and (candidate / "archives").exists():
             return candidate
     return None
