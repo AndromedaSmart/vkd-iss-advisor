@@ -39,7 +39,7 @@ h1 { font-size: 32px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.02em
   padding: 12px 14px;
   margin: 0 0 20px;
 }
-.banner.error { border-color: var(--bad); }
+.banner.error:empty { display: none; }
 .banner.warn { border-color: var(--warn); }
 
 form.console {

@@ -33,6 +33,15 @@ from app.ingest import (
 )
 from app.gp_history import gp_source_record, select_gp
 from app.orbit import load_satrec, sample_track, sat_epoch
+from app.planner_api import (
+    assess_window,
+    fetch_data_sources_status,
+    planner_as_of,
+    planner_base,
+    planner_mode_for,
+    status_sources,
+    window_from_assessment,
+)
 from app.scoring import candidate_starts, compare_windows, worst_rank
 from app.timeutil import (
     HISTORICAL_END,
@@ -141,10 +150,165 @@ def parse_request(form):
 
 def evaluate(form):
     req = parse_request(form)
+    if req["mode"] == "current":
+        return evaluate_via_planner(req)
+    return evaluate_local(req)
+
+
+def evaluate_via_planner(req):
+    status = None
+    try:
+        status = fetch_data_sources_status()
+    except Exception as exc:
+        status = {"overall_status": "unavailable", "error": str(exc), "sources": []}
+    sources = status_sources(status)
+    duration = timedelta(hours=req["duration_hours"])
+    starts = candidate_starts(
+        req["start"], req["duration_hours"], req["search_hours"], period_end=req["period_end"]
+    )
+    api_mode = planner_mode_for(req)
+    windows = []
+    assessments = []
+    last_error = None
+    for idx, w_start in enumerate(starts):
+        try:
+            raw = assess_window(
+                w_start,
+                req["duration_hours"],
+                mode=api_mode,
+                as_of=planner_as_of(req, w_start),
+                search_span_hours=0,
+            )
+            assessments.append(raw)
+            window = window_from_assessment(raw, idx, req["duration_hours"], is_requested=idx == 0)
+            window["worst_rank"] = worst_rank([window["sep"]["level"], window["conjunction"]["level"]])
+            windows.append(window)
+        except Exception as exc:
+            last_error = str(exc)
+            w_end = w_start + duration
+            windows.append(
+                {
+                    "id": "W{0}".format(idx + 1),
+                    "start": w_start,
+                    "end": w_end,
+                    "start_label": display(w_start),
+                    "end_label": display(w_end),
+                    "duration_hours": req["duration_hours"],
+                    "day_label": w_start.strftime("%Y-%m-%d"),
+                    "sep": {
+                        "mechanism": "sep",
+                        "title": "Солнечные энергичные частицы",
+                        "level": "unknown",
+                        "incomplete": True,
+                        "evidence": [],
+                        "confidence": last_error,
+                        "limit": "Онлайн-API недоступен для этого окна",
+                        "overlap_minutes": 0,
+                    },
+                    "geomagnetic": {
+                        "mechanism": "geomagnetic",
+                        "title": "Геомагнитная обстановка",
+                        "level": "unknown",
+                        "incomplete": True,
+                        "evidence": [],
+                        "confidence": "",
+                        "limit": "",
+                    },
+                    "conjunction": {
+                        "mechanism": "conjunction",
+                        "title": "MMOD",
+                        "level": "unknown",
+                        "incomplete": True,
+                        "evidence": [],
+                        "confidence": "",
+                        "limit": "",
+                    },
+                    "radio": {"level": "unknown", "incomplete": True, "evidence": [], "title": "R", "confidence": "", "limit": ""},
+                    "cme": {"count": 0, "earthward": 0, "level": "unknown", "title": "CME", "evidence": [], "confidence": "", "limit": ""},
+                    "donki": {"count": 0, "types": "", "level": "unknown", "title": "DONKI", "evidence": [], "confidence": "", "limit": ""},
+                    "coverage": {"tag": "gap", "labels": []},
+                    "ap": None,
+                    "storm_prob": None,
+                    "track": None,
+                    "critical_missing": True,
+                    "completeness": 0.0,
+                    "adverse_minutes": 0.0,
+                    "worst_rank": 0,
+                    "is_requested": idx == 0,
+                }
+            )
+    comparison = compare_windows(windows)
+    for window in windows:
+        window["preferred"] = comparison["preferred_id"] == window["id"]
+        window["tied"] = window["id"] in comparison.get("tied_ids", [])
+    orbit_meta = {
+        "available": False,
+        "role": "орбита приходит из онлайн-API вместе с оценкой окна",
+        "warning": None,
+    }
+    if windows and windows[0].get("orbit_raw"):
+        raw_orbit = windows[0]["orbit_raw"]
+        orbit_meta = {
+            "available": True,
+            "source": raw_orbit.get("provider") or planner_base(),
+            "epoch": raw_orbit.get("epoch"),
+            "age_hours": raw_orbit.get("age_hours"),
+            "role": "траектория из ВКД-планировщика API",
+            "warning": "реконструкция" if raw_orbit.get("is_reconstruction") else None,
+            "reconstruction": bool(raw_orbit.get("is_reconstruction")),
+        }
+    notes = [
+        "Онлайн-режим берёт данные с {0}, а не из локальных архивов.".format(planner_base()),
+        "Факторы API: radiation_sep, geomagnetic_activity, mmod_meteoroid. Шкала G не суммируется с SEP.",
+    ]
+    if status and status.get("overall_status"):
+        notes.append("Статус источников планировщика: {0}.".format(status.get("overall_status")))
+    if last_error:
+        notes.append("Часть окон не получена: {0}".format(last_error))
+    if comparison["decision"] == "insufficient":
+        notes.append(comparison["reason"])
+    pack = {
+        "id": str(uuid.uuid4())[:8],
+        "algorithm": ALGORITHM_VERSION,
+        "generated_at": iso(req["now"]),
+        "request": {
+            "mode": req["mode"],
+            "start": iso(req["start"]),
+            "period_end": iso(req["period_end"]) if req["period_end"] else None,
+            "interval_days": req["interval_days"],
+            "duration_hours": req["duration_hours"],
+            "search_hours": req["search_hours"],
+            "cutoff": iso(req["cutoff"]),
+            "timezone": "UTC",
+            "freeze": req["freeze"],
+            "refresh": req["refresh"],
+            "plan_change": req["plan_change"],
+            "planner_mode": api_mode,
+            "planner_api": planner_base(),
+        },
+        "orbit": orbit_meta,
+        "sources": [src.as_dict() for src in sources],
+        "windows": [_public_window(w) for w in windows],
+        "comparison": comparison,
+        "notes": notes,
+        "kind_label": KIND_LABEL,
+        "ui": _ui(windows, req),
+        "dataset": {
+            "root": planner_base(),
+            "notifications": 0,
+            "cmes": 0,
+            "three_day_dirs": [],
+            "overall_status": (status or {}).get("overall_status"),
+        },
+    }
+    return pack
+
+
+def evaluate_local(req):
     sources = []  # type: List[SourceRecord]
     freeze = req["freeze"]
     refresh = req["refresh"]
-    current = req["mode"] == "current"
+    current = False
 
     def info_cap(moment):
         if req["cutoff"] is None:
@@ -510,6 +674,8 @@ def _compact_track(track):
 
 def _public_window(window):
     out = dict(window)
+    out.pop("raw", None)
+    out.pop("orbit_raw", None)
     out["start"] = iso(window["start"])
     out["end"] = iso(window["end"])
     if out.get("track") and out["track"].get("points"):

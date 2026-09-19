@@ -6,26 +6,31 @@ from app.dataset import data_root
 
 
 def stand_links(static=False):
+    api_base = os.environ.get("VKD_PLANNER_API") or "http://46.29.164.87:8000"
     if static:
         return {
             "static": True,
             "asset": "static/style.css",
+            "script": "static/stand.js",
             "home": "index.html",
-            "storm": "demo-storm.html",
-            "quiet": "demo-quiet.html",
-            "gap": "demo-gap.html",
+            "storm": "index.html?demo=storm",
+            "quiet": "index.html?demo=quiet",
+            "gap": "index.html?demo=gap",
             "export_prefix": "export/",
             "form_action": "",
+            "api_base": api_base,
         }
     return {
         "static": False,
         "asset": "/static/style.css",
+        "script": "/static/stand.js",
         "home": "/",
         "storm": "/demo/storm",
         "quiet": "/demo/quiet",
         "gap": "/demo/gap",
         "export_prefix": "/export/",
         "form_action": "/evaluate",
+        "api_base": api_base,
     }
 
 

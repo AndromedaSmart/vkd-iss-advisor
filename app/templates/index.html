@@ -6,7 +6,7 @@
   <title>Окно ВКД · МКС</title>
   <link rel="stylesheet" href="{{ stand.asset }}">
 </head>
-<body>
+<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}">
   <div class="page">
     <p class="kicker">КосмоХакатон · демо-стенд {{ algorithm }}</p>
     <h1>Выбор окна ВКД на МКС</h1>
@@ -21,10 +21,11 @@
     {% endif %}
 
     {% if stand.static %}
-    <div class="banner">Готовые сценарии: переключайте кнопками ниже. Форма на этом стенде показывает параметры выбранного демо.</div>
+    <div class="banner">Онлайн-стенд запрашивает данные с {{ stand.api_base }}. Нажмите «Рассчитать окна» или выберите демо.</div>
     {% endif %}
+    <div id="live-error" class="banner error"></div>
 
-    <form class="console" {% if stand.form_action %}method="post" action="{{ stand.form_action }}"{% else %}onsubmit="return false;"{% endif %}>
+    <form id="eva-form" class="console" {% if stand.form_action %}method="post" action="{{ stand.form_action }}"{% else %}onsubmit="return false;"{% endif %}>
       <label class="span-2 mode-field">Режим
         <select name="mode">
           <option value="current" {% if form.mode == "current" %}selected{% endif %}>Текущая обстановка</option>
@@ -54,7 +55,7 @@
         {% endif %}
       </div>
       <div class="span-6 actions">
-        {% if stand.form_action %}
+        {% if stand.form_action or stand.api_base %}
         <button type="submit">Рассчитать окна</button>
         {% endif %}
         <a class="btn ghost" href="{{ stand.storm }}">Демо: 10–13 мая 2024</a>
@@ -63,6 +64,7 @@
       </div>
     </form>
 
+    <div id="results-root">
     {% if pack %}
     <div class="meta-row">
       <div>Запрос {{ pack.id }} · {{ pack.request.mode }} · cutoff {{ pack.request.cutoff }}</div>
@@ -256,8 +258,10 @@
       </ul>
     </section>
     {% endif %}
+    </div>
 
     <p class="small">Время сервера {{ now }}. Все поля формы в UTC.</p>
   </div>
+  <script src="{{ stand.script }}"></script>
 </body>
 </html>
