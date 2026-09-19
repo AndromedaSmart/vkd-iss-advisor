@@ -407,13 +407,6 @@
     }
   }
 
-  function emptyReason(windows) {
-    for (var i = 0; i < windows.length; i += 1) {
-      if (windows[i].reason) return windows[i].reason;
-    }
-    return "Нет прогнозов протонного потока в период окна";
-  }
-
   function render(windows, comparison, status, form, meta) {
     var root = document.getElementById("results-root");
     if (!root) return;
@@ -461,16 +454,6 @@
         "</header><p class=\"small\">" + esc(card.block.confidence_reason || "") + "</p>" +
         evidenceHtml(card.block) + "</div>";
     }).join("") : "";
-    var emptyApi = windows.some(apiWindowEmpty);
-    var usedArchive = windows.some(function (w) { return w.archive; });
-    var banners = "";
-    if (emptyApi || usedArchive) {
-      banners += "<div class=\"banner warn\">Планировщик v0.2.0 отдаёт SWPC только на пример 2024-05-10 08:00 UTC (источник test_swpc). " +
-        (usedArchive
-          ? "Для остальных суток подставлен локальный архив NCEI/DONKI — это не all-clear хоста."
-          : emptyReason(windows) + ". Статус источников (89 записей NOAA) не совпадает с assess-window.") +
-        "</div>";
-    }
     lastExport = buildExport(windows, comparison, status, form);
     lastWindows = windows;
     root.innerHTML =
@@ -479,7 +462,6 @@
       "<button type=\"button\" class=\"btn ghost\" id=\"export-json\">Выгрузить JSON</button>" +
       "<button type=\"button\" class=\"btn ghost\" id=\"export-csv\">Выгрузить CSV</button>" +
       "</div></div>" +
-      banners +
       "<div class=\"decision\"><h2>" + esc(title) + "</h2><p>" + esc(comparison.reason) + "</p></div>" +
       "<section><h2>Сравнение окон по ответу API</h2><div class=\"table-wrap\"><table><thead><tr>" +
       "<th>День</th><th>Окно</th><th>Интервал UTC</th><th>Покрытие</th><th>SEP</th><th>MMOD</th><th>G (отдельно)</th>" +
