@@ -684,12 +684,24 @@ def _ui(windows, req):
     cols = [
         {"id": "day", "title": "День"},
         {"id": "window", "title": "Окно"},
-        {"id": "interval", "title": "Интервал UTC"},
+        {
+            "id": "interval",
+            "title": "Интервал",
+            "hint": "UTC · ГГГГ-ММ-ДД чч:мм:сс",
+        },
     ]
     tags = set((w.get("coverage") or {}).get("tag") for w in windows)
     if tags - {None}:
         cols.append({"id": "coverage", "title": "Покрытие"})
-    cols.append({"id": "sep", "title": "SEP"})
+    cols.append(
+        {
+            "id": "sep",
+            "title": "SEP",
+            "abbr": "SEP",
+            "word": "Радиация",
+            "hint": "солнечные энергичные частицы",
+        }
+    )
     if any((w.get("radio") or {}).get("level") not in (None, "unknown") for w in windows):
         cols.append({"id": "radio", "title": "R"})
     if any((w.get("cme") or {}).get("count") for w in windows):
@@ -697,16 +709,36 @@ def _ui(windows, req):
     if any((w.get("donki") or {}).get("count") for w in windows):
         cols.append({"id": "donki", "title": "DONKI"})
     if req["mode"] == "current" or any(w["conjunction"]["level"] != "unknown" for w in windows):
-        cols.append({"id": "conj", "title": "Сближения"})
-    cols.append({"id": "geo", "title": "G (отдельно)"})
+        cols.append(
+            {
+                "id": "conj",
+                "title": "MMOD",
+                "abbr": "MMOD",
+                "word": "Обломки",
+                "hint": "микрометеороиды и орбитальный мусор",
+            }
+        )
+    cols.append(
+        {
+            "id": "geo",
+            "title": "G",
+            "abbr": "G",
+            "word": "Геомагнетизм",
+            "hint": "шкала G, отдельно от SEP",
+        }
+    )
     if any(w.get("ap") is not None for w in windows):
         cols.append({"id": "ap", "title": "Ap"})
     if any(w.get("storm_prob") is not None for w in windows):
         cols.append({"id": "storm", "title": "G3+"})
     cols.extend(
         [
-            {"id": "adverse", "title": "Неблагопр., мин"},
-            {"id": "completeness", "title": "Полнота"},
+            {"id": "adverse", "title": "Неблагоприятные минуты", "hint": "минуты окна с уровнем warning+"},
+            {
+                "id": "completeness",
+                "title": "Полнота",
+                "hint": "доля известных SEP и G, 0–1; не безопасность",
+            },
         ]
     )
     evidence = ["sep"]

@@ -113,7 +113,11 @@
         <thead>
           <tr>
             {% for col in pack.ui.columns %}
-            <th>{{ col.title }}</th>
+            <th class="col-{{ col.id }}">
+              {% if col.abbr %}<div class="th-abbr">{{ col.abbr }}</div>{% endif %}
+              <div class="th-word">{{ col.word or col.title }}</div>
+              {% if col.hint %}<div class="th-hint">{{ col.hint }}</div>{% endif %}
+            </th>
             {% endfor %}
           </tr>
         </thead>

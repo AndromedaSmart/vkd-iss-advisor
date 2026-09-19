@@ -210,7 +210,8 @@ h3 { font-size: 15px; margin: 0 0 8px; font-weight: 600; }
 .level.unknown { color: var(--muted); }
 
 table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   font-size: 14px;
 }
@@ -229,9 +230,43 @@ th {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--muted);
   font-weight: 500;
+  white-space: normal;
+}
+.th-abbr {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+.th-word {
+  text-transform: uppercase;
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.th-hint {
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-weight: 400;
+  color: var(--muted);
+  white-space: nowrap;
+}
+th.col-interval { min-width: 16rem; }
+th.col-sep, th.col-mmod, th.col-geo { min-width: 11rem; }
+th.col-adverse { min-width: 16rem; }
+th.col-completeness { min-width: 15rem; }
+.interval-range {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
 }
 .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .preferred { background: rgba(212, 160, 23, 0.08); }

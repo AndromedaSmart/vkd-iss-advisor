@@ -407,6 +407,18 @@
     }
   }
 
+  function formatUtc(dt) {
+    return dt.toISOString().replace("T", " ").replace(".000Z", "") + " UTC";
+  }
+
+  function thHead(opts) {
+    var html = "<th class=\"" + esc(opts.cls || "") + "\">";
+    if (opts.abbr) html += "<div class=\"th-abbr\">" + esc(opts.abbr) + "</div>";
+    html += "<div class=\"th-word\">" + esc(opts.word) + "</div>";
+    if (opts.hint) html += "<div class=\"th-hint\">" + esc(opts.hint) + "</div>";
+    return html + "</th>";
+  }
+
   function render(windows, comparison, status, form, meta) {
     var root = document.getElementById("results-root");
     if (!root) return;
@@ -427,13 +439,11 @@
     }).join("");
     var showDonki = windows.some(function (w) { return Number(w.donkiCount || 0) > 0; });
     var table = windows.map(function (w) {
-      var when = w.start.toISOString().replace("T", " ").replace(".000Z", " UTC") +
-        " — " + w.end.toISOString().replace("T", " ").replace(".000Z", " UTC");
       var coverLabel = w.labels.join(", ") || "дыра";
       return "<tr class=\"" + (w.preferred ? "preferred" : "") + "\">" +
         "<td class=\"num\">" + esc(w.start.toISOString().slice(0, 10)) + "</td>" +
         "<td class=\"num\">" + esc(w.id) + (w.requested ? " · запрос" : "") + (w.preferred ? " · выбор" : "") + "</td>" +
-        "<td class=\"num\">" + esc(when) + "</td>" +
+        "<td class=\"num interval-range\"><div>" + esc(formatUtc(w.start)) + "</div><div>" + esc(formatUtc(w.end)) + "</div></td>" +
         "<td><span class=\"cover " + esc(w.tag) + "\">" + esc(coverLabel) + "</span></td>" +
         "<td>" + pill(w.sepLevel) + "</td>" +
         "<td>" + pill(w.mmodLevel) + "</td>" +
@@ -464,9 +474,16 @@
       "</div></div>" +
       "<div class=\"decision\"><h2>" + esc(title) + "</h2><p>" + esc(comparison.reason) + "</p></div>" +
       "<section><h2>Сравнение окон по ответу API</h2><div class=\"table-wrap\"><table><thead><tr>" +
-      "<th>День</th><th>Окно</th><th>Интервал UTC</th><th>Покрытие</th><th>SEP</th><th>MMOD</th><th>G (отдельно)</th>" +
-      (showDonki ? "<th>DONKI</th>" : "") +
-      "<th>Неблагопр., мин</th><th>Полнота</th>" +
+      thHead({ cls: "col-day", word: "День" }) +
+      thHead({ cls: "col-window", word: "Окно" }) +
+      thHead({ cls: "col-interval", word: "Интервал", hint: "UTC · ГГГГ-ММ-ДД чч:мм:сс" }) +
+      thHead({ cls: "col-coverage", word: "Покрытие" }) +
+      thHead({ cls: "col-sep", abbr: "SEP", word: "Радиация", hint: "солнечные энергичные частицы" }) +
+      thHead({ cls: "col-mmod", abbr: "MMOD", word: "Обломки", hint: "микрометеороиды и орбитальный мусор" }) +
+      thHead({ cls: "col-geo", abbr: "G", word: "Геомагнетизм", hint: "шкала G, отдельно от SEP" }) +
+      (showDonki ? thHead({ cls: "col-donki", word: "DONKI" }) : "") +
+      thHead({ cls: "col-adverse", word: "Неблагоприятные минуты", hint: "минуты окна с уровнем warning+" }) +
+      thHead({ cls: "col-completeness", word: "Полнота", hint: "доля известных SEP и G, 0–1; не безопасность" }) +
       "</tr></thead><tbody>" + table + "</tbody></table></div>" +
       "<p class=\"small\">G и MMOD не суммируются с SEP.</p></section>" +
       "<section><h2>Доказательства по запрошенному окну</h2><div class=\"grid-2\">" + cards + "</div></section>" +
