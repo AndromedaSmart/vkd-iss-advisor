@@ -1078,7 +1078,7 @@
       "<button type=\"button\" class=\"btn ghost\" id=\"export-json\">Выгрузить JSON</button>" +
       "<button type=\"button\" class=\"btn ghost\" id=\"export-csv\">Выгрузить CSV</button>" +
       "</div></div>" +
-      "<h2>Сравнение окон по ответу API</h2><div class=\"table-wrap\"><table><thead><tr>" +
+      "<h2>Сравнение окон для ВКД</h2><div class=\"table-wrap\"><table><thead><tr>" +
       thHead({ cls: "col-day", word: "День" }) +
       thHead({ cls: "col-window", word: "Вариант", hint: "номер сравниваемого выхода" }) +
       thHead({ cls: "col-interval", word: "Интервал", hint: "UTC · ГГГГ-ММ-ДД чч:мм:сс" }) +
