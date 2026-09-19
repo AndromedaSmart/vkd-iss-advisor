@@ -59,14 +59,14 @@
         <button type="submit">Рассчитать окна</button>
         {% endif %}
         {% for item in stand.scenario_demos %}
-        <a class="btn ghost" href="{{ item.href }}">{{ item.label }}</a>
+        <a class="btn ghost{% if demo == item.key %} is-selected{% endif %}" href="{{ item.href }}" {% if demo == item.key %}aria-pressed="true"{% endif %}>{{ item.label }}</a>
         {% endfor %}
       </div>
       <div class="span-6 demo-full">
         <p class="demo-full-label">Периоды с наименьшим числом дыр · полнота 1.00 · 3-day и geomag на каждые сутки</p>
         <div class="actions">
           {% for item in stand.full_demos %}
-          <a class="btn full" href="{{ item.href }}">{{ item.label }}</a>
+          <a class="btn full{% if demo == item.key %} is-selected{% endif %}" href="{{ item.href }}" {% if demo == item.key %}aria-pressed="true"{% endif %}>{{ item.label }}</a>
           {% endfor %}
         </div>
       </div>
@@ -270,6 +270,17 @@
     </div>
 
     <p class="small">Время сервера {{ now }}. Все поля формы в UTC.</p>
+  </div>
+  <div id="eva-alert" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="eva-alert-title">
+      <p class="modal-kicker">Предупреждение</p>
+      <h2 id="eva-alert-title">Опасность выхода</h2>
+      <p id="eva-alert-body"></p>
+      <div id="eva-alert-factors" class="modal-factors"></div>
+      <div class="modal-actions">
+        <button type="button" id="eva-alert-close">Понятно</button>
+      </div>
+    </div>
   </div>
   <script src="{{ stand.script }}"></script>
 </body>

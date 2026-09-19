@@ -19,6 +19,9 @@
   })();
   var activeDemo = null;
   var lastExport = null;
+  var lastWindows = null;
+  var lastProbedStart = null;
+  var probeTimer = null;
 
   function apiBase() {
     var body = document.body;
@@ -470,6 +473,7 @@
         "</div>";
     }
     lastExport = buildExport(windows, comparison, status, form);
+    lastWindows = windows;
     root.innerHTML =
       "<div class=\"meta-row\"><div>онлайн " + esc(apiBase()) + " · " + esc(form.mode) +
       " · окон " + windows.length + (usedArchive ? " · архив для пустых ответов API" : "") + "</div>" +
@@ -599,6 +603,165 @@
     return isStatic() || (document.body && document.body.getAttribute("data-live-api") === "true");
   }
 
+  function isDangerous(window) {
+    if (!window) return false;
+    return rank(window.sepLevel) >= 2 || rank(window.mmodLevel) >= 2 || rank(window.geoLevel) >= 2;
+  }
+
+  function formatWhen(dt) {
+    if (!dt) return "—";
+    return dt.toISOString().replace("T", " ").replace(".000Z", " UTC");
+  }
+
+  function closeAlert() {
+    var modal = document.getElementById("eva-alert");
+    if (modal) modal.hidden = true;
+  }
+
+  function showDangerAlert(window, fields) {
+    var modal = document.getElementById("eva-alert");
+    var body = document.getElementById("eva-alert-body");
+    var factors = document.getElementById("eva-alert-factors");
+    if (!modal || !body || !factors) return;
+    var bits = [];
+    if (rank(window.sepLevel) >= 2) bits.push("радиационная обстановка SEP на уровне " + window.sepLevel);
+    if (rank(window.mmodLevel) >= 2) bits.push("MMOD на уровне " + window.mmodLevel);
+    if (rank(window.geoLevel) >= 2) bits.push("геомагнитная шкала G на уровне " + window.geoLevel + " (показывается отдельно и не суммируется с SEP)");
+    body.textContent = "Для начала ВКД " + formatWhen(window.start) +
+      " окно выглядит неблагоприятным для выхода: " + bits.join("; ") +
+      ". Это не допуск к выходу. Сравните соседние сутки или сдвиньте время.";
+    factors.innerHTML = pill(window.sepLevel) + " SEP " +
+      pill(window.mmodLevel) + " MMOD " +
+      pill(window.geoLevel) + " G";
+    modal.hidden = false;
+    var closeBtn = document.getElementById("eva-alert-close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function windowForStart(start) {
+    if (!lastWindows || !start) return null;
+    var t = start.getTime();
+    for (var i = 0; i < lastWindows.length; i += 1) {
+      if (lastWindows[i].start && lastWindows[i].start.getTime() === t) return lastWindows[i];
+    }
+    var day = start.toISOString().slice(0, 10);
+    for (var j = 0; j < lastWindows.length; j += 1) {
+      if (lastWindows[j].start && lastWindows[j].start.toISOString().slice(0, 10) === day) return lastWindows[j];
+    }
+    return null;
+  }
+
+  function packWindowForStart(pack, start) {
+    if (!pack || !pack.windows || !start) return null;
+    var day = start.toISOString().slice(0, 10);
+    for (var i = 0; i < pack.windows.length; i += 1) {
+      if (String(pack.windows[i].start || "").slice(0, 10) === day) {
+        return fromPackWindow(pack.windows[i], 0, true);
+      }
+    }
+    return null;
+  }
+
+  function checkStartDanger(form) {
+    var fields = readForm(form);
+    var start;
+    try {
+      start = parseUtc(fields.start_utc);
+    } catch (err) {
+      return Promise.resolve();
+    }
+    var known = windowForStart(start);
+    if (known) {
+      if (isDangerous(known)) showDangerAlert(known, fields);
+      else closeAlert();
+      return Promise.resolve();
+    }
+    var duration = Number(fields.duration_hours || 6);
+    var asOf = fields.mode === "current" ? null : start;
+    var fallbackP = loadArchiveFallback(fields);
+    return assessOne(start, duration, asOf).then(function (raw) {
+      var mapped = mapWindow(raw, 0, true);
+      if (!apiWindowEmpty(mapped)) return mapped;
+      return fallbackP.then(function (pack) { return packWindowForStart(pack, start) || mapped; });
+    }).catch(function () {
+      return fallbackP.then(function (pack) { return packWindowForStart(pack, start); });
+    }).then(function (window) {
+      if (!window) return;
+      if (isDangerous(window)) showDangerAlert(window, fields);
+      else closeAlert();
+    });
+  }
+
+  function bindStartWatch(form) {
+    var input = form.elements.start_utc;
+    if (!input) return;
+    lastProbedStart = (input.value || "").trim();
+    function schedule(immediate) {
+      var value = (input.value || "").trim();
+      if (value === lastProbedStart) return;
+      clearTimeout(probeTimer);
+      probeTimer = setTimeout(function () {
+        var current = (input.value || "").trim();
+        if (current !== value) return;
+        lastProbedStart = current;
+        checkStartDanger(form);
+      }, immediate ? 40 : 650);
+    }
+    input.addEventListener("input", function () { schedule(false); });
+    input.addEventListener("change", function () { schedule(true); });
+    input.addEventListener("blur", function () { schedule(true); });
+  }
+
+  function bindAlert() {
+    var modal = document.getElementById("eva-alert");
+    var closeBtn = document.getElementById("eva-alert-close");
+    if (closeBtn) closeBtn.addEventListener("click", closeAlert);
+    if (modal) {
+      modal.addEventListener("click", function (ev) {
+        if (ev.target === modal) closeAlert();
+      });
+    }
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") closeAlert();
+    });
+  }
+
+  function selectButton(el) {
+    if (!el) return;
+    var nodes = document.querySelectorAll("button.is-selected, a.btn.is-selected");
+    Array.prototype.forEach.call(nodes, function (node) {
+      node.classList.remove("is-selected");
+      node.removeAttribute("aria-pressed");
+    });
+    el.classList.add("is-selected");
+    el.setAttribute("aria-pressed", "true");
+  }
+
+  function buttonMatchesDemo(link, demo) {
+    var href = (link.getAttribute("href") || "").toLowerCase();
+    var key = String(demo || "").toLowerCase();
+    if (!key) return false;
+    return href.indexOf("demo=" + key) !== -1 || href.indexOf("/demo/" + key) !== -1;
+  }
+
+  function highlightCurrentDemo() {
+    var demo = demoFromLocation();
+    var links = document.querySelectorAll("a.btn");
+    var matched = null;
+    Array.prototype.forEach.call(links, function (link) {
+      if (buttonMatchesDemo(link, demo)) matched = link;
+    });
+    if (matched) selectButton(matched);
+  }
+
+  function bindButtonSelect() {
+    document.addEventListener("click", function (ev) {
+      var btn = ev.target.closest("button, a.btn");
+      if (!btn || btn.id === "eva-alert-close") return;
+      selectButton(btn);
+    });
+  }
+
   function boot() {
     var form = document.getElementById("eva-form");
     if (!form || !useLiveApi()) return;
@@ -609,6 +772,10 @@
     var demo = demoFromLocation();
     activeDemo = demo;
     if (DEMOS[demo]) fillForm(form, DEMOS[demo]);
+    bindAlert();
+    bindStartWatch(form);
+    bindButtonSelect();
+    highlightCurrentDemo();
     run(form);
   }
 
