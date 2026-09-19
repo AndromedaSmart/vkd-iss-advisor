@@ -34,7 +34,7 @@ def stand_links(static=False):
         "static": static,
         "asset": asset_root + "style.css?v=" + version,
         "script": asset_root + "stand.js?v=" + version,
-        "logo": asset_root + "logo.svg?v=" + version,
+        "logo": asset_root + "logo.png?v=" + version,
         "home": home,
         "export_prefix": export_prefix,
         "form_action": "",

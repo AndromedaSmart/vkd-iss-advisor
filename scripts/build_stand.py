@@ -66,7 +66,7 @@ def main():
     (docs / ".nojekyll").write_text("", encoding="utf-8")
     shutil.copy2(ROOT / "app" / "static" / "style.css", docs / "static" / "style.css")
     shutil.copy2(ROOT / "app" / "static" / "stand.js", docs / "static" / "stand.js")
-    shutil.copy2(ROOT / "app" / "static" / "logo.svg", docs / "static" / "logo.svg")
+    shutil.copy2(ROOT / "app" / "static" / "logo.png", docs / "static" / "logo.png")
     for fallback in (ROOT / "app" / "static").glob("fallback-*.json"):
         shutil.copy2(fallback, docs / "static" / fallback.name)
 
