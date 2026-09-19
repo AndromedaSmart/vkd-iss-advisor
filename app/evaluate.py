@@ -697,7 +697,6 @@ def _ui(windows, req):
         {
             "id": "sep",
             "title": "SEP",
-            "abbr": "SEP",
             "word": "Радиация",
             "hint": "солнечные энергичные частицы",
         }
@@ -713,7 +712,6 @@ def _ui(windows, req):
             {
                 "id": "conj",
                 "title": "MMOD",
-                "abbr": "MMOD",
                 "word": "Обломки",
                 "hint": "микрометеороиды и орбитальный мусор",
             }
@@ -722,9 +720,8 @@ def _ui(windows, req):
         {
             "id": "geo",
             "title": "G",
-            "abbr": "G",
             "word": "Геомагнетизм",
-            "hint": "шкала G, отдельно от SEP",
+            "hint": "шкала G, отдельно от радиации",
         }
     )
     if any(w.get("ap") is not None for w in windows):

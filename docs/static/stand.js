@@ -478,14 +478,13 @@
       thHead({ cls: "col-window", word: "Окно" }) +
       thHead({ cls: "col-interval", word: "Интервал", hint: "UTC · ГГГГ-ММ-ДД чч:мм:сс" }) +
       thHead({ cls: "col-coverage", word: "Покрытие" }) +
-      thHead({ cls: "col-sep", abbr: "SEP", word: "Радиация", hint: "солнечные энергичные частицы" }) +
-      thHead({ cls: "col-mmod", abbr: "MMOD", word: "Обломки", hint: "микрометеороиды и орбитальный мусор" }) +
-      thHead({ cls: "col-geo", abbr: "G", word: "Геомагнетизм", hint: "шкала G, отдельно от SEP" }) +
+      thHead({ cls: "col-sep", word: "Радиация", hint: "солнечные энергичные частицы" }) +
+      thHead({ cls: "col-mmod", word: "Обломки", hint: "микрометеороиды и орбитальный мусор" }) +
+      thHead({ cls: "col-geo", word: "Геомагнетизм", hint: "шкала G, отдельно от радиации" }) +
       (showDonki ? thHead({ cls: "col-donki", word: "DONKI" }) : "") +
       thHead({ cls: "col-adverse", word: "Неблагоприятные минуты", hint: "минуты окна с уровнем warning+" }) +
       thHead({ cls: "col-completeness", word: "Полнота", hint: "доля известных SEP и G, 0–1; не безопасность" }) +
-      "</tr></thead><tbody>" + table + "</tbody></table></div>" +
-      "<p class=\"small\">G и MMOD не суммируются с SEP.</p></section>" +
+      "</tr></thead><tbody>" + table + "</tbody></table></div></section>" +
       "<section><h2>Доказательства по запрошенному окну</h2><div class=\"grid-2\">" + cards + "</div></section>" +
       "<section><h2>Источники API</h2><table><thead><tr><th>Источник</th><th>ID</th><th>Статус</th><th>Последние данные</th><th>Записей</th><th>Покрытие</th></tr></thead><tbody>" +
       srcRows + "</tbody></table></section>";
