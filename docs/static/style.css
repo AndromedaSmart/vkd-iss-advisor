@@ -637,7 +637,14 @@ th {
 th.col-interval { min-width: 16rem; }
 th.col-sep, th.col-mmod, th.col-geo { min-width: 11rem; }
 th.col-adverse { min-width: 16rem; }
-th.col-completeness { min-width: 15rem; }
+th.col-completeness { min-width: 20rem; }
+.completeness-note {
+  margin-top: 6px;
+  max-width: 22rem;
+  white-space: normal;
+  font-weight: 400;
+  line-height: 1.35;
+}
 .interval-range {
   display: flex;
   flex-direction: column;
@@ -666,10 +673,10 @@ th.col-completeness { min-width: 15rem; }
   padding: 10px 0;
 }
 .kind {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--sans, inherit);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: var(--accent);
 }
 .src { color: var(--muted); font-size: 12px; }

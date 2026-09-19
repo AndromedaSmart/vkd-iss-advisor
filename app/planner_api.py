@@ -5,6 +5,8 @@ from datetime import timedelta
 
 import httpx
 
+from app.completeness import window_completeness_note
+from app.evidence_text import plain_evidence_item
 from app.factors import LEVEL_RANK
 from app.ingest import SourceRecord
 from app.timeutil import as_utc, display, iso, utcnow
@@ -117,15 +119,18 @@ def _evidence(items):
         else:
             value_text = "{0} {1}".format(value, row.get("unit") or "").strip()
         out.append(
-            {
-                "kind": kind,
-                "title": row.get("statement") or row.get("rule_id") or "свидетельство",
-                "value": value_text,
-                "detail": row.get("rule_description") or "",
-                "source_id": ", ".join([item for item in sources if item]) or "planner_api",
-                "time": row.get("timestamp"),
-                "rule": row.get("rule_id") or "",
-            }
+            plain_evidence_item(
+                {
+                    "kind": kind,
+                    "title": row.get("statement") or row.get("rule_id") or "свидетельство",
+                    "value": value_text,
+                    "detail": row.get("rule_description") or "",
+                    "source_id": ", ".join([item for item in sources if item]) or "planner_api",
+                    "time": row.get("timestamp"),
+                    "rule": row.get("rule_id") or "",
+                    "provenance": provenance,
+                }
+            )
         )
     return out
 
@@ -229,6 +234,15 @@ def window_from_assessment(raw, idx, duration_hours, is_requested=False):
         "orbit_raw": orbit,
         "critical_missing": critical_missing,
         "completeness": completeness,
+        "completeness_note": window_completeness_note(
+            {
+                "completeness": completeness,
+                "critical_missing": critical_missing,
+                "sep": sep,
+                "geomagnetic": geo,
+                "conjunction": mmod,
+            }
+        ),
         "adverse_minutes": round(adverse, 1),
         "worst_rank": worst if worst >= 0 else 0,
         "is_requested": is_requested,

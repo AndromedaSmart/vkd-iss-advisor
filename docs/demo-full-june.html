@@ -5,13 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ВКД - Орбитальный Риск</title>
-  <link rel="stylesheet" href="static/style.css?v=eva-window-0.3.33">
+  <link rel="stylesheet" href="static/style.css?v=eva-window-0.3.41">
 </head>
-<body data-api-base="http://46.29.164.87:8000" data-static="true" data-live-api="true" data-algorithm="eva-window-0.3.33" data-demo="full_june" data-demos='{&#34;storm&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-10 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 4, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;quiet&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-18 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 5, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;gap&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 7, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_may&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_june&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-17 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}}'>
+<body data-api-base="http://46.29.164.87:8000" data-static="true" data-live-api="true" data-algorithm="eva-window-0.3.41" data-demo="full_june" data-demos='{&#34;storm&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-10 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 4, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;quiet&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-18 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 5, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;gap&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 7, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_may&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_june&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-17 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}}'>
   <div class="platform">
     <header class="platform-head">
       <a class="brand" href="index.html">
-        <img class="brand-mark" src="static/logo.svg?v=eva-window-0.3.33" alt="">
+        <img class="brand-mark" src="static/logo.svg?v=eva-window-0.3.41" alt="">
         <span class="brand-name">SafeVoid</span>
       </a>
       <div class="platform-head-copy">
@@ -272,7 +272,7 @@
     
     <div class="legend-row">
       <dt>Полнота</dt>
-      <dd>Доля известных SEP и G от 0 до 1. Это не оценка безопасности.</dd>
+      <dd>Доля известных данных по радиации и геомагнетизму, от 0 до 1. Это не оценка безопасности.</dd>
     </div>
     
     <div class="legend-row">
@@ -357,10 +357,15 @@
     
     <div class="legend-row">
       <dt>Полнота</dt>
-      <dd>Доля известных SEP и G, 0–1. Не балл безопасности.</dd>
+      <dd>Доля известных данных по радиации и геомагнетизму, 0–1. Это не оценка безопасности.</dd>
     </div>
     
-    <div class="legend-row">
+        <div class="legend-row">
+      <dt>Дыра</dt>
+      <dd>На эти сутки нет нужных данных. Пустое место не значит, что обстановка спокойная.</dd>
+    </div>
+    
+<div class="legend-row">
       <dt>Вариант</dt>
       <dd>Порядковый номер окна одинаковой длительности. Вариант 1 — запрошенное начало ВКД.</dd>
     </div>
@@ -406,18 +411,18 @@
     </div>
     
     <div class="legend-row">
-      <dt>observation</dt>
-      <dd>Измерено прибором, например GOES.</dd>
+      <dt>Измерение</dt>
+      <dd>Данные прибора, например спутника GOES.</dd>
     </div>
     
     <div class="legend-row">
-      <dt>external_forecast</dt>
-      <dd>Чужой прогноз, например SWPC.</dd>
+      <dt>Чужой прогноз</dt>
+      <dd>Готовый прогноз NOAA SWPC или другого центра, не наш расчёт.</dd>
     </div>
     
     <div class="legend-row">
-      <dt>derived / team_calc</dt>
-      <dd>Наш расчёт: пересечение с окном, траектория, тень, SAA.</dd>
+      <dt>Наш расчёт</dt>
+      <dd>Пересечение прогноза с окном, траектория, тень, SAA.</dd>
     </div>
     
     <div class="legend-row">
@@ -541,7 +546,7 @@
               </div>
             </div>
             <div id="warning-log">
-              <p class="small">Пока нет всплывающих предупреждений. Они появятся, если при смене начала ВКД окно окажется неблагоприятным.</p>
+              <p class="small">Пока нет всплывающих предупреждений. Они появятся после расчёта или смены начала ВКД, если выход выглядит опасным или в данных дыра.</p>
             </div>
             
 
@@ -550,28 +555,28 @@
   <dl>
     
     <div class="legend-row">
-      <dt>Опасность выхода</dt>
-      <dd>Всплывающее предупреждение, если при смене начала ВКД окно выглядит неблагоприятным.</dd>
+      <dt>Выход выглядит опасным</dt>
+      <dd>Всплывает после расчёта или смены начала ВКД, если радиация, обломки или геомагнетизм на уровне «опасно» и выше.</dd>
     </div>
     
     <div class="legend-row">
-      <dt>warning+</dt>
-      <dd>Уровень warning или high хотя бы по радиации, обломкам или геомагнетизму.</dd>
+      <dt>Дыра в данных</dt>
+      <dd>Всплывает, если на выбранные сутки нет полных данных по радиации. Пустое место не значит, что безопасно.</dd>
     </div>
     
     <div class="legend-row">
-      <dt>SEP</dt>
-      <dd>Солнечные энергичные частицы — радиация.</dd>
+      <dt>Радиация</dt>
+      <dd>Солнечные частицы. Не складывается с геомагнетизмом.</dd>
     </div>
     
     <div class="legend-row">
-      <dt>MMOD</dt>
+      <dt>Обломки</dt>
       <dd>Микрометеороиды и орбитальный мусор.</dd>
     </div>
     
     <div class="legend-row">
-      <dt>G</dt>
-      <dd>Геомагнитная шкала. Показывается отдельно, не суммируется с SEP.</dd>
+      <dt>Геомагнетизм</dt>
+      <dd>Возмущение магнитного поля Земли. Показывается отдельно от радиации.</dd>
     </div>
     
     <div class="legend-row">
@@ -596,7 +601,7 @@
   <div id="eva-alert" class="modal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="eva-alert-title">
       <p class="modal-kicker">Предупреждение</p>
-      <h2 id="eva-alert-title">Опасность выхода</h2>
+      <h2 id="eva-alert-title">Выход выглядит опасным</h2>
       <p id="eva-alert-body"></p>
       <div id="eva-alert-factors" class="modal-factors"></div>
       <div class="modal-actions">
@@ -604,6 +609,6 @@
       </div>
     </div>
   </div>
-  <script src="static/stand.js?v=eva-window-0.3.33"></script>
+  <script src="static/stand.js?v=eva-window-0.3.41"></script>
 </body>
 </html>

@@ -31,7 +31,8 @@ def test_factor_block_from_planner():
     )
     assert block["level"] == "none"
     assert block["incomplete"] is False
-    assert block["evidence"][0]["source_id"] == "test_swpc"
+    assert "SWPC" in block["evidence"][0]["source_id"]
+    assert block["evidence"][0]["kind_label"] == "Чужой прогноз"
 
 
 def test_window_from_assessment_shape():

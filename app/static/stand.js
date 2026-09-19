@@ -29,12 +29,136 @@
     { id: "planner_api", name: "ВКД-планировщик", role: "каталог" }
   ];
   var SOURCE_NAMES = {
-    test_swpc: "SWPC test",
-    orbit: "Орбита МКС"
+    test_swpc: "Тестовый прогноз NOAA SWPC",
+    noaa_swpc: "Прогноз NOAA SWPC",
+    swpc_3day: "Прогноз NOAA SWPC на трое суток",
+    swpc_geomag: "Геомагнитный прогноз NOAA SWPC",
+    goes_protons: "Измерения протонов GOES",
+    goes_sgps: "Измерения GOES-R",
+    swpc_kp: "Индекс Kp NOAA SWPC",
+    nasa_donki: "Уведомления NASA DONKI",
+    donki_notifications: "Уведомления NASA DONKI",
+    donki_cme: "Каталог выбросов NASA DONKI",
+    socrates: "Каталог сближений SOCRATES",
+    orbit: "Орбита МКС",
+    iss_gp_history: "Архив орбиты МКС",
+    planner_api: "ВКД-планировщик",
+    spacetrack_tle: "Орбита МКС, Space-Track",
+    celestrak_iss: "Орбита МКС, CelesTrak"
   };
+  var KIND_PLAIN = {
+    external_forecast: "Чужой прогноз",
+    observation: "Измерение",
+    team_calc: "Наш расчёт",
+    derived: "Наш расчёт"
+  };
+  var EVIDENCE_PHRASES = [
+    ["протонный флюкс <10 pfu (normal)", "Поток протонов ниже 10 единиц. Это спокойный уровень, не радиационная буря."],
+    ["протонный флюкс", "Поток протонов ниже порога бури. Это спокойный уровень."],
+    ["протонный поток на нормальном уровне", "Радиация в норме: поток солнечных частиц не повышен."],
+    ["прогноз swpc s1 or greater", "Прогноз радиационной бури от NOAA SWPC."],
+    ["поток протонов goes", "Измерение потока солнечных частиц со спутника GOES."],
+    ["ряд goes не покрывает окно", "Измерений GOES на это окно нет."],
+    ["поток выше порога s", "В прогнозе SWPC поток выше спокойного уровня."],
+    ["kp / шкала g", "Прогноз геомагнитной обстановки на трое суток."],
+    ["текущий estimated kp", "Текущий индекс геомагнитной активности (Kp)."],
+    ["socrates отключён", "Каталог сближений в историческом режиме не используется."],
+    ["socrates недоступен", "Каталог сближений недоступен."],
+    ["сближений iss в окне", "Крупных сближений с МКС в этом окне нет."],
+    ["вероятность strong–extreme storm", "Вероятность сильной геомагнитной бури."],
+    ["вероятность strong-extreme storm", "Вероятность сильной геомагнитной бури."],
+    ["ap из geomag forecast", "Индекс геомагнитной активности из прогноза NOAA SWPC."],
+    ["прогноз swpc r3 or greater", "Прогноз сильного радиозатмения от NOAA SWPC."],
+    ["прогноз swpc r1", "Прогноз радиозатмения от NOAA SWPC."],
+    ["пересечение воздействий с окном", "Насколько окно пересекается с неблагоприятными условиями."],
+    ["отсутствие ряда не равно s0", "Нет измерений — это не значит, что радиации нет."],
+    ["нет данных ≠ нет сближения", "Нет данных не значит, что сближений нет."],
+    ["не складывается с sep", "Отдельный прогноз. Не складывается с радиацией."],
+    ["шкала g отдельно от sep", "Геомагнитная шкала показывается отдельно от радиации."],
+    ["g3+ на сутки окна", "Сильная буря (G3 и выше) на сутки этого окна."],
+    ["это не отсутствие сближений", "Это не значит, что сближений нет. Исторический каталог не подменяется текущим."],
+    ["прокси обстановки, не доза", "Это оценка обстановки, не доза в скафандре."]
+  ];
+  var RULE_PHRASES = [
+    ["sep.threshold.normal", "Спокойный уровень радиации"],
+    ["sep.threshold.s1", "Порог радиационной бури"],
+    ["sep.threshold", "Порог радиации"],
+    ["неполнота наблюдения", "Неполное измерение"],
+    ["отказ источника не all-clear", "Сбой источника — это не «всё спокойно»"],
+    ["t4: не смешивать эпоху каталога", "Нельзя подставлять сегодняшний каталог в прошлое"],
+    ["observed s-storm", "В прогнозе отмечена радиационная буря"],
+    ["planetary k-index", "Планетарный индекс геомагнитной активности"],
+    ["в сводку sep не входит", "В оценку радиации не входит"]
+  ];
   var SOURCE_ALIASES = {
     orbit: "iss_gp_history"
   };
+  var SKIP_REASONS = { "": 1, ok: 1, "нет": 1, "n/a": 1, "-": 1, none: 1 };
+  var REASON_RULES = [
+    {
+      needle: "протонного потока",
+      yes: "Есть прогноз радиации: солнечные частицы (протоны) от NOAA SWPC.",
+      no: "Нет прогноза радиации (солнечные частицы) на это окно."
+    },
+    {
+      needle: "есть прогнозы swpc",
+      yes: "Есть прогноз радиации от NOAA SWPC.",
+      no: ""
+    },
+    {
+      needle: "прогнозы kp",
+      yes: "Есть прогноз геомагнитной обстановки (индекс Kp).",
+      no: "Нет прогноза геомагнитной обстановки на это окно."
+    },
+    {
+      needle: "метеорн",
+      yes: "Есть сведения об обломках и метеорных потоках.",
+      no: "Нет сведений об обломках и метеорных потоках."
+    },
+    {
+      needle: "данных sep",
+      yes: "Есть данные по радиации.",
+      no: "Нет данных по радиации (солнечные частицы)."
+    },
+    {
+      needle: "только внешний прогноз",
+      yes: "Оценка только по чужому прогнозу, без измерений.",
+      no: ""
+    }
+  ];
+
+  function plainReason(text) {
+    var raw = String(text || "").replace(/\s+/g, " ").trim();
+    if (!raw || SKIP_REASONS[raw.toLowerCase()]) return "";
+    var key = raw.toLowerCase();
+    for (var i = 0; i < REASON_RULES.length; i += 1) {
+      var rule = REASON_RULES[i];
+      if (key.indexOf(rule.needle) === -1) continue;
+      if (rule.no && key.indexOf("нет") === 0) return rule.no;
+      return rule.yes;
+    }
+    if (raw.length <= 80 && (key.indexOf("есть") === 0 || key.indexOf("нет") === 0)) return raw;
+    return "";
+  }
+
+  function completenessNote(w) {
+    var value = Number(w && w.completeness);
+    var hole;
+    if ((w && w.critical) || !(value > 0)) {
+      hole = "Дыра — нет данных по радиации на эти сутки. Пустое место не значит, что безопасно.";
+    } else if (value < 1) {
+      hole = "Частичная дыра — известны не все данные по радиации и геомагнетизму.";
+    } else {
+      hole = "Дыры нет: данные по радиации и геомагнетизму на эти сутки есть.";
+    }
+    var extras = [];
+    [w && w.reason, w && w.sep && w.sep.confidence_reason, w && w.geo && w.geo.confidence_reason].forEach(function (item) {
+      var plain = plainReason(item);
+      if (plain && extras.indexOf(plain) === -1 && hole.indexOf(plain) === -1) extras.push(plain);
+    });
+    return extras.length ? hole + " " + extras.join(" ") : hole;
+  }
+
   var ROLE_LABEL = {
     catalog: "каталог",
     external_forecast: "прогноз",
@@ -51,8 +175,16 @@
   var lastExport = null;
   var lastWindows = null;
   var lastProbedStart = null;
+  var lastAlertedKey = "";
   var probeTimer = null;
   var warningLog = [];
+  var LEVEL_WORD = {
+    none: "спокойно",
+    watch: "нужно внимание",
+    warning: "опасно",
+    high: "очень опасно",
+    unknown: "нет данных"
+  };
   var userScenarios = [];
   var SCENARIO_STORE = "vkd-user-scenarios";
 
@@ -290,6 +422,7 @@
       timeline: raw.timeline || [],
       archive: false,
       reason: sep.confidence_reason || geo.confidence_reason || "",
+      completeness_note: raw.completeness_note || "",
       donkiCount: 0,
       cmeCount: 0
     };
@@ -336,6 +469,7 @@
       timeline: w.timeline || [],
       archive: true,
       reason: sep.confidence_reason || "",
+      completeness_note: w.completeness_note || "",
       donkiCount: Number((w.donki && w.donki.count) || 0),
       cmeCount: Number((w.cme && w.cme.count) || 0)
     };
@@ -393,15 +527,53 @@
     return { decision: "prefer", preferred: best.id, reason: "Меньше пересечения с уровнем warning+ при сопоставимой полноте. G не суммировалась с SEP." };
   }
 
+  function applyPhrases(text, rules) {
+    var raw = String(text || "").replace(/\s+/g, " ").trim();
+    if (!raw) return "";
+    var key = raw.toLowerCase();
+    for (var i = 0; i < rules.length; i += 1) {
+      if (key.indexOf(rules[i][0]) !== -1) return rules[i][1];
+    }
+    var kp = raw.match(/kp\s*=\s*([\d.]+)/i);
+    if (kp && key.indexOf("g1") !== -1) {
+      return "Прогноз геомагнитной активности: Kp " + kp[1] + ", ниже уровня бури.";
+    }
+    return raw;
+  }
+
+  function plainKind(kind) {
+    return KIND_PLAIN[String(kind || "").toLowerCase()] || "Чужой прогноз";
+  }
+
+  function plainSource(source) {
+    return String(source || "").split(/[,;]/).map(function (item) {
+      var key = item.replace(/\s+/g, " ").trim();
+      return SOURCE_NAMES[key] || SOURCE_NAMES[key.toLowerCase()] || key;
+    }).filter(Boolean).join(", ");
+  }
+
+  function plainRule(text) {
+    var raw = String(text || "").replace(/\s+/g, " ").trim();
+    if (!raw) return "";
+    var mapped = applyPhrases(raw, RULE_PHRASES);
+    if (mapped !== raw) return mapped;
+    if (raw.indexOf(".") !== -1 && raw.indexOf(" ") === -1) return "";
+    return raw;
+  }
+
   function evidenceHtml(factor) {
     var rows = factor.evidence || [];
     if (!rows.length) return "<p class=\"small\">Нет свидетельств в ответе API.</p>";
     return "<ul class=\"evidence\">" + rows.map(function (ev) {
-      return "<li><div class=\"kind\">" + esc(ev.provenance || ev.kind || "external_forecast") +
-        "</div><strong>" + esc(ev.statement || ev.title || ev.rule_id || "") + "</strong>" +
-        "<div class=\"small\">" + esc(ev.rule_description || ev.detail || "") + "</div>" +
-        "<div class=\"src\">" + esc((ev.source_ids || []).join(", ") || ev.source_id || "") +
-        " · " + esc(ev.rule_id || ev.rule || "") + "</div></li>";
+      var title = applyPhrases(ev.statement || ev.title || "", EVIDENCE_PHRASES) || ev.statement || ev.title || "";
+      var detail = applyPhrases(ev.rule_description || ev.detail || "", EVIDENCE_PHRASES);
+      var source = plainSource((ev.source_ids || []).join(", ") || ev.source_id || "");
+      var rule = plainRule(ev.rule_id || ev.rule || "");
+      var srcLine = [source, rule].filter(Boolean).join(" · ");
+      return "<li><div class=\"kind\">" + esc(plainKind(ev.provenance || ev.kind)) +
+        "</div><strong>" + esc(title) + "</strong>" +
+        (detail ? "<div class=\"small\">" + esc(detail) + "</div>" : "") +
+        (srcLine ? "<div class=\"src\">" + esc(srcLine) + "</div>" : "") + "</li>";
     }).join("") + "</ul>";
   }
 
@@ -1057,21 +1229,24 @@
         (showDonki ? "<td class=\"num\">" + esc(w.donkiCount || 0) + "</td>" : "") +
         "<td class=\"num\">" + esc(w.adverse) + "</td>" +
         "<td class=\"num\">" + esc(w.completeness) + (w.critical ? " · дыра" : "") +
-        (w.reason && !w.archive ? "<div class=\"small\">" + esc(w.reason) + "</div>" : "") +
+        "<div class=\"small completeness-note\">" + esc(completenessNote(w)) + "</div>" +
         "</td></tr>";
     }).join("");
     var first = windows[0];
     var cards = first ? [
-      { title: "Солнечные энергичные частицы", level: first.sepLevel, block: first.sep },
-      { title: "MMOD / метеорная обстановка", level: first.mmodLevel, block: first.mmod },
-      { title: "Геомагнитная обстановка (не суммируется с SEP)", level: first.geoLevel, block: first.geo }
+      { title: "Радиация (солнечные частицы)", level: first.sepLevel, block: first.sep },
+      { title: "Обломки и метеороиды", level: first.mmodLevel, block: first.mmod },
+      { title: "Геомагнитная обстановка (не складывается с радиацией)", level: first.geoLevel, block: first.geo }
     ].map(function (card) {
       return "<div class=\"card\"><header><span>" + esc(card.title) + "</span>" + pill(card.level) +
-        "</header><p class=\"small\">" + esc(card.block.confidence_reason || "") + "</p>" +
+        "</header><p class=\"small\">" + esc(plainReason(card.block.confidence_reason) || card.block.confidence_reason || "") + "</p>" +
         evidenceHtml(card.block) + "</div>";
     }).join("") : "";
     lastExport = buildExport(windows, comparison, status, form);
     lastWindows = windows;
+    if (!meta.preview) {
+      maybeAlertWindow(alertTarget(windows));
+    }
     compareRoot.innerHTML =
       "<div class=\"meta-row\"><div></div>" +
       "<div class=\"export-actions\">" +
@@ -1088,7 +1263,7 @@
       thHead({ cls: "col-geo", word: "Геомагнетизм", hint: "шкала G, отдельно от радиации" }) +
       (showDonki ? thHead({ cls: "col-donki", word: "DONKI" }) : "") +
       thHead({ cls: "col-adverse", word: "Неблагоприятные минуты", hint: "минуты окна с уровнем warning+" }) +
-      thHead({ cls: "col-completeness", word: "Полнота", hint: "доля известных SEP и G, 0–1; не безопасность" }) +
+      thHead({ cls: "col-completeness", word: "Полнота", hint: "есть ли данные; дыра — нет данных, это не спокойно" }) +
       "</tr></thead><tbody>" + table + "</tbody></table></div>" +
       "<div class=\"decision\"><h2>" + esc(title) + "</h2><p>" + esc(comparison.reason) + "</p></div>" +
       compareChartHtml(windows, comparison, form, meta);
@@ -1449,7 +1624,7 @@
     fallbackP.then(function (pack) {
       if (!pack || !pack.windows) return;
       var windows = pack.windows.map(function (w, idx) { return fromPackWindow(w, idx, idx === 0); });
-      presentWindows(windows, { sources: [], overall_status: "pending" }, fields, { archive: true, pack: pack }, false);
+      presentWindows(windows, { sources: [], overall_status: "pending" }, fields, { archive: true, pack: pack, preview: true }, false);
     });
     var chain = Promise.resolve([]);
     starts.forEach(function (item) {
@@ -1495,9 +1670,75 @@
     return rank(window.sepLevel) >= 2 || rank(window.mmodLevel) >= 2 || rank(window.geoLevel) >= 2;
   }
 
+  function needsAlert(window) {
+    return Boolean(window) && (isDangerous(window) || window.critical);
+  }
+
+  function alertTarget(windows) {
+    var list = windows || [];
+    var requested = null;
+    list.forEach(function (w) {
+      if (w.requested && !requested) requested = w;
+    });
+    if (needsAlert(requested)) return requested;
+    var worst = null;
+    var worstScore = -1;
+    list.forEach(function (w) {
+      if (!isDangerous(w)) return;
+      var score = rank(w.sepLevel) + rank(w.mmodLevel) + rank(w.geoLevel);
+      if (score > worstScore) {
+        worst = w;
+        worstScore = score;
+      }
+    });
+    return worst || (requested && requested.critical ? requested : null);
+  }
+
+  function levelWord(level) {
+    return LEVEL_WORD[level] || level || "нет данных";
+  }
+
+  function factorLine(window) {
+    var parts = [];
+    if (rank(window.sepLevel) >= 2) parts.push("радиация — " + levelWord(window.sepLevel));
+    if (rank(window.mmodLevel) >= 2) parts.push("обломки — " + levelWord(window.mmodLevel));
+    if (rank(window.geoLevel) >= 2) {
+      parts.push("геомагнетизм — " + levelWord(window.geoLevel) + " (считается отдельно от радиации)");
+    }
+    return parts;
+  }
+
+  function alertKey(window) {
+    if (!window) return "";
+    return [isoOf(window.start), window.sepLevel, window.mmodLevel, window.geoLevel, window.critical ? "hole" : "ok"].join("|");
+  }
+
+  function buildAlert(window) {
+    var when = window && window.start ? formatWallUtc(window.start) + " UTC" : "выбранное время";
+    var danger = isDangerous(window);
+    var hole = Boolean(window && window.critical);
+    var lines = [];
+    var title = "Предупреждение";
+    if (danger) {
+      title = "Выход выглядит опасным";
+      if (!window.requested) {
+        lines.push("В выбранном интервале есть опасные сутки.");
+      }
+      lines.push("На время " + when + " выход выглядит опасным.");
+      var parts = factorLine(window);
+      if (parts.length) lines.push("Неблагоприятно: " + parts.join("; ") + ".");
+      lines.push("Это не разрешение на выход. Сравните соседние дни или сдвиньте время.");
+    }
+    if (hole) {
+      if (!danger) title = "Дыра в данных";
+      lines.push("На эти сутки нет полных данных по радиации. Пустая оценка не значит, что безопасно.");
+    }
+    return { title: title, body: lines.join(" "), danger: danger, hole: hole };
+  }
+
   function formatWhen(dt) {
     if (!dt) return "—";
-    return dt.toISOString().replace("T", " ").replace(".000Z", " UTC");
+    return formatWallUtc(dt) + " UTC";
   }
 
   function closeAlert() {
@@ -1514,14 +1755,14 @@
     }
     if (!root) return;
     if (!warningLog.length) {
-      root.innerHTML = "<p class=\"small\">Пока нет всплывающих предупреждений. Они появятся, если при смене начала ВКД окно окажется неблагоприятным.</p>";
+      root.innerHTML = "<p class=\"small\">Пока нет всплывающих предупреждений. Они появятся после расчёта или смены начала ВКД, если выход выглядит опасным или в данных дыра.</p>";
       return;
     }
     root.innerHTML = "<ol class=\"warning-log\">" + warningLog.map(function (item) {
       var factors = "";
-      if (item.sep) factors += pill(item.sep) + " радиация ";
-      if (item.mmod) factors += pill(item.mmod) + " обломки ";
-      if (item.geo) factors += pill(item.geo) + " геомагнетизм";
+      if (item.sep) factors += "<span class=\"level " + esc(item.sep) + "\">Радиация: " + esc(levelWord(item.sep)) + "</span>";
+      if (item.mmod) factors += "<span class=\"level " + esc(item.mmod) + "\">Обломки: " + esc(levelWord(item.mmod)) + "</span>";
+      if (item.geo) factors += "<span class=\"level " + esc(item.geo) + "\">Геомагнетизм: " + esc(levelWord(item.geo)) + "</span>";
       return "<li class=\"warning-item\"><header><span class=\"kind\">" + esc(item.title) +
         "</span><span class=\"num\">" + esc(formatUtc(item.at)) + "</span></header><p>" +
         esc(item.body) + "</p>" +
@@ -1544,32 +1785,39 @@
     renderWarningLog();
   }
 
-  function showDangerAlert(window, fields) {
+  function showDangerAlert(window) {
     var modal = document.getElementById("eva-alert");
+    var titleEl = document.getElementById("eva-alert-title");
     var body = document.getElementById("eva-alert-body");
     var factors = document.getElementById("eva-alert-factors");
     if (!modal || !body || !factors) return;
-    var bits = [];
-    if (rank(window.sepLevel) >= 2) bits.push("радиационная обстановка SEP на уровне " + window.sepLevel);
-    if (rank(window.mmodLevel) >= 2) bits.push("MMOD на уровне " + window.mmodLevel);
-    if (rank(window.geoLevel) >= 2) bits.push("геомагнитная шкала G на уровне " + window.geoLevel + " (показывается отдельно и не суммируется с SEP)");
-    var bodyText = "Для начала ВКД " + formatWhen(window.start) +
-      " окно выглядит неблагоприятным для выхода: " + bits.join("; ") +
-      ". Это не допуск к выходу. Сравните соседние сутки или сдвиньте время.";
-    body.textContent = bodyText;
-    factors.innerHTML = pill(window.sepLevel) + " SEP " +
-      pill(window.mmodLevel) + " MMOD " +
-      pill(window.geoLevel) + " G";
+    var alert = buildAlert(window);
+    if (titleEl) titleEl.textContent = alert.title;
+    body.textContent = alert.body;
+    factors.innerHTML =
+      "<span class=\"level " + esc(window.sepLevel) + "\">Радиация: " + esc(levelWord(window.sepLevel)) + "</span>" +
+      "<span class=\"level " + esc(window.mmodLevel) + "\">Обломки: " + esc(levelWord(window.mmodLevel)) + "</span>" +
+      "<span class=\"level " + esc(window.geoLevel) + "\">Геомагнетизм: " + esc(levelWord(window.geoLevel)) + "</span>";
     logWarning({
-      title: "Опасность выхода",
-      body: bodyText,
+      title: alert.title,
+      body: alert.body,
       sep: window.sepLevel,
       mmod: window.mmodLevel,
       geo: window.geoLevel
     });
+    lastAlertedKey = alertKey(window);
     modal.hidden = false;
     var closeBtn = document.getElementById("eva-alert-close");
     if (closeBtn) closeBtn.focus();
+  }
+
+  function maybeAlertWindow(window) {
+    if (!needsAlert(window)) {
+      closeAlert();
+      return;
+    }
+    if (alertKey(window) === lastAlertedKey) return;
+    showDangerAlert(window);
   }
 
   function windowForStart(start) {
@@ -1606,8 +1854,8 @@
     }
     var known = windowForStart(start);
     if (known) {
-      if (isDangerous(known)) showDangerAlert(known, fields);
-      else closeAlert();
+      lastAlertedKey = "";
+      maybeAlertWindow(known);
       return Promise.resolve();
     }
     var duration = Number(fields.duration_hours || 6);
@@ -1621,8 +1869,8 @@
       return fallbackP.then(function (pack) { return packWindowForStart(pack, start); });
     }).then(function (window) {
       if (!window) return;
-      if (isDangerous(window)) showDangerAlert(window, fields);
-      else closeAlert();
+      lastAlertedKey = "";
+      maybeAlertWindow(window);
     });
   }
 
@@ -1633,6 +1881,7 @@
     function schedule(immediate) {
       var value = (input.value || "").trim();
       if (value === lastProbedStart) return;
+      lastAlertedKey = "";
       clearTimeout(probeTimer);
       probeTimer = setTimeout(function () {
         var current = (input.value || "").trim();

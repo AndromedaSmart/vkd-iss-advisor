@@ -45,6 +45,7 @@ from app.planner_api import (
     status_sources,
     window_from_assessment,
 )
+from app.completeness import window_completeness_note
 from app.scoring import candidate_starts, compare_windows, worst_rank
 from app.timeutil import (
     HISTORICAL_END,
@@ -58,9 +59,9 @@ from app.timeutil import (
 )
 
 KIND_LABEL = {
-    "observation": "наблюдение",
-    "external_forecast": "внешний прогноз",
-    "team_calc": "расчёт команды",
+    "observation": "Измерение",
+    "external_forecast": "Чужой прогноз",
+    "team_calc": "Наш расчёт",
 }
 
 
@@ -580,6 +581,15 @@ def evaluate_local(req):
                 "track": _compact_track(track),
                 "critical_missing": critical_missing,
                 "completeness": completeness,
+                "completeness_note": window_completeness_note(
+                    {
+                        "completeness": completeness,
+                        "critical_missing": critical_missing,
+                        "sep": sep,
+                        "geomagnetic": geo,
+                        "conjunction": conj,
+                    }
+                ),
                 "adverse_minutes": round(adverse, 1),
                 "worst_rank": worst_rank([sep["level"], conj["level"]]),
                 "is_requested": idx == 0,
@@ -764,7 +774,7 @@ def _ui(windows, req):
             {
                 "id": "completeness",
                 "title": "Полнота",
-                "hint": "доля известных SEP и G, 0–1; не безопасность",
+                "hint": "есть ли данные; дыра — нет данных, это не спокойно",
             },
         ]
     )
