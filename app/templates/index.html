@@ -10,12 +10,18 @@
 <body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}" data-live-api="{% if stand.live_api %}true{% else %}false{% endif %}" data-algorithm="{{ algorithm }}" data-demo="{{ demo }}" data-demos='{{ stand.demo_fields_json }}'>
   <div class="platform">
     <header class="platform-head">
-      <h1>Выбор окна ВКД на МКС</h1>
-      <p class="lede">
-        Откройте готовые сценарии и сравните окна одинаковой длительности.
-        Сервис сопоставляет SEP, радиозатмения, CME/DONKI и орбиту МКС.
-        Это не допуск к выходу.
-      </p>
+      <a class="brand" href="{{ stand.home }}">
+        <img class="brand-mark" src="{{ stand.logo }}" alt="">
+        <span class="brand-name">SafeVoid</span>
+      </a>
+      <div class="platform-head-copy">
+        <h1>Выбор окна ВКД на МКС</h1>
+        <p class="lede">
+          Откройте готовые сценарии и сравните окна одинаковой длительности.
+          Сервис сопоставляет SEP, радиозатмения, CME/DONKI и орбиту МКС.
+          Это не допуск к выходу.
+        </p>
+      </div>
     </header>
 
     {% if error %}

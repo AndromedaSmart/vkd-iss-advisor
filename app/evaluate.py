@@ -372,6 +372,8 @@ def evaluate_via_planner(req):
         "orbit": orbit_meta,
         "sources": source_rows,
         "windows": windows,
+        "chart_timeline": (local_pack or {}).get("chart_timeline") or [],
+        "chart_range": (local_pack or {}).get("chart_range"),
         "comparison": comparison,
         "notes": notes,
         "kind_label": KIND_LABEL,
@@ -582,7 +584,15 @@ def evaluate_local(req):
                 "worst_rank": worst_rank([sep["level"], conj["level"]]),
                 "is_requested": idx == 0,
                 "timeline": _danger_timeline(
-                    w_start, w_end, protons, forecast, sep["level"], geo["level"], conj
+                    w_start.replace(hour=0, minute=0, second=0, microsecond=0),
+                    w_start.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1),
+                    protons,
+                    forecast,
+                    sep["level"],
+                    geo["level"],
+                    conj,
+                    window_start=w_start,
+                    window_end=w_end,
                 ),
             }
         )
@@ -591,6 +601,18 @@ def evaluate_local(req):
     for window in windows:
         window["preferred"] = comparison["preferred_id"] == window["id"]
         window["tied"] = window["id"] in comparison.get("tied_ids", [])
+
+    range_start, range_end = _interval_range(req)
+    chart_timeline = _danger_timeline(
+        range_start,
+        range_end,
+        protons,
+        _merge_forecasts(forecast_cache.values()),
+        None,
+        None,
+        _merge_conjunctions(windows),
+        windows=windows,
+    )
 
     result_id = str(uuid.uuid4())[:8]
     pack = {
@@ -613,6 +635,8 @@ def evaluate_local(req):
         "orbit": orbit_meta,
         "sources": [src.as_dict() for src in sources],
         "windows": [_public_window(w) for w in windows],
+        "chart_timeline": chart_timeline,
+        "chart_range": {"start": iso(range_start), "end": iso(range_end)},
         "comparison": comparison,
         "notes": _notes(req, list(forecast_cache.values()), windows, comparison),
         "kind_label": KIND_LABEL,
@@ -764,6 +788,58 @@ def _ui(windows, req):
     }
 
 
+def _interval_range(req):
+    start = req["start"].replace(hour=0, minute=0, second=0, microsecond=0)
+    last = (req.get("period_end") or req["start"]).replace(hour=0, minute=0, second=0, microsecond=0)
+    if last < start:
+        last = start
+    return start, last + timedelta(days=1)
+
+
+def _as_date(value):
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, str) and len(value) >= 10:
+        try:
+            return datetime.strptime(value[:10], "%Y-%m-%d").date()
+        except ValueError:
+            return None
+    return None
+
+
+def _window_level_for_time(windows, moment, name):
+    day = _as_date(moment)
+    if day is None:
+        return None
+    for window in windows or []:
+        if _as_date(window.get("start")) != day:
+            continue
+        block = window.get(name) or {}
+        if isinstance(block, dict):
+            return block.get("level")
+        return None
+    return None
+
+
+def _merge_forecasts(forecasts):
+    bins = []
+    for rec in forecasts or []:
+        if rec and getattr(rec, "ok", False) and rec.payload:
+            bins.extend(rec.payload.get("kp_bins") or [])
+    return type("ForecastView", (), {"ok": True, "payload": {"kp_bins": bins}})()
+
+
+def _merge_conjunctions(windows):
+    events = []
+    incomplete = True
+    for window in windows or []:
+        conj = window.get("conjunction") or {}
+        events.extend(conj.get("events") or [])
+        if not conj.get("incomplete"):
+            incomplete = False
+    return {"events": events, "incomplete": incomplete, "level": "unknown"}
+
+
 def _conjunction_event_level(event):
     rng = event.get("min_range_km")
     if rng is None:
@@ -777,8 +853,19 @@ def _conjunction_event_level(event):
     return "none"
 
 
-def _danger_timeline(w_start, w_end, protons, forecast, sep_level, geo_level, conj):
-    span_min = max(1, int((w_end - w_start).total_seconds() / 60.0))
+def _danger_timeline(
+    day_start,
+    day_end,
+    protons,
+    forecast,
+    sep_level,
+    geo_level,
+    conj,
+    window_start=None,
+    window_end=None,
+    windows=None,
+):
+    span_min = max(1, int((day_end - day_start).total_seconds() / 60.0))
     if span_min <= 180:
         step = 10
     elif span_min <= 12 * 60:
@@ -789,17 +876,24 @@ def _danger_timeline(w_start, w_end, protons, forecast, sep_level, geo_level, co
         step = 60
     proton_rows = []
     if protons and protons.ok and protons.payload:
-        proton_rows = [row for row in protons.payload if w_start <= row["time"] <= w_end]
+        proton_rows = [row for row in protons.payload if day_start <= row["time"] <= day_end]
     bins = []
     if forecast and forecast.ok and forecast.payload:
         bins = forecast.payload.get("kp_bins") or []
     events = (conj or {}).get("events") or []
     conj_incomplete = bool((conj or {}).get("incomplete"))
+    rank = {"none": 0, "watch": 1, "warning": 2, "high": 3}
+
+    def in_window(moment):
+        if window_start is None or window_end is None:
+            return True
+        return window_start <= moment <= window_end
+
     points = []
-    cursor = w_start
+    cursor = day_start
     last_sep = None
-    while cursor <= w_end:
-        nxt = min(cursor + timedelta(minutes=step), w_end)
+    while cursor <= day_end:
+        nxt = min(cursor + timedelta(minutes=step), day_end)
         chunk = [row for row in proton_rows if cursor <= row["time"] <= nxt]
         if chunk:
             flux = max(row["flux"] for row in chunk)
@@ -808,12 +902,22 @@ def _danger_timeline(w_start, w_end, protons, forecast, sep_level, geo_level, co
         elif last_sep is not None:
             sep = last_sep
         else:
-            sep = sep_level or "unknown"
-        geo = geo_level or "unknown"
+            sep = (
+                _window_level_for_time(windows, cursor, "sep")
+                or (sep_level if in_window(cursor) else None)
+                or "unknown"
+            )
+        geo = "unknown"
         for item in bins:
             if item["start"] <= cursor <= item["end"]:
                 geo = level_from_g(item.get("g"))
                 break
+        if geo == "unknown":
+            geo = (
+                _window_level_for_time(windows, cursor, "geomagnetic")
+                or (geo_level if in_window(cursor) else None)
+                or "unknown"
+            )
         if conj_incomplete:
             mmod = "unknown"
         else:
@@ -826,19 +930,17 @@ def _danger_timeline(w_start, w_end, protons, forecast, sep_level, geo_level, co
                     other = _conjunction_event_level(event)
                     if other == "unknown":
                         continue
-                    if mmod == "none" or (
-                        {"none": 0, "watch": 1, "warning": 2, "high": 3}.get(other, 0)
-                        > {"none": 0, "watch": 1, "warning": 2, "high": 3}.get(mmod, 0)
-                    ):
+                    if rank.get(other, 0) > rank.get(mmod, 0):
                         mmod = other
         points.append({"t": iso(cursor), "sep": sep, "mmod": mmod, "geo": geo})
-        if cursor >= w_end:
+        if cursor >= day_end:
             break
         cursor = nxt
     if not points:
+        fallback_mmod = (conj or {}).get("level") or "unknown"
         points = [
-            {"t": iso(w_start), "sep": sep_level, "mmod": (conj or {}).get("level") or "unknown", "geo": geo_level},
-            {"t": iso(w_end), "sep": sep_level, "mmod": (conj or {}).get("level") or "unknown", "geo": geo_level},
+            {"t": iso(day_start), "sep": sep_level, "mmod": fallback_mmod, "geo": geo_level},
+            {"t": iso(day_end), "sep": sep_level, "mmod": fallback_mmod, "geo": geo_level},
         ]
     return points
 

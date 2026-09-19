@@ -247,13 +247,103 @@
       "is_requested": true,
       "timeline": [
         {
-          "t": "2024-05-10T08:00:00Z",
-          "sep": "warning",
+          "t": "2024-05-10T00:00:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "none"
         },
         {
-          "t": "2024-05-10T08:15:00Z",
+          "t": "2024-05-10T00:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T01:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T01:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T02:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T02:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T03:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T03:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T04:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T04:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T05:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T05:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T06:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T06:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T07:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T07:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T08:00:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -265,19 +355,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-10T08:45:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-10T09:00:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-10T09:15:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -289,19 +367,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-10T09:45:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-10T10:00:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-10T10:15:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -313,19 +379,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-10T10:45:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-10T11:00:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-10T11:15:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -337,19 +391,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-10T11:45:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-10T12:00:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-10T12:15:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -361,19 +403,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-10T12:45:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-10T13:00:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-10T13:15:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -385,16 +415,130 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-10T13:45:00Z",
+          "t": "2024-05-10T14:00:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
         },
         {
-          "t": "2024-05-10T14:00:00Z",
-          "sep": "warning",
+          "t": "2024-05-10T14:30:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "none"
+        },
+        {
+          "t": "2024-05-10T15:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T15:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T16:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T16:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T17:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T17:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T18:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T18:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T19:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T19:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T20:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T20:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T21:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-10T21:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-10T22:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-10T22:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-10T23:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-10T23:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T00:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
         }
       ],
       "preferred": false,
@@ -657,13 +801,103 @@
       "is_requested": false,
       "timeline": [
         {
-          "t": "2024-05-11T08:00:00Z",
-          "sep": "high",
+          "t": "2024-05-11T00:00:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "high"
         },
         {
-          "t": "2024-05-11T08:15:00Z",
+          "t": "2024-05-11T00:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T01:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T01:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T02:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T02:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T03:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T03:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T04:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T04:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T05:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T05:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T06:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T06:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T07:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T07:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-11T08:00:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -675,19 +909,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-11T08:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-11T09:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-11T09:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -699,19 +921,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-11T09:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-11T10:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-11T10:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -723,19 +933,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-11T10:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-11T11:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-11T11:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -747,31 +945,13 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-11T11:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-11T12:00:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
         },
         {
-          "t": "2024-05-11T12:15:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "warning"
-        },
-        {
           "t": "2024-05-11T12:30:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "warning"
-        },
-        {
-          "t": "2024-05-11T12:45:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "warning"
@@ -783,19 +963,7 @@
           "geo": "warning"
         },
         {
-          "t": "2024-05-11T13:15:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "warning"
-        },
-        {
           "t": "2024-05-11T13:30:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "warning"
-        },
-        {
-          "t": "2024-05-11T13:45:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "warning"
@@ -805,6 +973,126 @@
           "sep": "high",
           "mmod": "unknown",
           "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T14:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T15:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T15:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T16:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T16:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T17:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T17:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T18:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-11T18:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T19:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T19:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T20:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T20:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T21:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-11T21:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-11T22:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-11T22:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-11T23:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-11T23:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-12T00:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
         }
       ],
       "preferred": false,
@@ -1049,13 +1337,103 @@
       "is_requested": false,
       "timeline": [
         {
-          "t": "2024-05-12T08:00:00Z",
-          "sep": "high",
+          "t": "2024-05-12T00:00:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "high"
         },
         {
-          "t": "2024-05-12T08:15:00Z",
+          "t": "2024-05-12T00:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T01:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T01:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T02:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T02:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T03:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T03:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T04:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T04:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T05:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T05:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T06:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T06:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T07:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T07:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T08:00:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -1067,19 +1445,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-12T08:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-12T09:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-12T09:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -1091,19 +1457,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-12T09:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-12T10:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-12T10:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -1115,19 +1469,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-12T10:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-12T11:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-12T11:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -1139,19 +1481,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-12T11:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-12T12:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-12T12:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -1163,19 +1493,7 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-12T12:45:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
           "t": "2024-05-12T13:00:00Z",
-          "sep": "high",
-          "mmod": "unknown",
-          "geo": "high"
-        },
-        {
-          "t": "2024-05-12T13:15:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
@@ -1187,16 +1505,130 @@
           "geo": "high"
         },
         {
-          "t": "2024-05-12T13:45:00Z",
+          "t": "2024-05-12T14:00:00Z",
           "sep": "high",
           "mmod": "unknown",
           "geo": "high"
         },
         {
-          "t": "2024-05-12T14:00:00Z",
-          "sep": "high",
+          "t": "2024-05-12T14:30:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "high"
+        },
+        {
+          "t": "2024-05-12T15:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T15:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T16:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T16:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T17:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T17:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T18:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T18:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T19:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T19:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T20:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T20:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T21:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T21:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T22:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T22:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T23:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-12T23:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T00:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
         }
       ],
       "preferred": false,
@@ -1459,13 +1891,103 @@
       "is_requested": false,
       "timeline": [
         {
-          "t": "2024-05-13T08:00:00Z",
-          "sep": "warning",
+          "t": "2024-05-13T00:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T00:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T01:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T01:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T02:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T02:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T03:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "high"
+        },
+        {
+          "t": "2024-05-13T03:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-13T04:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-13T04:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-13T05:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-13T05:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-13T06:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "warning"
+        },
+        {
+          "t": "2024-05-13T06:30:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "watch"
         },
         {
-          "t": "2024-05-13T08:15:00Z",
+          "t": "2024-05-13T07:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-13T07:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "watch"
+        },
+        {
+          "t": "2024-05-13T08:00:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "watch"
@@ -1477,31 +1999,13 @@
           "geo": "watch"
         },
         {
-          "t": "2024-05-13T08:45:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "watch"
-        },
-        {
           "t": "2024-05-13T09:00:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "watch"
         },
         {
-          "t": "2024-05-13T09:15:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-13T09:30:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-13T09:45:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -1513,19 +2017,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-13T10:15:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-13T10:30:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-13T10:45:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -1537,19 +2029,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-13T11:15:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-13T11:30:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-13T11:45:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -1561,19 +2041,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-13T12:15:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-13T12:30:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-13T12:45:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -1585,19 +2053,7 @@
           "geo": "none"
         },
         {
-          "t": "2024-05-13T13:15:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
           "t": "2024-05-13T13:30:00Z",
-          "sep": "warning",
-          "mmod": "unknown",
-          "geo": "none"
-        },
-        {
-          "t": "2024-05-13T13:45:00Z",
           "sep": "warning",
           "mmod": "unknown",
           "geo": "none"
@@ -1605,6 +2061,126 @@
         {
           "t": "2024-05-13T14:00:00Z",
           "sep": "warning",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T14:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T15:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T15:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T16:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T16:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T17:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T17:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T18:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T18:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T19:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T19:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T20:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T20:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T21:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T21:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T22:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T22:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T23:00:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-13T23:30:00Z",
+          "sep": "unknown",
+          "mmod": "unknown",
+          "geo": "none"
+        },
+        {
+          "t": "2024-05-14T00:00:00Z",
+          "sep": "unknown",
           "mmod": "unknown",
           "geo": "none"
         }

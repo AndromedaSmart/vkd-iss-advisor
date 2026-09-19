@@ -24,7 +24,38 @@ body {
 .page { max-width: 1280px; margin: 0 auto; padding: 28px 20px 64px; }
 
 .platform { max-width: 1280px; margin: 0 auto; padding: 28px 20px 64px; }
-.platform-head h1 { margin-bottom: 8px; }
+.platform-head {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.platform-head h1 { margin: 0 0 8px; }
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.brand-mark {
+  width: 72px;
+  height: 72px;
+  display: block;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+}
+.brand-name {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.platform-head-copy { min-width: 0; }
 .platform-body {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
@@ -720,6 +751,7 @@ th.col-completeness { min-width: 15rem; }
   .legend-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
-  .platform-body { grid-template-columns: 1fr; }
+  .platform-head, .platform-body { grid-template-columns: 1fr; }
+  .brand { align-items: flex-start; }
   .tiles { position: static; }
 }

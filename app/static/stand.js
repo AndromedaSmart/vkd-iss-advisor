@@ -814,45 +814,100 @@
     return (windows || [])[0] || null;
   }
 
+  function dayBoundsUtc(dt) {
+    var start = Date.UTC(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate(), 0, 0, 0, 0);
+    return { t0: start, t1: start + 24 * 3600 * 1000 };
+  }
+
   function parseTimelinePoint(point) {
     var t = point.t instanceof Date ? point.t.getTime() : Date.parse(point.t);
     if (!isFinite(t)) return null;
     return { t: t, sep: point.sep, mmod: point.mmod, geo: point.geo };
   }
 
-  function dangerTimeline(w) {
-    var start = w.start instanceof Date ? w.start.getTime() : Date.parse(w.start);
-    var end = w.end instanceof Date ? w.end.getTime() : Date.parse(w.end);
-    if (!isFinite(start) || !isFinite(end) || end <= start) return [];
+  function intervalBounds(windows, form, pack) {
+    var req = (pack && pack.request) || {};
+    var range = pack && pack.chart_range;
+    if (range && range.start && range.end) {
+      var rangeStart = Date.parse(range.start);
+      var rangeEnd = Date.parse(range.end);
+      if (isFinite(rangeStart) && isFinite(rangeEnd) && rangeEnd > rangeStart) {
+        return {
+          t0: rangeStart,
+          t1: rangeEnd,
+          days: Math.max(1, Math.round((rangeEnd - rangeStart) / 86400000))
+        };
+      }
+    }
+    var days = Number(req.interval_days || (form && form.interval_days) || 0);
+    var start = null;
+    if (form && form.start_dt instanceof Date && !isNaN(form.start_dt.getTime())) start = form.start_dt;
+    if (!start && req.start) start = new Date(req.start);
+    if (!start && windows && windows[0] && windows[0].start) start = windows[0].start;
+    if (!start) return null;
+    if (!days) {
+      var last = windows && windows[windows.length - 1];
+      days = last && last.start
+        ? Math.round((dayBoundsUtc(last.start).t0 - dayBoundsUtc(start).t0) / 86400000) + 1
+        : 1;
+    }
+    days = Math.max(1, days);
+    var t0 = dayBoundsUtc(start).t0;
+    return { t0: t0, t1: t0 + days * 86400000, days: days };
+  }
+
+  function collectChartPoints(windows, pack) {
     var points = [];
-    (w.timeline || []).forEach(function (row) {
+    ((pack && pack.chart_timeline) || []).forEach(function (row) {
       var point = parseTimelinePoint(row);
       if (point) points.push(point);
+    });
+    if (points.length >= 2) return points;
+    (windows || []).forEach(function (w) {
+      (w.timeline || []).forEach(function (row) {
+        var point = parseTimelinePoint(row);
+        if (point) points.push(point);
+      });
     });
     if (points.length >= 2) {
       points.sort(function (a, b) { return a.t - b.t; });
       return points;
     }
-    return [
-      { t: start, sep: w.sepLevel, mmod: w.mmodLevel, geo: w.geoLevel },
-      { t: end, sep: w.sepLevel, mmod: w.mmodLevel, geo: w.geoLevel }
-    ];
+    (windows || []).forEach(function (w) {
+      if (!w.start) return;
+      var day = dayBoundsUtc(w.start);
+      points.push({ t: day.t0, sep: w.sepLevel, mmod: w.mmodLevel, geo: w.geoLevel });
+      points.push({ t: day.t1, sep: w.sepLevel, mmod: w.mmodLevel, geo: w.geoLevel });
+    });
+    points.sort(function (a, b) { return a.t - b.t; });
+    return points;
   }
 
-  function chartTimeLabel(ms) {
+  function chartTimeLabel(ms, t1, multiDay) {
     var dt = new Date(ms);
+    if (t1 && ms >= t1 && dt.getUTCHours() === 0 && dt.getUTCMinutes() === 0) {
+      var prev = new Date(ms - 1);
+      return multiDay
+        ? pad(prev.getUTCMonth() + 1) + "-" + pad(prev.getUTCDate()) + " 24:00"
+        : "24:00";
+    }
+    if (multiDay) {
+      var date = pad(dt.getUTCMonth() + 1) + "-" + pad(dt.getUTCDate());
+      if (dt.getUTCHours() === 0 && dt.getUTCMinutes() === 0) return date;
+      return date + " " + pad(dt.getUTCHours()) + ":" + pad(dt.getUTCMinutes());
+    }
     return pad(dt.getUTCHours()) + ":" + pad(dt.getUTCMinutes());
   }
 
   function chartTimeTicks(t0, t1) {
     var span = t1 - t0;
-    var step = 60 * 60 * 1000;
-    if (span <= 3 * 3600000) step = 30 * 60 * 1000;
+    var step = 3 * 3600000;
+    if (span > 8 * 86400000) step = 2 * 86400000;
+    else if (span > 6 * 86400000) step = 86400000;
+    else if (span > 36 * 3600000) step = 12 * 3600000;
     else if (span <= 12 * 3600000) step = 60 * 60 * 1000;
-    else if (span <= 36 * 3600000) step = 3 * 3600000;
-    else step = 6 * 3600000;
     var ticks = [t0];
-    var t = Math.ceil((t0 + 1) / step) * step;
+    var t = t0 + step;
     while (t < t1 - step * 0.2) {
       ticks.push(t);
       t += step;
@@ -861,26 +916,32 @@
     return ticks;
   }
 
-  function compareChartHtml(windows, comparison) {
+  function compareChartHtml(windows, comparison, form, meta) {
     var preferred = pickPreferredWindow(windows, comparison);
     if (!preferred) return "";
-    var series = dangerTimeline(preferred);
-    if (series.length < 2) return "";
-    var t0 = preferred.start.getTime();
-    var t1 = preferred.end.getTime();
-    if (series[0].t < t0) t0 = series[0].t;
-    if (series[series.length - 1].t > t1) t1 = series[series.length - 1].t;
+    var pack = (meta && meta.pack) || {};
+    var bounds = intervalBounds(windows, form, pack);
+    var series = collectChartPoints(windows, pack);
+    if (!bounds || series.length < 2) return "";
+    var t0 = bounds.t0;
+    var t1 = bounds.t1;
+    var multiDay = bounds.days > 1;
+    var winStart = preferred.start.getTime();
+    var winEnd = preferred.end.getTime();
     var width = 920;
     var height = 400;
     var left = 74;
     var right = 28;
     var top = 28;
-    var bottom = 52;
+    var bottom = 62;
     var plotW = width - left - right;
     var plotH = height - top - bottom;
     var yMin = 0.6;
     var yMax = 4.35;
-    function xOf(t) { return left + ((t - t0) / Math.max(1, t1 - t0)) * plotW; }
+    function xOf(t) {
+      var clamped = Math.max(t0, Math.min(t1, t));
+      return left + ((clamped - t0) / Math.max(1, t1 - t0)) * plotW;
+    }
     function yOf(v) { return top + (1 - (v - yMin) / (yMax - yMin)) * plotH; }
     var bands = [
       { a: 3, b: 4.35, fill: "rgba(196,92,74,0.20)" },
@@ -894,6 +955,14 @@
       svg.push("<rect x=\"" + left + "\" y=\"" + yOf(band.b) + "\" width=\"" + plotW + "\" height=\"" +
         (yOf(band.a) - yOf(band.b)) + "\" fill=\"" + band.fill + "\" />");
     });
+    var bandX = xOf(Math.max(t0, winStart));
+    var bandW = xOf(Math.min(t1, winEnd)) - bandX;
+    if (bandW > 1) {
+      svg.push("<rect x=\"" + bandX.toFixed(1) + "\" y=\"" + top + "\" width=\"" + bandW.toFixed(1) +
+        "\" height=\"" + plotH + "\" fill=\"rgba(212,160,23,0.14)\" stroke=\"rgba(212,160,23,0.4)\" />");
+      svg.push("<text x=\"" + (bandX + bandW / 2).toFixed(1) + "\" y=\"" + (top + 14) +
+        "\" text-anchor=\"middle\" class=\"chart-pref-label\">интервал выхода</text>");
+    }
     [1, 2, 3, 4].forEach(function (tick) {
       svg.push("<line x1=\"" + left + "\" y1=\"" + yOf(tick) + "\" x2=\"" + (left + plotW) +
         "\" y2=\"" + yOf(tick) + "\" class=\"chart-grid\" />");
@@ -903,7 +972,7 @@
       svg.push("<line x1=\"" + gx + "\" y1=\"" + top + "\" x2=\"" + gx + "\" y2=\"" + (top + plotH) +
         "\" class=\"chart-grid\" />");
       svg.push("<text x=\"" + gx + "\" y=\"" + (top + plotH + 18) +
-        "\" text-anchor=\"middle\" class=\"chart-axis\">" + chartTimeLabel(tick) + "</text>");
+        "\" text-anchor=\"middle\" class=\"chart-axis\">" + chartTimeLabel(tick, t1, multiDay) + "</text>");
     });
     svg.push("<line x1=\"" + left + "\" y1=\"" + (top + plotH) + "\" x2=\"" + (left + plotW) +
       "\" y2=\"" + (top + plotH) + "\" class=\"chart-axis-line\" />");
@@ -933,16 +1002,19 @@
       return "<span class=\"compare-chart-key\"><i style=\"background:" + line.color +
         "\"></i>" + esc(line.name) + "</span>";
     }).join("");
-    var rangeLabel = formatUtc(preferred.start) + " — " + formatUtc(preferred.end);
-    var heading = comparison && comparison.decision === "prefer"
-      ? "Опасности предпочтительного окна " + windowLabel(preferred)
-      : "Опасности окна " + windowLabel(preferred);
+    var startLabel = new Date(t0).toISOString().slice(0, 10);
+    var endLabel = new Date(t1 - 1).toISOString().slice(0, 10);
+    var rangeLabel = bounds.days + " сут, " + startLabel + " — " + endLabel + " UTC";
+    var heading = "Опасности за интервал запроса";
+    if (comparison && comparison.decision === "prefer") {
+      heading += " · " + windowLabel(preferred);
+    }
     return "<figure class=\"compare-chart\">" +
       "<h3>" + esc(heading) + "</h3>" +
       svg.join("") +
       "<div class=\"compare-chart-legend\">" + keys + "</div>" +
-      "<p class=\"small compare-chart-note\">Ось X — интервал окна в UTC (" + esc(rangeLabel) +
-      "). Каждая линия — один вид опасности. G не суммируется с SEP.</p>" +
+      "<p class=\"small compare-chart-note\">Ось X — интервал из Запроса (" + esc(rangeLabel) +
+      "). Золотая заливка — выбранный выход. Каждая линия — один вид опасности. G не суммируется с SEP.</p>" +
       "</figure>";
   }
 
@@ -1019,7 +1091,7 @@
       thHead({ cls: "col-completeness", word: "Полнота", hint: "доля известных SEP и G, 0–1; не безопасность" }) +
       "</tr></thead><tbody>" + table + "</tbody></table></div>" +
       "<div class=\"decision\"><h2>" + esc(title) + "</h2><p>" + esc(comparison.reason) + "</p></div>" +
-      compareChartHtml(windows, comparison);
+      compareChartHtml(windows, comparison, form, meta);
     if (evidenceRoot) {
       evidenceRoot.innerHTML = first
         ? "<h2>Доказательства по запрошенному окну</h2><div class=\"grid-2\">" + cards + "</div>"
