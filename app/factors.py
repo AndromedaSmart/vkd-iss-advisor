@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 
+from app.ingest import kp_to_g as _kp_to_g
 from app.timeutil import iso, overlap_minutes
 
 LEVELS = ("none", "watch", "warning", "high", "unknown")
@@ -259,20 +260,6 @@ def score_geomagnetic(window_start, window_end, forecast, kp_now):
         "applies_to": "контекст работ / магнитосфера",
         "limit": "Не вероятность повреждения станции и не доза SEP",
     }
-
-
-def _kp_to_g(kp):
-    if kp >= 9:
-        return 5
-    if kp >= 8:
-        return 4
-    if kp >= 7:
-        return 3
-    if kp >= 6:
-        return 2
-    if kp >= 5:
-        return 1
-    return 0
 
 
 def score_conjunctions(window_start, window_end, socrates, allowed):

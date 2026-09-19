@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 
 from app import ALGORITHM_VERSION
 from app.dataset import (
@@ -45,112 +45,12 @@ from app.planner_api import (
     status_sources,
     window_from_assessment,
 )
-from app.completeness import window_completeness_note
+from app.presentation import KIND_LABELS
+from app.presentation import copy as phrases
+from app.requestform import RequestError, parse_request
 from app.scoring import candidate_starts, compare_windows, worst_rank
-from app.timeutil import (
-    HISTORICAL_END,
-    HISTORICAL_START,
-    MAX_INTERVAL_DAYS,
-    as_utc,
-    display,
-    iso,
-    parse_utc,
-    utcnow,
-)
-
-KIND_LABEL = {
-    "observation": "Измерение",
-    "external_forecast": "Чужой прогноз",
-    "team_calc": "Наш расчёт",
-}
-
-
-class RequestError(ValueError):
-    pass
-
-
-def _parse_interval_days(form, start):
-    raw = form.get("interval_days")
-    if raw not in (None, ""):
-        try:
-            interval_days = int(float(raw))
-        except (TypeError, ValueError):
-            raise RequestError("Интервал задаётся целым числом суток")
-    else:
-        end_raw = (form.get("period_end_utc") or "").strip()
-        if end_raw:
-            period_end = parse_utc(end_raw)
-            if period_end.hour == 0 and period_end.minute == 0 and period_end.second == 0 and start.hour != 0:
-                period_end = period_end.replace(
-                    hour=start.hour, minute=start.minute, second=start.second
-                )
-            if period_end < start:
-                raise RequestError("Конец интервала не может быть раньше начала ВКД")
-            interval_days = (period_end.date() - start.date()).days + 1
-        else:
-            interval_days = 1
-    if interval_days < 1 or interval_days > MAX_INTERVAL_DAYS:
-        raise RequestError("Интервал сравнения — от 1 до {0} суток".format(MAX_INTERVAL_DAYS))
-    return interval_days
-
-
-def parse_request(form):
-    mode = (form.get("mode") or "current").strip()
-    if mode not in ("current", "historical"):
-        raise RequestError("Режим: current или historical")
-    duration = float(form.get("duration_hours") or 6)
-    search = float(form.get("search_hours") or 12)
-    if duration < 1 or duration > 8:
-        raise RequestError("Длительность ВКД должна быть от 1 до 8 часов")
-    if search < 1 or search > 24:
-        raise RequestError("Сдвиг внутри суток — от 1 до 24 часов")
-    now = utcnow()
-    start_raw = (form.get("start_utc") or "").strip()
-    if start_raw:
-        start = parse_utc(start_raw)
-    elif mode == "current":
-        start = now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
-    else:
-        start = datetime(2024, 5, 11, 0, 0, tzinfo=timezone.utc)
-    interval_days = _parse_interval_days(form, start)
-    period_end = start + timedelta(days=interval_days - 1)
-    if mode == "historical":
-        if start < HISTORICAL_START or start > HISTORICAL_END:
-            raise RequestError("Исторический режим: дата в пределах 1 апреля — 31 июля 2024 UTC")
-        if period_end > HISTORICAL_END:
-            period_end = HISTORICAL_END
-            interval_days = (period_end.date() - start.date()).days + 1
-        if period_end < HISTORICAL_START:
-            raise RequestError("Интервал выходит за пределы 1 апреля — 31 июля 2024 UTC")
-    cutoff_raw = (form.get("cutoff_utc") or "").strip()
-    if cutoff_raw:
-        cutoff = parse_utc(cutoff_raw)
-    elif mode == "current":
-        cutoff = now
-    else:
-        cutoff = None
-    refresh = str(form.get("refresh") or "") in ("1", "true", "on", "yes")
-    freeze = str(form.get("freeze") or "") in ("1", "true", "on", "yes")
-    previous_duration = form.get("previous_duration_hours")
-    plan_change = False
-    if previous_duration:
-        try:
-            plan_change = abs(float(previous_duration) - duration) > 1e-6
-        except ValueError:
-            plan_change = False
-    return {
-        "mode": mode,
-        "start": start,
-        "period_end": period_end,
-        "interval_days": interval_days,
-        "duration_hours": duration,
-        "search_hours": search,
-        "cutoff": cutoff,
-        "refresh": refresh,
-        "freeze": freeze,
-        "plan_change": plan_change,
-        "now": now,
-    }
+from app.timeline import compact_track, danger_timeline, interval_range, merge_conjunctions, merge_forecasts
+from app.timeutil import as_utc, display, iso, utcnow
 
 
 def use_planner_api(form=None):
@@ -231,7 +131,6 @@ def evaluate_via_planner(req):
     )
     api_mode = planner_mode_for(req)
     windows = []
-    assessments = []
     last_error = None
     for idx, w_start in enumerate(starts):
         try:
@@ -240,7 +139,6 @@ def evaluate_via_planner(req):
                 req["duration_hours"],
                 as_of=planner_as_of(req, w_start),
             )
-            assessments.append(raw)
             window = window_from_assessment(raw, idx, req["duration_hours"], is_requested=idx == 0)
             window["worst_rank"] = worst_rank([window["sep"]["level"], window["conjunction"]["level"]])
             windows.append(window)
@@ -377,7 +275,7 @@ def evaluate_via_planner(req):
         "chart_range": (local_pack or {}).get("chart_range"),
         "comparison": comparison,
         "notes": notes,
-        "kind_label": KIND_LABEL,
+        "kind_label": KIND_LABELS,
         "ui": _ui(windows, req),
         "dataset": dataset,
     }
@@ -578,10 +476,10 @@ def evaluate_local(req):
                 "coverage": coverage,
                 "ap": ap_value,
                 "storm_prob": storm_prob,
-                "track": _compact_track(track),
+                "track": compact_track(track),
                 "critical_missing": critical_missing,
                 "completeness": completeness,
-                "completeness_note": window_completeness_note(
+                "completeness_note": phrases.window_completeness_note(
                     {
                         "completeness": completeness,
                         "critical_missing": critical_missing,
@@ -593,7 +491,7 @@ def evaluate_local(req):
                 "adverse_minutes": round(adverse, 1),
                 "worst_rank": worst_rank([sep["level"], conj["level"]]),
                 "is_requested": idx == 0,
-                "timeline": _danger_timeline(
+                "timeline": danger_timeline(
                     w_start.replace(hour=0, minute=0, second=0, microsecond=0),
                     w_start.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1),
                     protons,
@@ -612,15 +510,15 @@ def evaluate_local(req):
         window["preferred"] = comparison["preferred_id"] == window["id"]
         window["tied"] = window["id"] in comparison.get("tied_ids", [])
 
-    range_start, range_end = _interval_range(req)
-    chart_timeline = _danger_timeline(
+    range_start, range_end = interval_range(req)
+    chart_timeline = danger_timeline(
         range_start,
         range_end,
         protons,
-        _merge_forecasts(forecast_cache.values()),
+        merge_forecasts(forecast_cache.values()),
         None,
         None,
-        _merge_conjunctions(windows),
+        merge_conjunctions(windows),
         windows=windows,
     )
 
@@ -649,7 +547,7 @@ def evaluate_local(req):
         "chart_range": {"start": iso(range_start), "end": iso(range_end)},
         "comparison": comparison,
         "notes": _notes(req, list(forecast_cache.values()), windows, comparison),
-        "kind_label": KIND_LABEL,
+        "kind_label": KIND_LABELS,
         "ui": _ui(windows, req),
         "dataset": dataset_status(),
     }
@@ -788,187 +686,9 @@ def _ui(windows, req):
         evidence.append("cme")
     if any((w.get("donki") or {}).get("count") for w in windows):
         evidence.append("donki")
-    gap_days = [w["day_label"] for w in windows if (w.get("coverage") or {}).get("tag") == "gap"]
-    donki_days = [w["day_label"] for w in windows if (w.get("coverage") or {}).get("tag") == "donki"]
     return {
         "columns": cols,
         "evidence": evidence,
-        "gap_days": gap_days,
-        "donki_only_days": donki_days,
-    }
-
-
-def _interval_range(req):
-    start = req["start"].replace(hour=0, minute=0, second=0, microsecond=0)
-    last = (req.get("period_end") or req["start"]).replace(hour=0, minute=0, second=0, microsecond=0)
-    if last < start:
-        last = start
-    return start, last + timedelta(days=1)
-
-
-def _as_date(value):
-    if isinstance(value, datetime):
-        return value.date()
-    if isinstance(value, str) and len(value) >= 10:
-        try:
-            return datetime.strptime(value[:10], "%Y-%m-%d").date()
-        except ValueError:
-            return None
-    return None
-
-
-def _window_level_for_time(windows, moment, name):
-    day = _as_date(moment)
-    if day is None:
-        return None
-    for window in windows or []:
-        if _as_date(window.get("start")) != day:
-            continue
-        block = window.get(name) or {}
-        if isinstance(block, dict):
-            return block.get("level")
-        return None
-    return None
-
-
-def _merge_forecasts(forecasts):
-    bins = []
-    for rec in forecasts or []:
-        if rec and getattr(rec, "ok", False) and rec.payload:
-            bins.extend(rec.payload.get("kp_bins") or [])
-    return type("ForecastView", (), {"ok": True, "payload": {"kp_bins": bins}})()
-
-
-def _merge_conjunctions(windows):
-    events = []
-    incomplete = True
-    for window in windows or []:
-        conj = window.get("conjunction") or {}
-        events.extend(conj.get("events") or [])
-        if not conj.get("incomplete"):
-            incomplete = False
-    return {"events": events, "incomplete": incomplete, "level": "unknown"}
-
-
-def _conjunction_event_level(event):
-    rng = event.get("min_range_km")
-    if rng is None:
-        return "unknown"
-    if rng < 1.0:
-        return "high"
-    if rng < 2.0:
-        return "warning"
-    if rng < 5.0:
-        return "watch"
-    return "none"
-
-
-def _danger_timeline(
-    day_start,
-    day_end,
-    protons,
-    forecast,
-    sep_level,
-    geo_level,
-    conj,
-    window_start=None,
-    window_end=None,
-    windows=None,
-):
-    span_min = max(1, int((day_end - day_start).total_seconds() / 60.0))
-    if span_min <= 180:
-        step = 10
-    elif span_min <= 12 * 60:
-        step = 15
-    elif span_min <= 36 * 60:
-        step = 30
-    else:
-        step = 60
-    proton_rows = []
-    if protons and protons.ok and protons.payload:
-        proton_rows = [row for row in protons.payload if day_start <= row["time"] <= day_end]
-    bins = []
-    if forecast and forecast.ok and forecast.payload:
-        bins = forecast.payload.get("kp_bins") or []
-    events = (conj or {}).get("events") or []
-    conj_incomplete = bool((conj or {}).get("incomplete"))
-    rank = {"none": 0, "watch": 1, "warning": 2, "high": 3}
-
-    def in_window(moment):
-        if window_start is None or window_end is None:
-            return True
-        return window_start <= moment <= window_end
-
-    points = []
-    cursor = day_start
-    last_sep = None
-    while cursor <= day_end:
-        nxt = min(cursor + timedelta(minutes=step), day_end)
-        chunk = [row for row in proton_rows if cursor <= row["time"] <= nxt]
-        if chunk:
-            flux = max(row["flux"] for row in chunk)
-            sep = level_from_s(s_scale_from_flux(flux))
-            last_sep = sep
-        elif last_sep is not None:
-            sep = last_sep
-        else:
-            sep = (
-                _window_level_for_time(windows, cursor, "sep")
-                or (sep_level if in_window(cursor) else None)
-                or "unknown"
-            )
-        geo = "unknown"
-        for item in bins:
-            if item["start"] <= cursor <= item["end"]:
-                geo = level_from_g(item.get("g"))
-                break
-        if geo == "unknown":
-            geo = (
-                _window_level_for_time(windows, cursor, "geomagnetic")
-                or (geo_level if in_window(cursor) else None)
-                or "unknown"
-            )
-        if conj_incomplete:
-            mmod = "unknown"
-        else:
-            mmod = "none"
-            for event in events:
-                tca = event.get("tca")
-                if tca is None:
-                    continue
-                if abs((tca - cursor).total_seconds()) <= 30 * 60:
-                    other = _conjunction_event_level(event)
-                    if other == "unknown":
-                        continue
-                    if rank.get(other, 0) > rank.get(mmod, 0):
-                        mmod = other
-        points.append({"t": iso(cursor), "sep": sep, "mmod": mmod, "geo": geo})
-        if cursor >= day_end:
-            break
-        cursor = nxt
-    if not points:
-        fallback_mmod = (conj or {}).get("level") or "unknown"
-        points = [
-            {"t": iso(day_start), "sep": sep_level, "mmod": fallback_mmod, "geo": geo_level},
-            {"t": iso(day_end), "sep": sep_level, "mmod": fallback_mmod, "geo": geo_level},
-        ]
-    return points
-
-
-def _compact_track(track):
-    if not track:
-        return None
-    pts = track["points"]
-    mid = pts[len(pts) // 2]
-    return {
-        "n_points": len(pts),
-        "first": pts[0],
-        "mid": mid,
-        "last": pts[-1],
-        "shadow_percent": round(100 * track["shadow_fraction"], 1),
-        "saa_percent": round(100 * track["saa_fraction"], 1),
-        "sunlit_percent": round(100 * track["sunlit_fraction"], 1),
-        "points": pts,
     }
 
 

@@ -1,1 +1,1 @@
-ALGORITHM_VERSION = "eva-window-0.3.41"
+ALGORITHM_VERSION = "eva-window-0.3.42"

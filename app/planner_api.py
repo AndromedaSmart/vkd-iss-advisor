@@ -5,8 +5,7 @@ from datetime import timedelta
 
 import httpx
 
-from app.completeness import window_completeness_note
-from app.evidence_text import plain_evidence_item
+from app.presentation import copy as phrases
 from app.factors import LEVEL_RANK
 from app.ingest import SourceRecord
 from app.timeutil import as_utc, display, iso, utcnow
@@ -119,7 +118,7 @@ def _evidence(items):
         else:
             value_text = "{0} {1}".format(value, row.get("unit") or "").strip()
         out.append(
-            plain_evidence_item(
+            phrases.evidence_item(
                 {
                     "kind": kind,
                     "title": row.get("statement") or row.get("rule_id") or "свидетельство",
@@ -161,10 +160,6 @@ def factor_block(raw, fallback_key):
         "limit": meta["limit"],
         "factor_id": factor_id,
     }
-
-
-def empty_factor(factor_id):
-    return factor_block({"factor_id": factor_id, "grade": "insufficient_data", "adverse_minutes": 0, "evidence": []}, factor_id)
 
 
 def window_from_assessment(raw, idx, duration_hours, is_requested=False):
@@ -234,7 +229,7 @@ def window_from_assessment(raw, idx, duration_hours, is_requested=False):
         "orbit_raw": orbit,
         "critical_missing": critical_missing,
         "completeness": completeness,
-        "completeness_note": window_completeness_note(
+        "completeness_note": phrases.window_completeness_note(
             {
                 "completeness": completeness,
                 "critical_missing": critical_missing,

@@ -6,14 +6,15 @@ import os
 from app import ALGORITHM_VERSION
 from app.dataset import data_root
 from app.demos import DEMOS, demos_in_group, js_demo_fields
+from app.planner_api import planner_base
+from app.presentation import copy as phrases
 from app.timeutil import MAX_INTERVAL_DAYS
 
-DEFAULT_PLANNER_API = "http://46.29.164.87:8000"
 PUBLIC_ARCHIVE_LABEL = "встроенный архив май–июнь 2024"
 
 
 def planner_api_base():
-    return os.environ.get("VKD_PLANNER_API") or DEFAULT_PLANNER_API
+    return planner_base()
 
 
 def stand_links(static=False):
@@ -41,6 +42,7 @@ def stand_links(static=False):
         "live_api": True,
         "max_interval_days": MAX_INTERVAL_DAYS,
         "demo_fields_json": json.dumps(js_demo_fields(), ensure_ascii=False),
+        "labels_json": phrases.client_json(),
     }
     for key in DEMOS:
         links[key] = demo_href(key)

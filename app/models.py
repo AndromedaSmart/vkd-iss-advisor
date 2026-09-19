@@ -1,3 +1,5 @@
+"""Typed domain contract for a future typed pack. Runtime still uses dicts."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -5,7 +7,9 @@ from datetime import datetime
 from enum import Enum
 from typing import Literal
 
-ALGO_VERSION = "0.1.0"
+from app import ALGORITHM_VERSION
+
+ALGO_VERSION = ALGORITHM_VERSION
 
 
 class Provenance(str, Enum):

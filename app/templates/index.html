@@ -7,7 +7,7 @@
   <title>ВКД - Орбитальный Риск</title>
   <link rel="stylesheet" href="{{ stand.asset }}">
 </head>
-<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}" data-live-api="{% if stand.live_api %}true{% else %}false{% endif %}" data-algorithm="{{ algorithm }}" data-demo="{{ demo }}" data-demos='{{ stand.demo_fields_json }}'>
+<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}" data-live-api="{% if stand.live_api %}true{% else %}false{% endif %}" data-algorithm="{{ algorithm }}" data-demo="{{ demo }}" data-demos='{{ stand.demo_fields_json }}' data-labels='{{ stand.labels_json }}'>
   <div class="platform">
     <header class="platform-head">
       <a class="brand" href="{{ stand.home }}">
