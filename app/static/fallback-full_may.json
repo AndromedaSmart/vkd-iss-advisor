@@ -1,0 +1,3298 @@
+{
+  "windows": [
+    {
+      "id": "W1",
+      "start": "2024-05-01T08:00:00Z",
+      "end": "2024-05-01T14:00:00Z",
+      "start_label": "2024-05-01 08:00 UTC",
+      "end_label": "2024-05-01 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-01",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "none",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "5%",
+            "detail": "No S1 (Minor) or greater solar radiation storms are expected. No significant active region activity favorable for radiation storm production is forecast.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-01T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 38% тени; SAA: 8% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-01T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "none",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 3.00 (G0)",
+            "detail": "G1 (Minor) geomagnetic storming is expected during the early hours of 01 May due to transient influences.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-01T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "warning",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 55,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "55%",
+            "detail": "R1-2 (Minor-Moderate) radio blackouts due to M-class flare activity primarily from AR 3654 are likely on 01 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-01T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-01T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "unknown",
+        "confidence": "нет CME в окне ±2 сут",
+        "incomplete": false,
+        "count": 0,
+        "earthward": 0,
+        "fastest": null,
+        "evidence": [],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": null,
+      "storm_prob": null,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-01T08:00:00Z",
+          "lat": -45.745,
+          "lon": 81.868,
+          "alt_km": 430.9,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.652
+        },
+        "mid": {
+          "time": "2024-05-01T11:00:00Z",
+          "lat": -33.15,
+          "lon": 13.171,
+          "alt_km": 424.9,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.656
+        },
+        "last": {
+          "time": "2024-05-01T14:00:00Z",
+          "lat": -17.429,
+          "lon": -49.203,
+          "alt_km": 418.3,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.661
+        },
+        "shadow_percent": 37.8,
+        "saa_percent": 8.1,
+        "sunlit_percent": 62.2
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 0,
+      "is_requested": true,
+      "preferred": true,
+      "tied": false
+    },
+    {
+      "id": "W2",
+      "start": "2024-05-02T08:00:00Z",
+      "end": "2024-05-02T14:00:00Z",
+      "start_label": "2024-05-02 08:00 UTC",
+      "end_label": "2024-05-02 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-02",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "10%",
+            "detail": "A slight chance for an S1 (Minor) solar radiation storm will exist on 02 May given the relatively recent activity from AR 3654 and its current location.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-02T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 38% тени; SAA: 8% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-02T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "watch",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 2.67 (G0)",
+            "detail": "No G1 (Minor) or greater geomagnetic storms are expected.  No significant transient or recurrent solar wind features are forecast.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-02T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "20",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-01T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "1%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-01T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "warning",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 55,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "55%",
+            "detail": "R1-2 (Minor-Moderate) radio blackouts due to M-class flare activity remain likely on 02 May given the flare histories of ARs 3654 and 3663. Probabilities decrease to a just a chance 03-04 May as AR 3654 rotates off the visible disk.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-02T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-02T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 2,
+        "earthward": 2,
+        "fastest": 861.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-01 06:36",
+            "value": "861.0 км/с · lon 46.0°",
+            "detail": "к Земле; halfAngle 50.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-02T00:39:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-01 11:36",
+            "value": "569.0 км/с · lon -25.0°",
+            "detail": "к Земле; halfAngle 20.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-01T19:55:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 20,
+      "storm_prob": 1,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-02T08:00:00Z",
+          "lat": 48.422,
+          "lon": -95.453,
+          "alt_km": 418.1,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "mid": {
+          "time": "2024-05-02T11:00:00Z",
+          "lat": 37.334,
+          "lon": -166.826,
+          "alt_km": 416.6,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.666
+        },
+        "last": {
+          "time": "2024-05-02T14:00:00Z",
+          "lat": 22.254,
+          "lon": 129.325,
+          "alt_km": 415.3,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.665
+        },
+        "shadow_percent": 37.8,
+        "saa_percent": 8.1,
+        "sunlit_percent": 62.2
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W3",
+      "start": "2024-05-03T08:00:00Z",
+      "end": "2024-05-03T14:00:00Z",
+      "start_label": "2024-05-03 08:00 UTC",
+      "end_label": "2024-05-03 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-03",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "15%",
+            "detail": "A slight chance for a R1 (Minor) solar radiation storm will persist through 05 May as AR 3654 rotates beyond the western limb, and AR 3663 continues to show signs of evolution.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-03T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 35% тени; SAA: 11% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-03T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "warning",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 60.0,
+        "max_g": 2,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 5.67 (G2)",
+            "detail": "An early, isolated period of G3 (Strong) geomagnetic storming is expected on 03 May, with a few periods of G1-2 (Minor-Moderate) storming expected thereafter, as lingering CME effects slowly wane.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-03T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "40",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-02T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "30%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-02T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "warning",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 65,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "65%",
+            "detail": "Isolated R1-2 (Minor-Moderate) radio blackouts due to M-class flare activity are likely through 05 May primarily due to the potential exhibited by ARs 3663 and 64.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-03T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-03T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 5,
+        "earthward": 4,
+        "fastest": 716.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-02 03:12",
+            "value": "716.0 км/с · lon -21.0°",
+            "detail": "к Земле; halfAngle 14.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-02T16:47:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-01 11:36",
+            "value": "569.0 км/с · lon -25.0°",
+            "detail": "к Земле; halfAngle 20.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-01T19:55:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-01 17:36",
+            "value": "464.0 км/с · lon -25.0°",
+            "detail": "к Земле; halfAngle 21.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-02T13:21:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-01 23:16",
+            "value": "353.0 км/с · lon -22.0°",
+            "detail": "к Земле; halfAngle 16.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-02T13:24:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 40,
+      "storm_prob": 30,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-03T08:00:00Z",
+          "lat": -50.468,
+          "lon": 88.573,
+          "alt_km": 432.9,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.651
+        },
+        "mid": {
+          "time": "2024-05-03T11:00:00Z",
+          "lat": -41.459,
+          "lon": 14.388,
+          "alt_km": 428.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.654
+        },
+        "last": {
+          "time": "2024-05-03T14:00:00Z",
+          "lat": -27.359,
+          "lon": -51.377,
+          "alt_km": 421.7,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.659
+        },
+        "shadow_percent": 35.1,
+        "saa_percent": 10.8,
+        "sunlit_percent": 64.9
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W4",
+      "start": "2024-05-04T08:00:00Z",
+      "end": "2024-05-04T14:00:00Z",
+      "start_label": "2024-05-04 08:00 UTC",
+      "end_label": "2024-05-04 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-04",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "15%",
+            "detail": "A slight chance for R1 (Minor) solar radiation storms exists, primarily due to the flare potential of Region 3663, over the next three days.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-04T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 35% тени; SAA: 14% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-04T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "none",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 2.67 (G0)",
+            "detail": "G1 (Minor) geomagnetic storming is likely on 05 May followed by G1-G2 (Minor-Moderate) on 06 May due to the arrival of a CME from 03 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-04T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "15",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-03T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "1%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-03T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 75,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "75%",
+            "detail": "R1-R2 (Minor-Moderate) radio blackouts are expected, with a chance for R3 (Strong), over the next three days due to the flare potential of multiple regions on the visible disk.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-04T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-04T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 3,
+        "earthward": 2,
+        "fastest": 972.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-03 02:48",
+            "value": "972.0 км/с · lon -20.0°",
+            "detail": "к Земле; halfAngle 18.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-03T15:16:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-03 02:48",
+            "value": "841.0 км/с · lon -14.0°",
+            "detail": "к Земле; halfAngle 43.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-03T15:13:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 15,
+      "storm_prob": 1,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-04T08:00:00Z",
+          "lat": 51.589,
+          "lon": -86.83,
+          "alt_km": 418.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "mid": {
+          "time": "2024-05-04T11:00:00Z",
+          "lat": 44.969,
+          "lon": -163.781,
+          "alt_km": 418.0,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.666
+        },
+        "last": {
+          "time": "2024-05-04T14:00:00Z",
+          "lat": 32.019,
+          "lon": 128.126,
+          "alt_km": 416.3,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.665
+        },
+        "shadow_percent": 35.1,
+        "saa_percent": 13.5,
+        "sunlit_percent": 64.9
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W5",
+      "start": "2024-05-05T08:00:00Z",
+      "end": "2024-05-05T14:00:00Z",
+      "start_label": "2024-05-05 08:00 UTC",
+      "end_label": "2024-05-05 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-05",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "15%",
+            "detail": "A slight chance for S1 (Minor) solar radiation storms exists, primarily due to the flare potential of Region 3663, over the next three days.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-05T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 35% тени; SAA: 16% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-05T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "watch",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 2.67 (G0)",
+            "detail": "G1 (Minor) geomagnetic storming is likely on 05 May followed by G1-G2 (Minor-Moderate) on 06 May due to the arrival of a CME from 03 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-05T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "20",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-04T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "15%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-04T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 75,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "75%",
+            "detail": "R1-R2 (Minor-Moderate) radio blackouts are expected, with a chance for R3 (Strong), over the next three days due to the flare potential of multiple regions on the visible disk.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-05T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-05T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 4,
+        "earthward": 4,
+        "fastest": 672.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-03 09:24",
+            "value": "672.0 км/с · lon -19.0°",
+            "detail": "к Земле; halfAngle 14.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-04T15:27:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-03 09:24",
+            "value": "652.0 км/с · lon -15.0°",
+            "detail": "к Земле; halfAngle 21.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-04T15:26:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-03 21:17",
+            "value": "548.0 км/с · lon -32.0°",
+            "detail": "к Земле; halfAngle 26.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-04T21:16:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-03 21:28",
+            "value": "509.0 км/с · lon -32.0°",
+            "detail": "к Земле; halfAngle 18.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-04T21:18:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 20,
+      "storm_prob": 15,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-05T08:00:00Z",
+          "lat": -51.715,
+          "lon": 98.523,
+          "alt_km": 433.5,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.65
+        },
+        "mid": {
+          "time": "2024-05-05T11:00:00Z",
+          "lat": -48.059,
+          "lon": 19.599,
+          "alt_km": 431.2,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.652
+        },
+        "last": {
+          "time": "2024-05-05T14:00:00Z",
+          "lat": -36.788,
+          "lon": -51.248,
+          "alt_km": 425.7,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.656
+        },
+        "shadow_percent": 35.1,
+        "saa_percent": 16.2,
+        "sunlit_percent": 64.9
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W6",
+      "start": "2024-05-06T08:00:00Z",
+      "end": "2024-05-06T14:00:00Z",
+      "start_label": "2024-05-06 08:00 UTC",
+      "end_label": "2024-05-06 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-06",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "warning",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "30%",
+            "detail": "A chance for S1 (Minor) solar radiation storms exists, primarily due to the flare potential of Regions 3663 and 3664, over the next three days.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-06T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 27% тени; SAA: 14% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-06T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "warning",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 60.0,
+        "max_g": 2,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 5.67 (G2)",
+            "detail": "G1-G2 (Minor-Moderate) storm levels are likely on 06 May due to persistent CME activity.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-06T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "35",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-05T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "25%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-05T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 90,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "90%",
+            "detail": "R1-R2 (Minor-Moderate) radio blackouts are expected, with a chance for R3 (Strong), over the next three days due to the flare potential of multiple regions on the visible disk.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-06T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-06T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "unknown",
+        "confidence": "нет CME в окне ±2 сут",
+        "incomplete": false,
+        "count": 0,
+        "earthward": 0,
+        "fastest": null,
+        "evidence": [],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 35,
+      "storm_prob": 25,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-06T08:00:00Z",
+          "lat": 50.78,
+          "lon": -76.418,
+          "alt_km": 417.9,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "mid": {
+          "time": "2024-05-06T11:00:00Z",
+          "lat": 50.244,
+          "lon": -156.386,
+          "alt_km": 418.5,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "last": {
+          "time": "2024-05-06T14:00:00Z",
+          "lat": 40.919,
+          "lon": 129.774,
+          "alt_km": 417.3,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.666
+        },
+        "shadow_percent": 27.0,
+        "saa_percent": 13.5,
+        "sunlit_percent": 73.0
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 2,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W7",
+      "start": "2024-05-07T08:00:00Z",
+      "end": "2024-05-07T14:00:00Z",
+      "start_label": "2024-05-07 08:00 UTC",
+      "end_label": "2024-05-07 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-07",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "25%",
+            "detail": "A chance for a S1 (Minor) solar radiation storm will persist through 09 May primarily due to the presence and recent flare history of ARs 3663 and 3664.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-07T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 30% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-07T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "none",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 2.33 (G0)",
+            "detail": "No G1 (Minor) or greater geomagnetic storms are expected.  No significant transient or recurrent solar wind features are forecast.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-07T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "12",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-06T22:10:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "1%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-06T22:10:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 90,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "90%",
+            "detail": "R1-2 (Minor-Moderate) radio blackouts due to M-class flare activity are expected through 09 May given the evolution of ARs 3663 and 3664 as well as their recent flare history. In addition, a high chance for an isolated R3 (Strong) radio blackout will persist through 09 May as well given AR 3663s history of X-class flares.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-07T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-07T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "unknown",
+        "confidence": "нет CME в окне ±2 сут",
+        "incomplete": false,
+        "count": 0,
+        "earthward": 0,
+        "fastest": null,
+        "evidence": [],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 12,
+      "storm_prob": 1,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-07T08:00:00Z",
+          "lat": -48.798,
+          "lon": 108.254,
+          "alt_km": 432.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.651
+        },
+        "mid": {
+          "time": "2024-05-07T11:00:00Z",
+          "lat": -51.546,
+          "lon": 28.968,
+          "alt_km": 432.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.651
+        },
+        "last": {
+          "time": "2024-05-07T14:00:00Z",
+          "lat": -44.838,
+          "lon": -47.679,
+          "alt_km": 429.1,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.654
+        },
+        "shadow_percent": 29.7,
+        "saa_percent": 18.9,
+        "sunlit_percent": 70.3
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W8",
+      "start": "2024-05-08T08:00:00Z",
+      "end": "2024-05-08T14:00:00Z",
+      "start_label": "2024-05-08 08:00 UTC",
+      "end_label": "2024-05-08 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-08",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "25%",
+            "detail": "There is a chance for S1 (Minor) or greater solar radiation storms over the next three days primarily due to the potential from ARs 3663 and 3664.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-08T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 24% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-08T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "none",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 2.67 (G0)",
+            "detail": "No G1 (Minor) or greater geomagnetic storms are expected.  No significant transient or recurrent solar wind features are forecast.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-08T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "8",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-07T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "1%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-07T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 90,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "90%",
+            "detail": "R1-2 (Minor-Moderate) radio blackouts due to M-class flare activity are expected through the forecast period given the evolution of ARs 3663 and 3664 as well as their recent flare history. In addition, a high chance for an isolated R3 (Strong) radio blackout will persist as well given AR 3663s history of X-class flares.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-08T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-08T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "watch",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 4,
+        "earthward": 2,
+        "fastest": 430.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-07 05:24",
+            "value": "430.0 км/с · lon -2.0°",
+            "detail": "к Земле; halfAngle 21.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-07T15:17:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-07 03:12",
+            "value": "381.0 км/с · lon -24.0°",
+            "detail": "к Земле; halfAngle 35.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-07T13:11:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 8,
+      "storm_prob": 1,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-08T08:00:00Z",
+          "lat": 45.874,
+          "lon": -67.897,
+          "alt_km": 416.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "mid": {
+          "time": "2024-05-08T11:00:00Z",
+          "lat": 51.728,
+          "lon": -145.441,
+          "alt_km": 418.5,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "last": {
+          "time": "2024-05-08T14:00:00Z",
+          "lat": 47.95,
+          "lon": 135.618,
+          "alt_km": 418.4,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.666
+        },
+        "shadow_percent": 24.3,
+        "saa_percent": 18.9,
+        "sunlit_percent": 75.7
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W9",
+      "start": "2024-05-09T08:00:00Z",
+      "end": "2024-05-09T14:00:00Z",
+      "start_label": "2024-05-09 08:00 UTC",
+      "end_label": "2024-05-09 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-09",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "watch",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 0.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "25%",
+            "detail": "A chance for S1 (Minor) solar radiation storms will persist through the forecast period given the observed activity from AR 3664 in particular.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "0 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 19% тени; SAA: 16% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-09T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "none",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 2.00 (G0)",
+            "detail": "G1-2 (Minor-Moderate) geomagnetic storming is likely 10-11 May due to the arrival of CMEs that left the Sun over the course of 07-08 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "12",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-08T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "1%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-08T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong) radio blackouts due to X-class flares are likely through the forecast period primarily due to the magnetic complexity and stature of AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-09T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "warning",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 4,
+        "earthward": 4,
+        "fastest": 1156.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-08 12:24",
+            "value": "1156.0 км/с · lon 8.0°",
+            "detail": "к Земле; halfAngle 43.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-08T16:38:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-08 12:24",
+            "value": "776.0 км/с · lon 3.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-08T16:38:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-08 05:36",
+            "value": "729.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-08T19:50:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-07 19:48",
+            "value": "282.0 км/с · lon 9.0°",
+            "detail": "к Земле; halfAngle 19.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-08T17:24:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 12,
+      "storm_prob": 1,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-09T08:00:00Z",
+          "lat": -42.153,
+          "lon": 114.956,
+          "alt_km": 429.5,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.653
+        },
+        "mid": {
+          "time": "2024-05-09T11:00:00Z",
+          "lat": -50.723,
+          "lon": 40.387,
+          "alt_km": 432.4,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.651
+        },
+        "last": {
+          "time": "2024-05-09T14:00:00Z",
+          "lat": -50.339,
+          "lon": -39.379,
+          "alt_km": 431.5,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.652
+        },
+        "shadow_percent": 18.9,
+        "saa_percent": 16.2,
+        "sunlit_percent": 81.1
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 0.0,
+      "worst_rank": 1,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W10",
+      "start": "2024-05-10T08:00:00Z",
+      "end": "2024-05-10T14:00:00Z",
+      "start_label": "2024-05-10 08:00 UTC",
+      "end_label": "2024-05-10 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-10",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "warning",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "50%",
+            "detail": "A high chance for S1-2 (Minor-Moderate) solar radiation storms will persist through the forecast period due to the potential exhibited by AR 3634, in tandem with current conditions and expected shock arrival enhancements from inbound CMEs.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 16% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-10T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "watch",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 3.67 (G0)",
+            "detail": "G1-2 (Minor-Moderate) geomagnetic storming is likely on 10-12 May due to multiple CMEs from AR 3634 spanning 08-09 May. G3 (Strong) to G4 (Severe or greater) geomagnetic storming is likely on 11 May as the bulk of the activity is expected to arrive during the early hours of the UTC day.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "25",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-09T22:10:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "5%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-09T22:10:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong or greater) radio blackouts due to isolated X-class flare activity are likely to continue through the forecast period primarily due to AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-10T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 9,
+        "earthward": 9,
+        "fastest": 1561.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1561.0 км/с · lon 14.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T18:45:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1330.0 км/с · lon 19.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T16:28:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-08 22:24",
+            "value": "1257.0 км/с · lon 5.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T20:22:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 18:23",
+            "value": "1236.0 км/с · lon 12.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T22:30:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 25,
+      "storm_prob": 5,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-10T08:00:00Z",
+          "lat": 37.687,
+          "lon": -63.002,
+          "alt_km": 414.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.669
+        },
+        "mid": {
+          "time": "2024-05-10T11:00:00Z",
+          "lat": 48.586,
+          "lon": -134.468,
+          "alt_km": 417.3,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "last": {
+          "time": "2024-05-10T14:00:00Z",
+          "lat": 51.604,
+          "lon": 146.28,
+          "alt_km": 418.7,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "shadow_percent": 16.2,
+        "saa_percent": 18.9,
+        "sunlit_percent": 83.8
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 2,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W11",
+      "start": "2024-05-11T08:00:00Z",
+      "end": "2024-05-11T14:00:00Z",
+      "start_label": "2024-05-11 08:00 UTC",
+      "end_label": "2024-05-11 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-11",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "high",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "99%",
+            "detail": "S1 (Minor) solar radiation storms, currently in progress, are expected to continue through 12 May. Another minor event will remain likely through 13 May given the history of AR 3664.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: поток выше порога S",
+            "value": "above S-scale",
+            "detail": "Это наблюдение из датированного продукта, не расчёт команды",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T00:30:00Z",
+            "rule": "observed S-storm в 3-day forecast"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 16% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-11T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "high",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 360.0,
+        "max_g": 3,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 7.00 (G3)",
+            "detail": "G4 (Strong) geomagnetic storming is expected during the first half of 11 May, with a chance for early periods of G5 (Extreme) due to multiple CME arrivals from events spanning 07-09 May. G1-2 (Minor-Moderate) geomagnetic storming is likely to then continue, though wane, on 12 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "106",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-10T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "65%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-10T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong or greater) radio blackouts due to isolated X-class flare activity are expected through 13 May due to the flare history of AR 3664.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-11T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 6,
+        "earthward": 6,
+        "fastest": 1561.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1561.0 км/с · lon 14.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T18:45:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-10 07:12",
+            "value": "1332.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-10T13:17:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 09:24",
+            "value": "1330.0 км/с · lon 19.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T16:28:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-09 18:23",
+            "value": "1236.0 км/с · lon 12.0°",
+            "detail": "к Земле; halfAngle 45.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-09T22:30:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 106,
+      "storm_prob": 65,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-11T08:00:00Z",
+          "lat": -32.766,
+          "lon": 118.064,
+          "alt_km": 425.6,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.655
+        },
+        "mid": {
+          "time": "2024-05-11T11:00:00Z",
+          "lat": -45.408,
+          "lon": 49.784,
+          "alt_km": 430.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.652
+        },
+        "last": {
+          "time": "2024-05-11T14:00:00Z",
+          "lat": -51.651,
+          "lon": -27.175,
+          "alt_km": 432.1,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.652
+        },
+        "shadow_percent": 16.2,
+        "saa_percent": 18.9,
+        "sunlit_percent": 83.8
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 3,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W12",
+      "start": "2024-05-12T08:00:00Z",
+      "end": "2024-05-12T14:00:00Z",
+      "start_label": "2024-05-12 08:00 UTC",
+      "end_label": "2024-05-12 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-12",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "high",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "99%",
+            "detail": "S1-2 (Minor-Moderate) solar radiation storms are expected through 14 May due to activity originating from AR 3634.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: поток выше порога S",
+            "value": "above S-scale",
+            "detail": "Это наблюдение из датированного продукта, не расчёт команды",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T00:30:00Z",
+            "rule": "observed S-storm в 3-day forecast"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 16% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-12T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "high",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 360.0,
+        "max_g": 5,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 9.00 (G5)",
+            "detail": "G5 (Extreme) storm levels are expected on 12 May due to CME impacts. G3 (Strong) geomagnetic storming is likely to continue into the early hours of 13 May. Isolated G1 (Minor) geomagnetic storming is likely on 14 May as conditions from the the previous days wane.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "217",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-11T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "65%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-11T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R3 (Strong) or greater radio blackouts are expected all three day.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-12T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "high",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 2,
+        "earthward": 2,
+        "fastest": 1820.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 01:36",
+            "value": "1820.0 км/с · lon 15.0°",
+            "detail": "к Земле; halfAngle 48.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-11T17:59:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 01:36",
+            "value": "1263.0 км/с · lon 51.0°",
+            "detail": "к Земле; halfAngle 51.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-11T13:53:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 217,
+      "storm_prob": 65,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-12T08:00:00Z",
+          "lat": 27.07,
+          "lon": -61.17,
+          "alt_km": 412.2,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.669
+        },
+        "mid": {
+          "time": "2024-05-12T11:00:00Z",
+          "lat": 41.175,
+          "lon": -126.704,
+          "alt_km": 415.1,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "last": {
+          "time": "2024-05-12T14:00:00Z",
+          "lat": 50.325,
+          "lon": 159.45,
+          "alt_km": 417.8,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.667
+        },
+        "shadow_percent": 16.2,
+        "saa_percent": 18.9,
+        "sunlit_percent": 83.8
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 3,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W13",
+      "start": "2024-05-13T08:00:00Z",
+      "end": "2024-05-13T14:00:00Z",
+      "start_label": "2024-05-13 08:00 UTC",
+      "end_label": "2024-05-13 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-13",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "warning",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "60%",
+            "detail": "S1 (Minor) or greater solar radiation storms remain likely due primarily to the enhanced solar energetic particle environment, and favorable location and potential of Region 3664 for future events 13-14 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: поток выше порога S",
+            "value": "above S-scale",
+            "detail": "Это наблюдение из датированного продукта, не расчёт команды",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T00:30:00Z",
+            "rule": "observed S-storm в 3-day forecast"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 22% тени; SAA: 19% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-13T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "high",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 1,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 4.67 (G1)",
+            "detail": "G3 (Strong) geomagnetic storms are expected on 13 May due to ongoing CME activity. Continuing, but weaker CME influences are anticipated to decrease responses down to unsettled to G1 (Minor) levels on 14 May.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T00:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "40",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-12T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "55%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-12T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R1-R2 (Minor-Moderate) radio blackouts are expected 13-14 May, with some likelihood of further R3 (Strong) events due primarily to the flare potential of Region 3664.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T00:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T00:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "none",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 4,
+        "earthward": 0,
+        "fastest": 946.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 16:24",
+            "value": "946.0 км/с · lon 53.0°",
+            "detail": "не earthward; halfAngle 25.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-12T16:16:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-12 02:00",
+            "value": "624.0 км/с · lon -147.0°",
+            "detail": "не earthward; halfAngle 35.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-12T18:55:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-12 03:48",
+            "value": "602.0 км/с · lon 137.0°",
+            "detail": "не earthward; halfAngle 47.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-12T13:11:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-11 18:00",
+            "value": "268.0 км/с · lon 90.0°",
+            "detail": "не earthward; halfAngle 34.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-12T17:38:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 40,
+      "storm_prob": 55,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-13T08:00:00Z",
+          "lat": -21.144,
+          "lon": 118.878,
+          "alt_km": 420.8,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.658
+        },
+        "mid": {
+          "time": "2024-05-13T11:00:00Z",
+          "lat": -36.222,
+          "lon": 55.649,
+          "alt_km": 426.3,
+          "in_shadow": false,
+          "in_saa": false,
+          "speed_km_s": 7.654
+        },
+        "last": {
+          "time": "2024-05-13T14:00:00Z",
+          "lat": -47.648,
+          "lon": -14.591,
+          "alt_km": 430.5,
+          "in_shadow": false,
+          "in_saa": true,
+          "speed_km_s": 7.652
+        },
+        "shadow_percent": 21.6,
+        "saa_percent": 18.9,
+        "sunlit_percent": 78.4
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 2,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    },
+    {
+      "id": "W14",
+      "start": "2024-05-14T08:00:00Z",
+      "end": "2024-05-14T14:00:00Z",
+      "start_label": "2024-05-14 08:00 UTC",
+      "end_label": "2024-05-14 14:00 UTC",
+      "duration_hours": 6.0,
+      "day_label": "2024-05-14",
+      "sep": {
+        "mechanism": "sep",
+        "title": "Солнечные энергичные частицы",
+        "level": "warning",
+        "confidence": "только внешний прогноз",
+        "overlap_minutes": 360.0,
+        "max_flux": null,
+        "max_s": null,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC S1 or greater",
+            "value": "60%",
+            "detail": "S1 (Minor) solar radiation storms are likely on 13-14 May due to the eruptive potential from Region 3664.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: поток выше порога S",
+            "value": "above S-scale",
+            "detail": "Это наблюдение из датированного продукта, не расчёт команды",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T12:30:00Z",
+            "rule": "observed S-storm в 3-day forecast"
+          },
+          {
+            "kind": "team_calc",
+            "title": "Пересечение воздействий с окном",
+            "value": "360 мин неблагоприятного SEP-пересечения",
+            "detail": "Освещённость: 24% тени; SAA: 22% точек трека. Это условие работ, не балл SEP.",
+            "source_id": "orbit",
+            "time": "2024-05-14T08:00:00Z",
+            "rule": "SGP4, шаг 10 мин"
+          }
+        ],
+        "applies_to": "окно ВКД",
+        "limit": "Прокси потока на GOES, не эквивалентная доза экипажа"
+      },
+      "geomagnetic": {
+        "mechanism": "geomagnetic",
+        "title": "Геомагнитная обстановка (не суммируется с SEP)",
+        "level": "watch",
+        "confidence": "шкала G отдельно от SEP",
+        "overlap_minutes": 0.0,
+        "max_g": 0,
+        "incomplete": false,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Kp / шкала G из 3-day forecast",
+            "value": "Kp 3.67 (G0)",
+            "detail": "G1-G3 (Minor-Strong) geomagnetic storms are likely on 13 May and G1 conditions are likely on 14 May as CME influence wanes.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T12:30:00Z",
+            "rule": "G1 Kp=5 … G5 Kp=9; в сводку SEP не входит"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Ap из geomag forecast (predicted)",
+            "value": "26",
+            "detail": "Отдельный продукт SWPC; не складывается с SEP",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-13T22:05:00Z",
+            "rule": "<20 none; 20–29 watch; 30–49 warning; ≥50 high"
+          },
+          {
+            "kind": "external_forecast",
+            "title": "Вероятность Strong–Extreme storm",
+            "value": "15%",
+            "detail": "G3+ на сутки окна по geomag forecast",
+            "source_id": "swpc_geomag",
+            "time": "2024-05-13T22:05:00Z",
+            "rule": "≥10 watch; ≥25 warning; ≥50 high"
+          }
+        ],
+        "applies_to": "контекст работ / магнитосфера",
+        "limit": "Не вероятность повреждения станции и не доза SEP"
+      },
+      "conjunction": {
+        "mechanism": "conjunction",
+        "title": "Сближения каталожных объектов",
+        "level": "unknown",
+        "confidence": "текущий каталог SOCRATES непригоден для исторического replay",
+        "overlap_minutes": 0.0,
+        "incomplete": true,
+        "events": [],
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "SOCRATES отключён в историческом режиме",
+            "value": "не используется",
+            "detail": "Это не отсутствие сближений. Исторический каталог не подменяется текущим.",
+            "source_id": "socrates",
+            "time": null,
+            "rule": "T4: не смешивать эпоху каталога"
+          }
+        ],
+        "applies_to": "станция и каталожные объекты",
+        "limit": "Не вероятность попадания мелкого обломка в космонавта"
+      },
+      "radio": {
+        "mechanism": "radio",
+        "title": "Радиозатмения R (не суммируются с SEP)",
+        "level": "high",
+        "confidence": "шкала R отдельно от SEP и G",
+        "incomplete": false,
+        "r12_percent": 95,
+        "r3_percent": null,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "Прогноз SWPC R1–R2",
+            "value": "95%",
+            "detail": "R1-R3 (Minor-Strong) conditions are expected on 13-14 May due to the flare potential of Region 3664. As the region rotates around the Suns W limb, R1-R2 (Minor-Moderate) probabilities drop to just a chance from the remaining active regions on the Suns visible disk.",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T12:30:00Z",
+            "rule": "<10% none; 10–29 watch; 30–69 warning; ≥70 high"
+          },
+          {
+            "kind": "observation",
+            "title": "В выпуске SWPC: радиозатмение наблюдалось",
+            "value": "R observed",
+            "detail": "Наблюдение из датированного 3-day forecast",
+            "source_id": "swpc_3day",
+            "time": "2024-05-13T12:30:00Z",
+            "rule": "observed radio blackout"
+          }
+        ],
+        "applies_to": "связь / навигация, не радиация экипажа",
+        "limit": "R не добавляется к SEP и не означает G"
+      },
+      "cme": {
+        "mechanism": "cme",
+        "title": "Выбросы корональной массы (DONKI)",
+        "level": "none",
+        "confidence": "каталог CME analysis; не сумма с SEP",
+        "incomplete": false,
+        "count": 1,
+        "earthward": 0,
+        "fastest": 281.0,
+        "evidence": [
+          {
+            "kind": "external_forecast",
+            "title": "CME 2024-05-12 13:00",
+            "value": "281.0 км/с · lon 70.0°",
+            "detail": "не earthward; halfAngle 19.0°; submission ≤ отсечения",
+            "source_id": "donki_cme",
+            "time": "2024-05-13T20:18:00Z",
+            "rule": "earthward: |lon| ≤ halfAngle+10; ≥1000 км/с warning; ≥1500 high"
+          }
+        ],
+        "applies_to": "контекст прибытия возмущения, не доза",
+        "limit": "Геометрия по lon/halfAngle — эвристика, не WSA-ENLIL"
+      },
+      "donki": {
+        "mechanism": "donki",
+        "title": "Уведомления DONKI",
+        "level": "unknown",
+        "confidence": "нет уведомлений на сутки",
+        "incomplete": false,
+        "count": 0,
+        "types": "",
+        "has_sep": false,
+        "has_gst": false,
+        "has_flr": false,
+        "evidence": [],
+        "applies_to": "контекст оперативных алертов",
+        "limit": "Текст уведомления не пересчитывается в дозу"
+      },
+      "coverage": {
+        "tag": "ncei",
+        "labels": [
+          "3-day",
+          "geomag"
+        ]
+      },
+      "ap": 26,
+      "storm_prob": 15,
+      "track": {
+        "n_points": 37,
+        "first": {
+          "time": "2024-05-14T08:00:00Z",
+          "lat": 14.663,
+          "lon": -61.235,
+          "alt_km": 411.0,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "mid": {
+          "time": "2024-05-14T11:00:00Z",
+          "lat": 30.548,
+          "lon": -122.773,
+          "alt_km": 412.8,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "last": {
+          "time": "2024-05-14T14:00:00Z",
+          "lat": 43.807,
+          "lon": 170.139,
+          "alt_km": 415.8,
+          "in_shadow": true,
+          "in_saa": false,
+          "speed_km_s": 7.668
+        },
+        "shadow_percent": 24.3,
+        "saa_percent": 21.6,
+        "sunlit_percent": 75.7
+      },
+      "critical_missing": false,
+      "completeness": 1.0,
+      "adverse_minutes": 360.0,
+      "worst_rank": 2,
+      "is_requested": false,
+      "preferred": false,
+      "tied": false
+    }
+  ],
+  "notes": [
+    "Сервис — исследовательский прототип поддержки решений, не допуск к ВКД.",
+    "Механизм 1: SEP. Механизм 2: сближения каталожных объектов. Шкала G показывается отдельно и не прибавляется к SEP.",
+    "Интервал сравнения: 14 сут (2024-05-01 — 2024-05-14), одно окно 6.0 ч на каждые сутки.",
+    "Исторический режим: 3-day forecast и GP ISS с временем публикации ≤ начала каждого окна. SOCRATES и современный TLE не используются.",
+    "Выпуски SWPC 3-Day Forecast: 2024-05-01T00:30:00Z, 2024-05-02T00:30:00Z, 2024-05-03T00:30:00Z, 2024-05-04T00:30:00Z, 2024-05-05T00:30:00Z, 2024-05-06T00:30:00Z, 2024-05-07T00:30:00Z, 2024-05-08T00:30:00Z, 2024-05-09T00:30:00Z, 2024-05-10T00:30:00Z, 2024-05-11T00:30:00Z, 2024-05-12T00:30:00Z, 2024-05-13T00:30:00Z, 2024-05-13T12:30:00Z.",
+    "Локальный набор встроенный архив май–июнь 2024: 3-day/geomag NCEI, DONKI 75, CME 232."
+  ],
+  "comparison": {
+    "decision": "prefer",
+    "preferred_id": "W1",
+    "tied_ids": [],
+    "reason": "Меньше пересечения с уровнем warning+ при сопоставимой полноте. Связанные сигналы SEP не суммировались со шкалой G."
+  }
+}

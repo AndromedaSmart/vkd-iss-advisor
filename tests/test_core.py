@@ -108,6 +108,71 @@ def test_interval_days_parameter():
     assert all(item.hour == 0 for item in starts)
 
 
+def test_historical_window_covers_april_and_july():
+    from app.evaluate import RequestError, parse_request
+
+    april = parse_request(
+        {
+            "mode": "historical",
+            "start_utc": "2024-04-15 08:00",
+            "interval_days": 10,
+            "duration_hours": 6,
+            "search_hours": 12,
+        }
+    )
+    assert april["start"].month == 4
+    assert april["period_end"].month == 4
+    july = parse_request(
+        {
+            "mode": "historical",
+            "start_utc": "2024-07-20 08:00",
+            "interval_days": 8,
+            "duration_hours": 6,
+            "search_hours": 12,
+        }
+    )
+    assert july["start"].month == 7
+    assert july["period_end"].day == 27
+    clamped = parse_request(
+        {
+            "mode": "historical",
+            "start_utc": "2024-07-28 08:00",
+            "interval_days": 10,
+            "duration_hours": 6,
+            "search_hours": 12,
+        }
+    )
+    assert clamped["period_end"].month == 7
+    assert clamped["period_end"].day == 31
+    try:
+        parse_request({"mode": "historical", "start_utc": "2024-03-31 08:00", "interval_days": 2, "duration_hours": 6, "search_hours": 12})
+        raise AssertionError("март должен быть вне исторического окна")
+    except RequestError:
+        pass
+    try:
+        parse_request({"mode": "historical", "start_utc": "2024-08-01 08:00", "interval_days": 2, "duration_hours": 6, "search_hours": 12})
+        raise AssertionError("август должен быть вне исторического окна")
+    except RequestError:
+        pass
+
+
+def test_april_replay_is_gap_not_crash():
+    from app.evaluate import evaluate
+
+    pack = evaluate(
+        {
+            "mode": "historical",
+            "start_utc": "2024-04-15 08:00",
+            "interval_days": 2,
+            "duration_hours": 6,
+            "search_hours": 12,
+            "offline": "on",
+        }
+    )
+    assert len(pack["windows"]) == 2
+    assert pack["windows"][0]["critical_missing"] is True
+
+
 def test_equivalent_windows():
     windows = [
         {"id": "W1", "critical_missing": False, "worst_rank": 2, "adverse_minutes": 40, "completeness": 1},
@@ -138,3 +203,12 @@ def test_socrates_rows():
     assert len(events) == 1
     assert events[0]["other_id"] == "39469"
     assert abs(events[0]["min_range_km"] - 1.732) < 1e-6
+
+
+def test_demo_page_slugs_are_unique():
+    from app.demos import DEMOS
+
+    slugs = ["demo-{0}.html".format(key.replace("_", "-")) for key in DEMOS]
+    assert len(slugs) == len(set(slugs))
+    assert "demo-full-may.html" in slugs
+    assert "demo-full-june.html" in slugs

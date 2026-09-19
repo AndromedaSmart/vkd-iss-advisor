@@ -4,13 +4,15 @@ import json
 from pathlib import Path
 
 from fastapi import FastAPI, Form, Query, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app import ALGORITHM_VERSION
 from app.dataset import dataset_status
+from app.demos import DEFAULT_DEMO, DEMOS, demo_form
 from app.evaluate import RequestError, evaluate
+from app.exportfmt import pack_to_csv
 from app.stand import is_public_stand, publicize_pack, stand_links
 from app.timeutil import iso, utcnow
 
@@ -30,7 +32,7 @@ def _save(pack):
     return path
 
 
-def _context(request, form, pack=None, error=None):
+def _context(request, form, pack=None, error=None, demo=""):
     if pack and is_public_stand():
         pack = publicize_pack(pack)
     return {
@@ -38,22 +40,10 @@ def _context(request, form, pack=None, error=None):
         "pack": pack,
         "error": error,
         "form": form,
+        "demo": demo,
         "algorithm": ALGORITHM_VERSION,
         "now": iso(utcnow()),
         "stand": stand_links(static=False),
-    }
-
-
-def _demo_form(start_utc, interval_days, duration_hours=6, search_hours=12):
-    return {
-        "mode": "historical",
-        "start_utc": start_utc,
-        "duration_hours": duration_hours,
-        "search_hours": search_hours,
-        "interval_days": interval_days,
-        "cutoff_utc": "",
-        "refresh": "",
-        "freeze": "",
     }
 
 
@@ -89,14 +79,10 @@ def _form_from_params(
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    demo = request.query_params.get("demo") or "storm"
-    if demo == "quiet":
-        form = _demo_form("2024-06-18 08:00", 5)
-    elif demo == "gap":
-        form = _demo_form("2024-06-01 08:00", 7)
-    else:
-        form = _demo_form("2024-05-10 08:00", 4)
-    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
+    demo = request.query_params.get("demo") or DEFAULT_DEMO
+    if demo not in DEMOS:
+        demo = DEFAULT_DEMO
+    return templates.TemplateResponse("index.html", _context(request, demo_form(demo), pack=None, demo=demo))
 
 
 @app.post("/evaluate", response_class=HTMLResponse)
@@ -134,22 +120,11 @@ def evaluate_post(
     return templates.TemplateResponse("index.html", _context(request, form, pack, error))
 
 
-@app.get("/demo/storm", response_class=HTMLResponse)
-def demo_storm(request: Request):
-    form = _demo_form("2024-05-10 08:00", 4)
-    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
-
-
-@app.get("/demo/quiet", response_class=HTMLResponse)
-def demo_quiet(request: Request):
-    form = _demo_form("2024-06-18 08:00", 5)
-    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
-
-
-@app.get("/demo/gap", response_class=HTMLResponse)
-def demo_gap(request: Request):
-    form = _demo_form("2024-06-01 08:00", 7)
-    return templates.TemplateResponse("index.html", _context(request, form, pack=None))
+@app.get("/demo/{name}", response_class=HTMLResponse)
+def demo_named(request: Request, name: str):
+    if name not in DEMOS:
+        name = DEFAULT_DEMO
+    return templates.TemplateResponse("index.html", _context(request, demo_form(name), pack=None, demo=name))
 
 
 @app.get("/api/evaluate")
@@ -177,12 +152,39 @@ def api_evaluate(
         return JSONResponse({"error": str(exc)}, status_code=502)
 
 
-@app.get("/export/{result_id}.json")
-def export_json(result_id: str):
+def _load_saved_pack(result_id):
     path = RESULTS_DIR / (result_id + ".json")
     if not path.exists():
+        return None
+    return json.loads(path.read_text("utf-8"))
+
+
+def _download(body, filename, media_type):
+    return Response(
+        content=body.encode("utf-8"),
+        media_type=media_type,
+        headers={"Content-Disposition": 'attachment; filename="{0}"'.format(filename)},
+    )
+
+
+@app.get("/export/{result_id}.json")
+def export_json(result_id: str):
+    pack = _load_saved_pack(result_id)
+    if pack is None:
         return JSONResponse({"error": "Расчёт не найден"}, status_code=404)
-    return JSONResponse(json.loads(path.read_text("utf-8")))
+    return _download(
+        json.dumps(pack, ensure_ascii=False, indent=2),
+        result_id + ".json",
+        "application/json; charset=utf-8",
+    )
+
+
+@app.get("/export/{result_id}.csv")
+def export_csv(result_id: str):
+    pack = _load_saved_pack(result_id)
+    if pack is None:
+        return JSONResponse({"error": "Расчёт не найден"}, status_code=404)
+    return _download(pack_to_csv(pack), result_id + ".csv", "text/csv; charset=utf-8")
 
 
 @app.get("/health")

@@ -70,3 +70,14 @@ def test_gap_days_use_donki_not_all_clear():
     assert first["coverage"]["tag"] in ("donki", "gap")
     assert first["donki"]["count"] >= 1
     assert "дыра" in " ".join(pack["notes"]).lower() or first["coverage"]["tag"] == "donki"
+
+
+def test_full_coverage_demos_have_no_sep_holes():
+    from app.demos import demo_form
+
+    for name in ("full_may", "full_june"):
+        pack = evaluate(demo_form(name))
+        assert pack["windows"]
+        holes = [w["day_label"] for w in pack["windows"] if w["critical_missing"] or w["completeness"] < 1]
+        assert holes == [], name + " holes: " + ", ".join(holes)
+        assert all((w.get("coverage") or {}).get("tag") == "ncei" for w in pack["windows"])

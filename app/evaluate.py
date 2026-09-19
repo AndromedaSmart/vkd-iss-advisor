@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import uuid
 import os
+import uuid
 from datetime import datetime, timedelta, timezone
-from typing import List
 
 from app import ALGORITHM_VERSION
 from app.dataset import (
@@ -47,6 +46,7 @@ from app.scoring import candidate_starts, compare_windows, worst_rank
 from app.timeutil import (
     HISTORICAL_END,
     HISTORICAL_START,
+    MAX_INTERVAL_DAYS,
     as_utc,
     display,
     iso,
@@ -85,8 +85,8 @@ def _parse_interval_days(form, start):
             interval_days = (period_end.date() - start.date()).days + 1
         else:
             interval_days = 1
-    if interval_days < 1 or interval_days > 62:
-        raise RequestError("Интервал сравнения — от 1 до 62 суток")
+    if interval_days < 1 or interval_days > MAX_INTERVAL_DAYS:
+        raise RequestError("Интервал сравнения — от 1 до {0} суток".format(MAX_INTERVAL_DAYS))
     return interval_days
 
 
@@ -112,12 +112,12 @@ def parse_request(form):
     period_end = start + timedelta(days=interval_days - 1)
     if mode == "historical":
         if start < HISTORICAL_START or start > HISTORICAL_END:
-            raise RequestError("Исторический режим: дата в пределах 1 мая — 30 июня 2024 UTC")
+            raise RequestError("Исторический режим: дата в пределах 1 апреля — 31 июля 2024 UTC")
         if period_end > HISTORICAL_END:
             period_end = HISTORICAL_END
             interval_days = (period_end.date() - start.date()).days + 1
         if period_end < HISTORICAL_START:
-            raise RequestError("Интервал выходит за пределы 1 мая — 30 июня 2024 UTC")
+            raise RequestError("Интервал выходит за пределы 1 апреля — 31 июля 2024 UTC")
     cutoff_raw = (form.get("cutoff_utc") or "").strip()
     if cutoff_raw:
         cutoff = parse_utc(cutoff_raw)
@@ -812,7 +812,3 @@ def _notes(req, forecasts, windows, comparison):
     if comparison["decision"] == "insufficient":
         notes.append(comparison["reason"])
     return notes
-
-
-def json_ready(pack):
-    return pack

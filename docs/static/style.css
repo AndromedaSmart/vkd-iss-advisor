@@ -99,6 +99,23 @@ button, .btn {
   color: var(--ink);
   border-color: var(--line);
 }
+.demo-full {
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+}
+.demo-full-label {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--good);
+}
+.btn.full {
+  background: transparent;
+  color: var(--good);
+  border-color: var(--good);
+}
 
 .meta-row {
   display: flex;
@@ -109,6 +126,12 @@ button, .btn {
   font-family: var(--mono);
   font-size: 12px;
   margin-bottom: 20px;
+  align-items: center;
+}
+.export-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .decision {

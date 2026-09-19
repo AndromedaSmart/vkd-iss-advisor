@@ -12,24 +12,19 @@ sys.path.insert(0, str(ROOT))
 from jinja2 import Environment, FileSystemLoader
 
 from app import ALGORITHM_VERSION
+from app.demos import DEMOS, demo_form
 from app.evaluate import evaluate
-from app.main import _demo_form
 from app.stand import publicize_pack, stand_links
 from app.timeutil import iso, utcnow
 
-DEMOS = (
-    ("storm", _demo_form("2024-05-10 08:00", 4)),
-    ("quiet", _demo_form("2024-06-18 08:00", 5)),
-    ("gap", _demo_form("2024-06-01 08:00", 7)),
-)
 
-
-def render_page(env, form, dest):
+def render_page(env, form, dest, demo=""):
     html = env.get_template("index.html").render(
         request=None,
         pack=None,
         error=None,
         form=form,
+        demo=demo,
         algorithm=ALGORITHM_VERSION,
         now=iso(utcnow()),
         stand=stand_links(static=True),
@@ -61,8 +56,8 @@ def write_fallback(name, form):
 
 def main():
     os.environ["VKD_LOCAL_ARCHIVES"] = "1"
-    for name, form in DEMOS:
-        write_fallback(name, form)
+    for name in DEMOS:
+        write_fallback(name, demo_form(name))
 
     docs = ROOT / "docs"
     if docs.exists():
@@ -77,15 +72,12 @@ def main():
     env = Environment(loader=FileSystemLoader(str(ROOT / "app" / "templates")), autoescape=True)
     env.filters["iso"] = lambda value: value if isinstance(value, str) else iso(value)
 
-    pages = [
-        ("index.html", DEMOS[0][1]),
-        ("demo-storm.html", DEMOS[0][1]),
-        ("demo-quiet.html", DEMOS[1][1]),
-        ("demo-gap.html", DEMOS[2][1]),
-    ]
-    for name, form in pages:
-        render_page(env, form, docs / name)
-        print("wrote", name)
+    pages = [("index.html", "storm", demo_form("storm"))]
+    for name in DEMOS:
+        pages.append(("demo-{0}.html".format(name.replace("_", "-")), name, demo_form(name)))
+    for dest_name, demo, form in pages:
+        render_page(env, form, docs / dest_name, demo=demo)
+        print("wrote", dest_name)
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@
   <title>Окно ВКД · МКС</title>
   <link rel="stylesheet" href="{{ stand.asset }}">
 </head>
-<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}" data-live-api="{% if stand.live_api %}true{% else %}false{% endif %}">
+<body data-api-base="{{ stand.api_base }}" data-static="{% if stand.static %}true{% else %}false{% endif %}" data-live-api="{% if stand.live_api %}true{% else %}false{% endif %}" data-algorithm="{{ algorithm }}" data-demo="{{ demo }}" data-demos='{{ stand.demo_fields_json }}'>
   <div class="page">
     <p class="kicker">КосмоХакатон · демо-стенд {{ algorithm }}</p>
     <h1>Выбор окна ВКД на МКС</h1>
@@ -29,17 +29,17 @@
       <label class="span-2 mode-field">Режим
         <select name="mode">
           <option value="current" {% if form.mode == "current" %}selected{% endif %}>Текущая обстановка</option>
-          <option value="historical" {% if form.mode == "historical" %}selected{% endif %}>История (май–июнь 2024)</option>
+          <option value="historical" {% if form.mode == "historical" %}selected{% endif %}>История (апрель–июль 2024)</option>
         </select>
       </label>
       <label class="span-2">Начало ВКД, UTC
-        <input name="start_utc" placeholder="2024-05-11 00:00" value="{{ form.start_utc }}">
+        <input name="start_utc" placeholder="2024-04-15 08:00" value="{{ form.start_utc }}">
       </label>
       <label>Длительность, ч
         <input name="duration_hours" type="number" min="1" max="8" step="0.5" value="{{ form.duration_hours }}">
       </label>
       <label>Интервал, сут
-        <input name="interval_days" type="number" min="1" max="62" step="1" value="{{ form.interval_days }}">
+        <input name="interval_days" type="number" min="1" max="{{ stand.max_interval_days }}" step="1" value="{{ form.interval_days }}">
       </label>
       <label>Сдвиг внутри суток, ч
         <input name="search_hours" type="number" min="1" max="24" step="1" value="{{ form.search_hours }}">
@@ -58,9 +58,17 @@
         {% if stand.form_action or stand.api_base %}
         <button type="submit">Рассчитать окна</button>
         {% endif %}
-        <a class="btn ghost" href="{{ stand.storm }}">Демо: 10–13 мая 2024</a>
-        <a class="btn ghost" href="{{ stand.quiet }}">Демо: 18–22 июня 2024</a>
-        <a class="btn ghost" href="{{ stand.gap }}">Демо: дыра + DONKI 1–7 июня</a>
+        {% for item in stand.scenario_demos %}
+        <a class="btn ghost" href="{{ item.href }}">{{ item.label }}</a>
+        {% endfor %}
+      </div>
+      <div class="span-6 demo-full">
+        <p class="demo-full-label">Периоды с наименьшим числом дыр · полнота 1.00 · 3-day и geomag на каждые сутки</p>
+        <div class="actions">
+          {% for item in stand.full_demos %}
+          <a class="btn full" href="{{ item.href }}">{{ item.label }}</a>
+          {% endfor %}
+        </div>
       </div>
     </form>
 
@@ -68,8 +76,9 @@
     {% if pack %}
     <div class="meta-row">
       <div>Запрос {{ pack.id }} · {{ pack.request.mode }} · cutoff {{ pack.request.cutoff }}</div>
-      <div>
-        <a class="btn ghost" href="{{ stand.export_prefix }}{{ pack.id }}.json">Выгрузить JSON</a>
+      <div class="export-actions">
+        <a class="btn ghost" href="{{ stand.export_prefix }}{{ pack.id }}.json" download>Выгрузить JSON</a>
+        <a class="btn ghost" href="{{ stand.export_prefix }}{{ pack.id }}.csv" download>Выгрузить CSV</a>
       </div>
     </div>
 

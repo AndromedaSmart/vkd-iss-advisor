@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Окно ВКД · МКС</title>
-  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/style.css?v=eva-window-0.3.1">
 </head>
-<body data-api-base="http://46.29.164.87:8000" data-static="true" data-live-api="true">
+<body data-api-base="http://46.29.164.87:8000" data-static="true" data-live-api="true" data-algorithm="eva-window-0.3.1" data-demo="quiet" data-demos='{&#34;storm&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-10 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 4, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;quiet&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-18 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 5, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;gap&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 7, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_may&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-05-01 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}, &#34;full_june&#34;: {&#34;mode&#34;: &#34;historical&#34;, &#34;start_utc&#34;: &#34;2024-06-17 08:00&#34;, &#34;duration_hours&#34;: 6, &#34;interval_days&#34;: 14, &#34;search_hours&#34;: 12, &#34;cutoff_utc&#34;: &#34;&#34;}}'>
   <div class="page">
-    <p class="kicker">КосмоХакатон · демо-стенд eva-window-0.3.0</p>
+    <p class="kicker">КосмоХакатон · демо-стенд eva-window-0.3.1</p>
     <h1>Выбор окна ВКД на МКС</h1>
     <p class="lede">
       Откройте готовые сценарии и сравните окна одинаковой длительности.
@@ -27,17 +27,17 @@
       <label class="span-2 mode-field">Режим
         <select name="mode">
           <option value="current" >Текущая обстановка</option>
-          <option value="historical" selected>История (май–июнь 2024)</option>
+          <option value="historical" selected>История (апрель–июль 2024)</option>
         </select>
       </label>
       <label class="span-2">Начало ВКД, UTC
-        <input name="start_utc" placeholder="2024-05-11 00:00" value="2024-06-18 08:00">
+        <input name="start_utc" placeholder="2024-04-15 08:00" value="2024-06-18 08:00">
       </label>
       <label>Длительность, ч
         <input name="duration_hours" type="number" min="1" max="8" step="0.5" value="6">
       </label>
       <label>Интервал, сут
-        <input name="interval_days" type="number" min="1" max="62" step="1" value="5">
+        <input name="interval_days" type="number" min="1" max="122" step="1" value="5">
       </label>
       <label>Сдвиг внутри суток, ч
         <input name="search_hours" type="number" min="1" max="24" step="1" value="12">
@@ -54,9 +54,23 @@
         
         <button type="submit">Рассчитать окна</button>
         
+        
         <a class="btn ghost" href="index.html?demo=storm">Демо: 10–13 мая 2024</a>
+        
         <a class="btn ghost" href="index.html?demo=quiet">Демо: 18–22 июня 2024</a>
+        
         <a class="btn ghost" href="index.html?demo=gap">Демо: дыра + DONKI 1–7 июня</a>
+        
+      </div>
+      <div class="span-6 demo-full">
+        <p class="demo-full-label">Периоды с наименьшим числом дыр · полнота 1.00 · 3-day и geomag на каждые сутки</p>
+        <div class="actions">
+          
+          <a class="btn full" href="index.html?demo=full_may">Без дыр: 1–14 мая</a>
+          
+          <a class="btn full" href="index.html?demo=full_june">Без дыр: 17–30 июня</a>
+          
+        </div>
       </div>
     </form>
 
@@ -64,8 +78,8 @@
     
     </div>
 
-    <p class="small">Время сервера 2026-09-19T15:02:33Z. Все поля формы в UTC.</p>
+    <p class="small">Время сервера 2026-09-19T15:32:56Z. Все поля формы в UTC.</p>
   </div>
-  <script src="static/stand.js"></script>
+  <script src="static/stand.js?v=eva-window-0.3.1"></script>
 </body>
 </html>

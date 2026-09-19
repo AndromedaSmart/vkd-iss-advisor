@@ -20,8 +20,9 @@ MONTHS = {
     "Dec": 12,
 }
 
-HISTORICAL_START = datetime(2024, 5, 1, tzinfo=timezone.utc)
-HISTORICAL_END = datetime(2024, 6, 30, 23, 59, 59, tzinfo=timezone.utc)
+HISTORICAL_START = datetime(2024, 4, 1, tzinfo=timezone.utc)
+HISTORICAL_END = datetime(2024, 7, 31, 23, 59, 59, tzinfo=timezone.utc)
+MAX_INTERVAL_DAYS = (HISTORICAL_END.date() - HISTORICAL_START.date()).days + 1
 
 
 def utcnow():

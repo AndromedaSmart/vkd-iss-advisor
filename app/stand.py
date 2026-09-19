@@ -1,44 +1,63 @@
 from __future__ import annotations
 
+import json
 import os
 
+from app import ALGORITHM_VERSION
 from app.dataset import data_root
+from app.demos import DEMOS, demos_in_group, js_demo_fields
+from app.timeutil import MAX_INTERVAL_DAYS
+
+DEFAULT_PLANNER_API = "http://46.29.164.87:8000"
+PUBLIC_ARCHIVE_LABEL = "встроенный архив май–июнь 2024"
+
+
+def planner_api_base():
+    return os.environ.get("VKD_PLANNER_API") or DEFAULT_PLANNER_API
 
 
 def stand_links(static=False):
-    api_base = os.environ.get("VKD_PLANNER_API") or "http://46.29.164.87:8000"
+    version = ALGORITHM_VERSION
+    api_base = planner_api_base()
     if static:
-        return {
-            "static": True,
-            "asset": "static/style.css",
-            "script": "static/stand.js",
-            "home": "index.html",
-            "storm": "index.html?demo=storm",
-            "quiet": "index.html?demo=quiet",
-            "gap": "index.html?demo=gap",
-            "export_prefix": "export/",
-            "form_action": "",
-            "api_base": api_base,
-            "live_api": True,
-        }
-    return {
-        "static": False,
-        "asset": "/static/style.css",
-        "script": "/static/stand.js",
-        "home": "/",
-        "storm": "/?demo=storm",
-        "quiet": "/?demo=quiet",
-        "gap": "/?demo=gap",
-        "export_prefix": "/export/",
+        asset_root = "static/"
+        demo_href = lambda key: "index.html?demo=" + key
+        export_prefix = "export/"
+        home = "index.html"
+    else:
+        asset_root = "/static/"
+        demo_href = lambda key: "/?demo=" + key
+        export_prefix = "/export/"
+        home = "/"
+    links = {
+        "static": static,
+        "asset": asset_root + "style.css?v=" + version,
+        "script": asset_root + "stand.js?v=" + version,
+        "home": home,
+        "export_prefix": export_prefix,
         "form_action": "",
         "api_base": api_base,
         "live_api": True,
+        "max_interval_days": MAX_INTERVAL_DAYS,
+        "demo_fields_json": json.dumps(js_demo_fields(), ensure_ascii=False),
     }
+    for key in DEMOS:
+        links[key] = demo_href(key)
+    links["scenario_demos"] = [
+        {"key": key, "href": links[key], "label": item["label"]}
+        for key, item in demos_in_group("scenario")
+    ]
+    links["full_demos"] = [
+        {"key": key, "href": links[key], "label": item["label"]}
+        for key, item in demos_in_group("full")
+    ]
+    return links
 
 
 def publicize_pack(pack):
     """Hide machine paths on a public demo stand."""
-    label = "встроенный архив май–июнь 2024"
+    pack = dict(pack)
+    label = PUBLIC_ARCHIVE_LABEL
     root = data_root()
     root_text = str(root) if root else ""
     if pack.get("dataset"):

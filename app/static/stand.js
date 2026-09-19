@@ -5,16 +5,45 @@
     adverse: "warning",
     insufficient_data: "unknown"
   };
-  var DEMOS = {
-    storm: { mode: "historical", start_utc: "2024-05-10 08:00", duration_hours: 6, interval_days: 4, search_hours: 12, cutoff_utc: "" },
-    quiet: { mode: "historical", start_utc: "2024-06-18 08:00", duration_hours: 6, interval_days: 5, search_hours: 12, cutoff_utc: "" },
-    gap: { mode: "historical", start_utc: "2024-06-01 08:00", duration_hours: 6, interval_days: 7, search_hours: 12, cutoff_utc: "" }
-  };
+  var CSV_COLUMNS = [
+    "id", "day", "start", "end", "requested", "preferred", "coverage",
+    "sep", "mmod", "geomagnetic", "donki", "cme", "adverse_minutes",
+    "completeness", "critical_missing"
+  ];
+  var DEMOS = (function () {
+    try {
+      return JSON.parse(document.body.getAttribute("data-demos") || "{}");
+    } catch (err) {
+      return {};
+    }
+  })();
   var activeDemo = null;
+  var lastExport = null;
 
   function apiBase() {
     var body = document.body;
     return (body && body.getAttribute("data-api-base")) || "http://46.29.164.87:8000";
+  }
+
+  function algorithm() {
+    return (document.body && document.body.getAttribute("data-algorithm")) || "";
+  }
+
+  function demoFromLocation() {
+    var attr = document.body && document.body.getAttribute("data-demo");
+    if (attr && DEMOS[attr]) return attr;
+    var params = new URLSearchParams(window.location.search);
+    var query = params.get("demo");
+    if (query && DEMOS[query]) return query;
+    var path = (window.location.pathname || "").toLowerCase();
+    var keys = Object.keys(DEMOS);
+    for (var i = 0; i < keys.length; i += 1) {
+      var key = keys[i];
+      if (path.indexOf("/demo/" + key) !== -1) return key;
+      var slug = "demo-" + key.replace(/_/g, "-") + ".html";
+      if (path.indexOf(slug) !== -1) return key;
+    }
+    return "storm";
   }
 
   function isStatic() {
@@ -36,10 +65,6 @@
     var dt = new Date(raw);
     if (isNaN(dt.getTime())) throw new Error("Некорректная дата: " + text);
     return dt;
-  }
-
-  function addHours(dt, hours) {
-    return new Date(dt.getTime() + hours * 3600 * 1000);
   }
 
   function candidateStarts(start, intervalDays) {
@@ -183,18 +208,20 @@
     };
   }
 
+  function packLevel(block, fallback) {
+    if (block && block.grade) return levelFromGrade(block.grade);
+    return (fallback && fallback.level) || "unknown";
+  }
+
   function fromPackWindow(w, idx, requested) {
     var start = new Date(w.start);
     var end = new Date(w.end);
     var sep = factorView(w.sep);
     var geo = factorView(w.geomagnetic);
     var mmod = factorView(w.conjunction);
-    var sepLevel = sep.grade ? levelFromGrade(sep.grade) : (w.sep && w.sep.level) || "unknown";
-    var geoLevel = geo.grade ? levelFromGrade(geo.grade) : (w.geomagnetic && w.geomagnetic.level) || "unknown";
-    var mmodLevel = mmod.grade ? levelFromGrade(mmod.grade) : (w.conjunction && w.conjunction.level) || "unknown";
-    if (!sep.grade) sepLevel = (w.sep && w.sep.level) || "unknown";
-    if (!geo.grade) geoLevel = (w.geomagnetic && w.geomagnetic.level) || "unknown";
-    if (!mmod.grade) mmodLevel = (w.conjunction && w.conjunction.level) || "unknown";
+    var sepLevel = packLevel(sep, w.sep);
+    var geoLevel = packLevel(geo, w.geomagnetic);
+    var mmodLevel = packLevel(mmod, w.conjunction);
     var coverage = w.coverage || {};
     var tag = coverage.tag || "gap";
     var labels = (coverage.labels || []).slice();
@@ -275,6 +302,108 @@
     }).join("") + "</ul>";
   }
 
+  function isoOf(dt) {
+    if (!dt) return "";
+    if (typeof dt === "string") return dt;
+    return dt.toISOString();
+  }
+
+  function csvCell(value) {
+    var text = value == null ? "" : String(value);
+    if (/[",\n]/.test(text)) return '"' + text.replace(/"/g, '""') + '"';
+    return text;
+  }
+
+  function exportFilename(form, ext) {
+    var start = String((form && form.start_utc) || "windows").replace(/[:\s]/g, "-");
+    var days = (form && form.interval_days) || 1;
+    return "vkd-" + start + "-" + days + "d." + ext;
+  }
+
+  function serializeWindow(w) {
+    return {
+      id: w.id,
+      day: w.start ? isoOf(w.start).slice(0, 10) : "",
+      start: isoOf(w.start),
+      end: isoOf(w.end),
+      requested: Boolean(w.requested),
+      preferred: Boolean(w.preferred),
+      coverage: (w.labels || []).join(", ") || w.tag || "",
+      coverage_tag: w.tag || "",
+      sep: w.sepLevel,
+      mmod: w.mmodLevel,
+      geomagnetic: w.geoLevel,
+      donki: w.donkiCount || 0,
+      cme: w.cmeCount || 0,
+      adverse_minutes: w.adverse,
+      completeness: w.completeness,
+      critical_missing: Boolean(w.critical),
+      archive: Boolean(w.archive),
+      reason: w.reason || "",
+      factors: {
+        radiation_sep: w.sep,
+        mmod_meteoroid: w.mmod,
+        geomagnetic_activity: w.geo
+      }
+    };
+  }
+
+  function buildExport(windows, comparison, status, form) {
+    var rows = windows.map(serializeWindow);
+    return {
+      json: {
+        generated_at: new Date().toISOString(),
+        algorithm: algorithm(),
+        api_base: apiBase(),
+        form: form || {},
+        comparison: comparison || {},
+        sources: (status && status.sources) || [],
+        overall_status: (status && status.overall_status) || "",
+        windows: rows
+      },
+      csv: (function () {
+        var lines = [CSV_COLUMNS.join(",")];
+        rows.forEach(function (row) {
+          lines.push(CSV_COLUMNS.map(function (key) {
+            var value = row[key];
+            if (typeof value === "boolean") value = value ? "1" : "0";
+            return csvCell(value);
+          }).join(","));
+        });
+        return lines.join("\n") + "\n";
+      })()
+    };
+  }
+
+  function downloadBlob(filename, mime, text) {
+    var blob = new Blob([text], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 800);
+  }
+
+  function bindExport(form) {
+    var jsonBtn = document.getElementById("export-json");
+    var csvBtn = document.getElementById("export-csv");
+    if (jsonBtn) {
+      jsonBtn.onclick = function () {
+        if (!lastExport) return;
+        downloadBlob(exportFilename(form, "json"), "application/json;charset=utf-8", JSON.stringify(lastExport.json, null, 2));
+      };
+    }
+    if (csvBtn) {
+      csvBtn.onclick = function () {
+        if (!lastExport) return;
+        downloadBlob(exportFilename(form, "csv"), "text/csv;charset=utf-8", lastExport.csv);
+      };
+    }
+  }
+
   function emptyReason(windows) {
     for (var i = 0; i < windows.length; i += 1) {
       if (windows[i].reason) return windows[i].reason;
@@ -340,9 +469,14 @@
           : emptyReason(windows) + ". Статус источников (89 записей NOAA) не совпадает с assess-window.") +
         "</div>";
     }
+    lastExport = buildExport(windows, comparison, status, form);
     root.innerHTML =
       "<div class=\"meta-row\"><div>онлайн " + esc(apiBase()) + " · " + esc(form.mode) +
-      " · окон " + windows.length + (usedArchive ? " · архив для пустых ответов API" : "") + "</div></div>" +
+      " · окон " + windows.length + (usedArchive ? " · архив для пустых ответов API" : "") + "</div>" +
+      "<div class=\"export-actions\">" +
+      "<button type=\"button\" class=\"btn ghost\" id=\"export-json\">Выгрузить JSON</button>" +
+      "<button type=\"button\" class=\"btn ghost\" id=\"export-csv\">Выгрузить CSV</button>" +
+      "</div></div>" +
       banners +
       "<div class=\"decision\"><h2>" + esc(title) + "</h2><p>" + esc(comparison.reason) + "</p></div>" +
       "<section><h2>Сравнение окон по ответу API</h2><div class=\"table-wrap\"><table><thead><tr>" +
@@ -354,6 +488,7 @@
       "<section><h2>Доказательства по запрошенному окну</h2><div class=\"grid-2\">" + cards + "</div></section>" +
       "<section><h2>Источники API</h2><table><thead><tr><th>Источник</th><th>ID</th><th>Статус</th><th>Последние данные</th><th>Записей</th><th>Покрытие</th></tr></thead><tbody>" +
       srcRows + "</tbody></table></section>";
+    bindExport(form);
   }
 
   function readForm(form) {
@@ -419,6 +554,12 @@
     var mode = fields.mode === "current" ? "live" : "historical_review";
     var starts = candidateStarts(start, interval);
     var statusP = getJson("/api/data-sources-status").catch(function () { return { sources: [], overall_status: "unavailable" }; });
+    var fallbackP = loadArchiveFallback(fields);
+    fallbackP.then(function (pack) {
+      if (!pack || !pack.windows) return;
+      var windows = pack.windows.map(function (w, idx) { return fromPackWindow(w, idx, idx === 0); });
+      render(windows, compare(windows), { sources: [], overall_status: "pending" }, fields, { archive: true });
+    });
     var chain = Promise.resolve([]);
     starts.forEach(function (item) {
       chain = chain.then(function (acc) {
@@ -429,20 +570,19 @@
         });
       });
     });
-    return Promise.all([chain, statusP]).then(function (pair) {
+    return Promise.all([chain, statusP, fallbackP]).then(function (pair) {
       var assessments = pair[0];
       var status = pair[1];
+      var pack = pair[2];
       var windows = assessments.map(function (raw, idx) { return mapWindow(raw, idx, idx === 0); });
       if (!windows.some(apiWindowEmpty)) {
         render(windows, compare(windows), status, fields);
         return null;
       }
-      return loadArchiveFallback(fields).then(function (pack) {
-        var merged = mergeArchive(windows, pack);
-        render(merged, compare(merged), status, fields, { archive: Boolean(pack) });
-      });
+      var merged = mergeArchive(windows, pack);
+      render(merged, compare(merged), status, fields, { archive: Boolean(pack) });
     }).catch(function (err) {
-      return loadArchiveFallback(fields).then(function (pack) {
+      return (fallbackP || loadArchiveFallback(fields)).then(function (pack) {
         if (pack && pack.windows) {
           var windows = pack.windows.map(function (w, idx) { return fromPackWindow(w, idx, idx === 0); });
           render(windows, compare(windows), { sources: [], overall_status: "unavailable" }, fields, { archive: true });
@@ -466,16 +606,9 @@
       ev.preventDefault();
       run(form);
     });
-    var params = new URLSearchParams(window.location.search);
-    var demo = params.get("demo");
-    var path = window.location.pathname || "";
-    if (!demo) {
-      if (path.indexOf("/demo/quiet") !== -1) demo = "quiet";
-      else if (path.indexOf("/demo/gap") !== -1) demo = "gap";
-      else if (path.indexOf("/demo/storm") !== -1) demo = "storm";
-    }
-    activeDemo = demo && DEMOS[demo] ? demo : "storm";
-    if (demo && DEMOS[demo]) fillForm(form, DEMOS[demo]);
+    var demo = demoFromLocation();
+    activeDemo = demo;
+    if (DEMOS[demo]) fillForm(form, DEMOS[demo]);
     run(form);
   }
 
