@@ -31,7 +31,6 @@ body {
   align-items: center;
   margin-bottom: 22px;
 }
-.platform-head h1 { margin: 0 0 8px; }
 .brand {
   display: flex;
   flex-direction: column;
@@ -57,7 +56,6 @@ body {
   text-transform: uppercase;
   color: var(--accent);
 }
-.platform-head-copy { min-width: 0; }
 .platform-body {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
