@@ -463,8 +463,7 @@
     }).join("") : "";
     var emptyApi = windows.some(apiWindowEmpty);
     var usedArchive = windows.some(function (w) { return w.archive; });
-    var banners = "<div class=\"banner\">Данные: ВКД-планировщик API " + esc(apiBase()) +
-      " · overall " + esc((status && status.overall_status) || "—") + "</div>";
+    var banners = "";
     if (emptyApi || usedArchive) {
       banners += "<div class=\"banner warn\">Планировщик v0.2.0 отдаёт SWPC только на пример 2024-05-10 08:00 UTC (источник test_swpc). " +
         (usedArchive
@@ -475,8 +474,7 @@
     lastExport = buildExport(windows, comparison, status, form);
     lastWindows = windows;
     root.innerHTML =
-      "<div class=\"meta-row\"><div>онлайн " + esc(apiBase()) + " · " + esc(form.mode) +
-      " · окон " + windows.length + (usedArchive ? " · архив для пустых ответов API" : "") + "</div>" +
+      "<div class=\"meta-row\"><div></div>" +
       "<div class=\"export-actions\">" +
       "<button type=\"button\" class=\"btn ghost\" id=\"export-json\">Выгрузить JSON</button>" +
       "<button type=\"button\" class=\"btn ghost\" id=\"export-csv\">Выгрузить CSV</button>" +
@@ -488,7 +486,7 @@
       (showDonki ? "<th>DONKI</th>" : "") +
       "<th>Неблагопр., мин</th><th>Полнота</th>" +
       "</tr></thead><tbody>" + table + "</tbody></table></div>" +
-      "<p class=\"small\">Онлайн-стенд ходит в API. G и MMOD не суммируются с SEP.</p></section>" +
+      "<p class=\"small\">G и MMOD не суммируются с SEP.</p></section>" +
       "<section><h2>Доказательства по запрошенному окну</h2><div class=\"grid-2\">" + cards + "</div></section>" +
       "<section><h2>Источники API</h2><table><thead><tr><th>Источник</th><th>ID</th><th>Статус</th><th>Последние данные</th><th>Записей</th><th>Покрытие</th></tr></thead><tbody>" +
       srcRows + "</tbody></table></section>";
@@ -543,7 +541,7 @@
     var root = document.getElementById("results-root");
     var banner = document.getElementById("live-error");
     if (banner) banner.textContent = "";
-    if (root) root.innerHTML = "<div class=\"banner\">Запрос к " + esc(apiBase()) + "…</div>";
+    if (root) root.innerHTML = "<div class=\"banner\">Запрос данных…</div>";
     var fields = readForm(form);
     var start;
     try {
